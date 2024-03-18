@@ -4,12 +4,14 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "set NODE_TLS_REJECT_UNAUTHORIZED=0 && nuxt dev --https --ssl-cert server.crt --ssl-key server.key",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxtjs/tailwindcss": "^6.11.4",
+    "@storyblok/nuxt": "^6.0.6",
     "nuxt": "^3.10.3",
     "vue": "^3.4.19",
     "vue-router": "^4.3.0"
