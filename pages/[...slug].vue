@@ -1,12 +1,20 @@
 <script setup>
 const { slug } = useRoute().params
- 
+
 const story = await useAsyncStoryblok(
-  slug && slug.length > 0 ? slug.join('/') : 'home',
-  { version: 'draft' }
+  slug.join('/'),
+  { 
+    version: 'draft', 
+    resolve_relations: 'AssociationPage.association'
+  },
 )
+
+if (story.value == undefined) {
+  showError({ statusCode: 404, statusMessage: 'Stran ne obstaja' })
+}
+console.log(story.value)
 </script>
  
 <template>
-  <StoryblokComponent v-if="story" :blok="story.content" />
+  <StoryblokComponent v-if="story" :blok="story.content" :posted-on="story.created_at" :tag-list="story.tag_list" />
 </template>
