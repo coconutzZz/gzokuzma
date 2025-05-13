@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build && mkdir -p .output/public",
+    "build": "nuxt build",
     "dev": "set NODE_TLS_REJECT_UNAUTHORIZED=0 && nuxt dev --https --ssl-cert server.crt --ssl-key server.key",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
