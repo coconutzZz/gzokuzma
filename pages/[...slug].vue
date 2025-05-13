@@ -12,7 +12,6 @@ const story = await useAsyncStoryblok(
 if (story.value == undefined) {
   showError({ statusCode: 404, statusMessage: 'Stran ne obstaja' })
 }
-console.log(story.value)
 </script>
  
 <template>
