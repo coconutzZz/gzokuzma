@@ -10,12 +10,8 @@ export default defineNuxtConfig({
     }
   },
   components: true,
+  ssr: true,
   nitro: {
     preset: 'netlify'
-  },
-  generate: {
-    routes: [
-      '/',
-    ]
   }
 })
