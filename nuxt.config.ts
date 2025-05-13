@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   },
   components: true,
   nitro: {
-    preset: 'static'
+    preset: 'netlify'
   },
   generate: {
     routes: [
