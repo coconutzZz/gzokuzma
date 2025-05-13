@@ -4,20 +4,22 @@
 
       <div class="relative">
         <div v-if="isLoading" class="w-full h-40 object-cover rounded-t-lg animate-pulse bg-gray-300"></div>
-        <img v-else-if="article.content.image && article.content.image.filename" :src="article.content.image.filename" alt="News" 
-        class="w-full h-40 object-cover rounded-t-lg">
-        <div class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25 rounded-t-lg">
-        </div>        
+        <NuxtLink v-else-if="article.content.image && article.content.image.filename" :to="`/novice/${article.slug}`">
+          <img :src="article.content.image.filename" alt="News" 
+          class="w-full h-40 object-cover rounded-t-lg">
+          <div class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25 rounded-t-lg">
+          </div>
+        </NuxtLink>
       </div>
       <div class="px-6 py-4 mb-auto">
         <template v-if="isLoading">
           <div class="w-[50%] h-5 animate-pulse bg-gray-300"></div>
         </template>
         <template v-else>
-          <a :href="article.full_slug"
+          <NuxtLink :to="`/novice/${article.slug}`"
               class="font-medium text-lg inline-block transition duration-500 ease-in-out mb-2">
             <h3>{{ article.content.title }}</h3>
-          </a>
+          </NuxtLink>
           <p class="text-gray-500 text-sm">
             {{ article.content.teaser }}
           </p>

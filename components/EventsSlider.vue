@@ -11,6 +11,22 @@
       </svg>
     </div>      
   </div>
+  <div v-if="isLoading" class="flex items-center w-full">
+    <div class="w-full pt-5 pb-6 ml-5">
+      <div class="flex items-center">
+          <div class="animate-pulse bg-gray-300 ring-gray-300 mx-5 z-10 flex items-center justify-center w-6 h-6 rounded-full ring-8 shrink-0">                
+          </div>
+          <div class="-mx-5 flex w-full bg-gray-200 h-1"></div>
+      </div>
+      <div class="mt-5">
+        <div class="w-[80%]">
+          <div class="w-[10%] h-5 animate-pulse bg-gray-300 mt-5"></div>        
+          <div class="w-[20%] h-5 animate-pulse bg-gray-300 mt-4"></div>        
+          <div class="w-[5%] h-3 animate-pulse bg-gray-300 mt-2"></div>        
+        </div>
+      </div>
+    </div>
+  </div>
   <swiper-container ref="swiperRef" :init="false" space-between="0" free-mode="true">
     <swiper-slide class="pt-5 pb-6" v-for="(event, index) in events" :class="index === 0 ? 'ml-5' : ''">
       <div class="flex items-center">

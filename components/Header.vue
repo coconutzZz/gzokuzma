@@ -44,14 +44,14 @@
       <div class="flex justify-center text-center">      
         <ul class="list-reset flex-row text-xl">
           <li v-for="blok in menu" :key="blok._uid" class="mr-3">
-            <NuxtLink :to="`/${(blok.link.url.length > 0 ? blok.link.url : blok.link.cached_url)}`" class="inline-block py-2 px-4 text-primary-500 font-bold no-underline">
+            <NuxtLink @click="toggleDrawer()" :to="`/${(blok.link.url.length > 0 ? blok.link.url : blok.link.cached_url)}`" class="inline-block py-2 px-4 text-primary-500 font-bold no-underline">
               {{ blok.name }}
             </NuxtLink>
           </li>
         </ul>
       </div>  
       <div class="flex justify-center">
-        <NuxtLink v-for="association in associations" :to="`/drustva/${association.slug}`" class="flex flex-col items-center text-center">
+        <NuxtLink v-for="association in associations" :to="`/drustva/${association.slug}`" class="flex flex-col items-center text-center" @click="toggleDrawer()">
           <img :src="association.content.logo.filename" class="transition-transform duration-300 hover:scale-125 h-8" />
           <span class="text-primary-500 font-semibold text-xs m-2">{{ association.content.short_name}}</span>
         </NuxtLink>
