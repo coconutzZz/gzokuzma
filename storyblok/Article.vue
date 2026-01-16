@@ -21,6 +21,8 @@
     <!-- Article content -->
     <div class="prose max-w-none prose-lg text-gray-800" v-html="resolvedRichText"></div>
 
+    {{ props.blok }}
+
     <!-- Tags -->
     <div class="mt-8 flex flex-wrap gap-2">
       <NuxtLink :to="`/novice?with_tag=${tag}`" v-for="tag in tagList" class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">#{{ tag }}</NuxtLink>
@@ -32,6 +34,8 @@
 import { DateTime } from "luxon";
 import SectionTitle from '~/components/SectionTitle.vue';
 import Breadcrumbs from "~/components/Breadcrumbs.vue";
+
+const storyblokApi = useStoryblokApi()
 
 const props = defineProps({ blok: Object, postedOn: String, tagList: Array })
  
@@ -47,6 +51,17 @@ const formatPostedOn = (date) => {
 
   return diff < 30 ? `${Math.round(diff)} minutes ago` : then.setLocale("sl-si").toLocaleString(DateTime.DATE_MED);
 }
+
+onMounted(async () => {
+  if (props.blok?.gallery.length > 0) {
+
+    const { data } = await storyblokApi.get("cdn/stories", {
+      by_uuids: props.blok?.gallery.join(",")
+    });
+
+    console.log(data);
+  }
+})
 
 </script>
 <style lang="scss">

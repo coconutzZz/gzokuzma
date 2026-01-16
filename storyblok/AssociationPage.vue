@@ -36,8 +36,7 @@
           <strong>TRR:</strong><br>
           {{ association.iban }}
         </p>
-        <p>Za nakazilo prostovoljnih prispevkov, lahko uporabite QR kodo:</p>
-        <img v-if="blok.qr_code_bank_transfer && blok.qr_code_bank_transfer.filename" :src="blok.qr_code_bank_transfer.filename" class="h-52 mx-auto sm:mx-0 sm:h-auto"/>
+        <QrCode :qr-code="blok.qr_code_bank_transfer" />
       </template>
     </div>
     <div v-if="!hasFeaturedContent">
@@ -54,15 +53,13 @@
         <strong>TRR:</strong><br>
         {{ association.iban }}
       </p>
-      <template v-if="blok.qr_code_bank_transfer && blok.qr_code_bank_transfer.filename">
-        <p>Za nakazilo prostovoljnih prispevkov, lahko uporabite QR kodo:</p>
-        <img :src="blok.qr_code_bank_transfer.filename" class="h-52 mx-auto sm:mx-0 sm:h-auto"/>
-      </template>
+      <QrCode :qr-code="blok.qr_code_bank_transfer" />
     </div>
   </div>
 
 </template> 
 <script setup>
+import QrCode from './QrCode.vue';
 const props = defineProps({ blok: Object, postedOn: String, tagList: Array })
 
 const association = computed(() => props.blok.association[0].content);
