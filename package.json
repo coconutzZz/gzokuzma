@@ -13,6 +13,7 @@
     "@nuxtjs/tailwindcss": "^6.11.4",
     "@storyblok/nuxt": "^6.0.6",
     "flowbite": "^3.1.2",
+    "lightgallery": "^2.9.0",
     "luxon": "^3.6.1",
     "nuxt": "^3.10.3",
     "swiper": "^11.2.6",

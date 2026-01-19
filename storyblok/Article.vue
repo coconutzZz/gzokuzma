@@ -21,23 +21,35 @@
     <!-- Article content -->
     <div class="prose max-w-none prose-lg text-gray-800" v-html="resolvedRichText"></div>
 
+
+    <template v-if="props.blok?.gallery.length > 0 && isGalleryLoaded">
+      <Gallery v-for="gallery in galleryList" :key="gallery.title" :images="gallery.images" />
+    </template>
+
     <!-- Tags -->
     <div class="mt-8 flex flex-wrap gap-2">
       <NuxtLink :to="`/novice?with_tag=${tag}`" v-for="tag in tagList" class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">#{{ tag }}</NuxtLink>
     </div>
-  </article>
+  </article>  
 </template>
  
 <script setup>
 import { DateTime } from "luxon";
 import SectionTitle from '~/components/SectionTitle.vue';
 import Breadcrumbs from "~/components/Breadcrumbs.vue";
+import Gallery from "~/components/Gallery.vue";
 
-const props = defineProps({ blok: Object, postedOn: String, tagList: Array })
+const storyblokApi = useStoryblokApi()
+
+const isGalleryLoaded = ref(false);
+
+const props = defineProps({ blok: Object, postedOn: String, tagList: Array });
  
 const resolvedRichText = computed(() => renderRichText(props.blok.content));
 
 const hasFeaturedImage = computed(() => props.blok.image && props.blok.image.filename);
+
+const galleryList = ref([]);
 
 const formatPostedOn = (date) => {
   const now = DateTime.now();
@@ -47,6 +59,22 @@ const formatPostedOn = (date) => {
 
   return diff < 30 ? `${Math.round(diff)} minutes ago` : then.setLocale("sl-si").toLocaleString(DateTime.DATE_MED);
 }
+
+onMounted(async () => {
+  if (props.blok?.gallery.length > 0) {
+
+    const { data } = await storyblokApi.get("cdn/stories", {
+      by_uuids: props.blok?.gallery.join(",")
+    });
+
+    isGalleryLoaded.value = true;
+    
+    galleryList.value = data.stories.map(item => ({
+        title: item.content.title,
+        images: item.content.images.map(img => ({ filename: img.filename }))
+    }));
+  }
+})
 
 </script>
 <style lang="scss">
