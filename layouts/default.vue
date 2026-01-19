@@ -9,7 +9,8 @@
   </div>
 
   <div class="leading-normal tracking-normal text-white gradient2 overflow-hidden">
-    <Header :is-background-visible="showHeader"/>
+    <Header :is-background-visible="showHeader" />
+    
     <!--Hero-->
     <div class="relative pt-24 z-10" v-if="$slots.hero" >
       <div class="container px-24 mx-auto">
@@ -46,6 +47,8 @@
 </template>
 <script setup>
 import Header from '~/components/Header.vue';
+
+const layoutTitle = useState('layoutTitle')
 
 const slots = useSlots();
 const isDev = import.meta.dev

@@ -1,4 +1,7 @@
 <script setup>
+// const fixedHeader = useState('fixedHeader')
+// fixedHeader.value = true;
+
 const { slug } = useRoute().params
 
 const story = await useAsyncStoryblok(

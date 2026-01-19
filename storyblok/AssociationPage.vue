@@ -1,6 +1,9 @@
 <template>
   <StoryblokComponent :blok="association" />    
 
+
+
+
   <div class="max-w-4xl mx-auto p-0 mt-5 sm:mt-10 md:p-6 grid grid-cols-1 sm:grid-cols-3 gap-0 sm:gap-10">
     <div v-if="hasFeaturedContent" class="col-span-2">
       <img v-if="blok.featured_image.filename" :src="blok.featured_image.filename" />

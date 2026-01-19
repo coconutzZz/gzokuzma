@@ -6,7 +6,9 @@ export default defineNuxtConfig({
   css: [
     '@/assets/css/swiper.css',
     '@/assets/css/main.css',
-    'lightgallery/css/lightgallery.css'
+    'lightgallery/css/lightgallery.css',
+    'lightgallery/css/lg-thumbnail.css',
+    'lightgallery/css/lg-zoom.css',
   ],
   vue: {
     compilerOptions: {

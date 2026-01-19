@@ -1,32 +1,36 @@
 <template>
-  <article class="article-detail max-w-3xl mx-auto p-0 md:p-6 bg-white rounded-2xl">
-    <Breadcrumbs />
+  <article class="article-detail mx-auto p-0  bg-white rounded-2xl">
     <SectionTitle title-tag="h1">{{ blok.title }}</SectionTitle>
-    <!-- Author and date -->
-    <div class="flex items-center space-x-4 mb-6 mt-10 text-sm text-gray-500">
-      <div>
-        <p class="font-medium text-gray-800">Avtor: {{ blok.author }}</p>
-        <p>Objavljeno: {{ formatPostedOn(postedOn) }}</p>
-      </div>
+    
+    <!-- <Breadcrumbs /> -->
+    <div class="flex items-center space-x-4 mb-6 text-sm text-gray-500">
+      <span>Avtor: {{ blok.author }} | {{ formatPostedOn(postedOn) }}</span>
     </div>
 
-    <!-- Featured image -->
-    <img
-      v-if="hasFeaturedImage"
-      :src="blok.image.filename"
-      alt="Featured"
-      class="w-full h-64 object-cover rounded-xl mb-6"
-    />
+    <div class="grid grid-cols-12 gap-4">
+      <main class="col-span-12 lg:col-span-9">
+        <img
+          v-if="hasFeaturedImage"
+          :src="blok.image.filename"
+          alt="Featured"
+          class="w-full h-64 object-cover rounded-xl mb-6"
+        />       
+        <div class="prose max-w-none prose-lg text-gray-800" v-html="resolvedRichText"></div>
+        
+        <template v-if="props.blok?.gallery.length > 0 && isGalleryLoaded">
+          <Gallery v-for="gallery in galleryList" :key="gallery.title" :images="gallery.images" />
+        </template>
+      </main>
 
-    <!-- Article content -->
-    <div class="prose max-w-none prose-lg text-gray-800" v-html="resolvedRichText"></div>
+      <aside class="col-span-12 lg:col-span-3">
+       <!-- <template v-if="props.blok?.gallery.length > 0 && isGalleryLoaded">
+          <Gallery v-for="gallery in galleryList" :key="gallery.title" :images="gallery.images" />
+        </template> -->
+      </aside>
 
+      <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpgdmaterija%2Fposts%2Fpfbid0RDpM2h3KMZsiYYFXCFRMqV4ZUEGztRDzvoDUmEPbgNU5ZYLktA4zWdBFDpPWfHGLl&amp;show_text=true&amp;width=500" width="500" height="549" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+    </div>
 
-    <template v-if="props.blok?.gallery.length > 0 && isGalleryLoaded">
-      <Gallery v-for="gallery in galleryList" :key="gallery.title" :images="gallery.images" />
-    </template>
-
-    <!-- Tags -->
     <div class="mt-8 flex flex-wrap gap-2">
       <NuxtLink :to="`/novice?with_tag=${tag}`" v-for="tag in tagList" class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">#{{ tag }}</NuxtLink>
     </div>
@@ -90,5 +94,8 @@ onMounted(async () => {
     list-style: circle;
     padding-left: 40px;
   }
+}
+h1 {
+  font-size: 2em !important;
 }
 </style>
