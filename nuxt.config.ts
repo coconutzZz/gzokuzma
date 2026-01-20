@@ -5,10 +5,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-04-15',
   css: [
     '@/assets/css/swiper.css',
-    '@/assets/css/main.css',
-    'lightgallery/css/lightgallery.css',
-    'lightgallery/css/lg-thumbnail.css',
-    'lightgallery/css/lg-zoom.css',
+    '@/assets/css/main.css'
   ],
   vue: {
     compilerOptions: {
