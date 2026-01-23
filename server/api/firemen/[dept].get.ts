@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
 
 
   // 2️⃣ Get firemen in department
-  const firemen = await $fetch<Fireman[]>(`${config.supabaseUrl}/rest/v1/firemen?department_id=eq.${department.id}`, {
+  const firemen = await $fetch<Fireman[]>(`${config.supabaseUrl}/rest/v1/Firemen?department_id=eq.${department.id}`, {
     headers: {
       apikey: config.supabaseServiceKey,
       Authorization: `Bearer ${config.supabaseServiceKey}`,
