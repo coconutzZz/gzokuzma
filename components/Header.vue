@@ -1,7 +1,7 @@
 <template>
   <!--Nav-->
-  <nav id="header" :class="isBackgroundVisible ? 'bg-primary-500' : 'bg-none'" class="fixed w-full z-30 top-0 transition-colors duration-700">
-    <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2 max-w-screen-2xl md:max-w-screen-xl ">
+  <nav id="header" :class="{ 'fixed': isFixed }, isBackgroundVisible ? 'bg-primary-500' : 'bg-none'" class="w-full z-30 top-0 transition-colors duration-700">
+    <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2 max-w-screen-2xl md:max-w-screen-xl">
       <div class="pl-4 flex items-center">
         <NuxtLink to="/" class="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl">
           <img src="/assets/img/gzo-znak.png" class="h-24"/>
@@ -31,7 +31,21 @@
         </button>-->
       </div>
     </div>
-    <!--<hr class="border-b border-gray-100 opacity-25 my-0 py-0" />-->
+    <div class="bg-[#FF6347] py-2" v-if="submenuStories.length > 0">
+        <div class="w-full container mx-auto max-w-screen-2xl md:max-w-screen-xl">
+          <div class="text-center">
+            <NuxtLink
+              v-for="item in submenuStories"
+              :key="item.id"
+              :to="`/${item.full_slug}`"
+              class="text-white mr-4"
+            >
+              {{ item.name }}
+            </NuxtLink>
+          </div>
+        </div>
+    </div>  
+    
   </nav>
   <div :class="isDrawerOpen ? 'translate-x-0' : 'translate-x-full'" class="fixed top-0 right-0 h-full w-full md:w-[50%] bg-white shadow-lg transform transition-transform duration-300 z-50">
     <button class="text-primary-500 absolute right-2 top-5" @click="toggleDrawer()">
@@ -50,14 +64,15 @@
           </li>
         </ul>
       </div>  
-      <div class="flex justify-center">
-        <NuxtLink v-for="association in associations" :to="`/drustva/${association.slug}`" class="flex flex-col items-center text-center" @click="toggleDrawer()">
+      <div class="flex justify-center force-black">
+        <AssociationsMenu />
+        <!-- <NuxtLink v-for="association in associations" :to="`/drustva/${association.slug}`" class="flex flex-col items-center text-center" @click="toggleDrawer()">
           <img :src="association.content.logo.filename" class="transition-transform duration-300 hover:scale-125 h-8" />
           <span class="text-primary-500 font-semibold text-xs m-2">{{ association.content.short_name}}</span>
-        </NuxtLink>
+        </NuxtLink> -->
       </div>
     </div>
-  </div>
+  </div>  
 <div
   v-if="isDrawerOpen"
   @click="toggleDrawer()"
@@ -65,35 +80,51 @@
 />
 </template>
 <script setup>
-const storyblokApi = useStoryblokApi();
-const associations = ref([]);
+const route = useRoute()
+const slug = Array.isArray(route.params.slug) ? route.params.slug.join('/') : route.params.slug;
+
+const { data: menuStories } = useMenuStories()
+
+const submenuStories = computed(() => {
+  if (Object.keys(route.params).length === 0) 
+    return [];
+  return menuStories.value.filter(story => {
+    const parts = story.full_slug.split('/')
+      return (
+        story.full_slug.startsWith(slug) &&
+        parts[parts.length-1] != 'index'
+      )
+  })
+}
+
+);
+
+const current = computed(() =>
+  associations.value?.find(a =>
+    route.path.includes(a.slug)
+  )
+)
 
 defineProps({
   isBackgroundVisible: {
     type: Boolean,
     default: false
+  }, 
+  isFixed: {
+    type: Boolean,
+    default: true
   }
 })
 
 const isDrawerOpen = ref(false);
 
-const menu = useState('main-menu')
+const menu = useState('main-menu');
 
 const toggleDrawer = () => isDrawerOpen.value = !isDrawerOpen.value;
 
-onBeforeMount(async () => {
-  await loadAssociations();
-})
-
-const loadAssociations = async () => {
-  const { data } = await storyblokApi.get('cdn/stories', {
-    version: 'draft',
-    starts_with: 'drustva/masterdata',
-    filter_query: {
-      "is_featured": { is: true }
-    },
-  })
-  associations.value = data.stories
-}
 </script>
- 
+<style lang="scss" scoped>
+  .force-black {
+    color: black !important;
+  }
+</style>

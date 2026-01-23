@@ -1,9 +1,9 @@
 <template>
-  <div class="embla bg-black">
-    <div class="embla__viewport" ref="emblaRef">
+  <div class="embla">
+    <div class="embla__viewport rounded-xl" ref="emblaRef">
       <div class="embla__container">
         <div class="embla__slide" v-for="(image, index) in images" :key="image.filename">
-          <div class="embla__slide__number">
+          <div class="embla__slide__wrapper">
             <img :src="image.filename" />
           </div>
         </div>          
@@ -15,7 +15,7 @@
           <div v-for="(image, index) in images" :key="image.filename" class="embla-thumbs__slide"
             :class="{'embla-thumbs__slide--selected': index === selectedIndex }">
             <button type="button" class="embla-thumbs__slide__number" @click="onThumbClick(index)">
-              <img :src="image.filename" />
+              <img class="rounded-xl" :src="image.filename" />
             </button>
           </div>
         </div>
@@ -26,7 +26,6 @@
 
 <script setup>
 import emblaCarouselVue from 'embla-carousel-vue'
-import Autoplay from 'embla-carousel-autoplay'
 
 const selectedIndex = ref(0);
 
@@ -34,7 +33,7 @@ const [emblaRef, emblaApi] = emblaCarouselVue({
     loop: true,
     containScroll: 'keepSnaps',
     dragFree: false
-  }, [Autoplay()])
+  },[])
 
 defineProps({
   images: {
@@ -58,16 +57,15 @@ const onSelect = () => {
 onMounted(async () => {
   if (!emblaApi.value) return
   emblaApi.value.on('select', onSelect)
-  onSelect() // initialize selectedIndex
+  onSelect();
 })
 </script>
 <style lang="scss" scoped>
 .embla {
-  max-width: 48rem;
   margin: auto;
-  --slide-height: 19rem;
+  --slide-height: 25rem;
   --slide-spacing: 1rem;
-  --slide-size: 100%;
+  --slide-size: 100%;  
 }
 .embla__viewport {
   overflow: hidden;
@@ -82,12 +80,9 @@ onMounted(async () => {
   flex: 0 0 var(--slide-size);
   min-width: 0;
   padding-left: var(--slide-spacing);
+  border-radius: 20px;
 }
-.embla__slide__number {
-  box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
-  border-radius: 1.8rem;
-  font-size: 4rem;
-  font-weight: 600;
+.embla__slide__wrapper {  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,25 +113,13 @@ onMounted(async () => {
   }
 }
 .embla-thumbs__slide__number {
-  border-radius: 1.8rem;
   -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
   -webkit-appearance: none;
   appearance: none;
   background-color: transparent;
-  touch-action: manipulation;
-  display: inline-flex;
+  touch-action: manipulation;  
   text-decoration: none;
   cursor: pointer;
-  border: 0;
-  padding: 0;
-  margin: 0;
-  box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: var(--detail-high-contrast);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: var(--thumbs-slide-height);
   width: 100%;
 }

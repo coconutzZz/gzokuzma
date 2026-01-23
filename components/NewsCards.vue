@@ -2,13 +2,13 @@
   <div v-for="article in articles" :key="isLoading ? article : article.uuid">
     <div class="shadow-lg rounded-b-lg">
 
-      <div class="relative">
+      <div class="relative overflow-hidden rounded-t-lg group">
         <div v-if="isLoading" class="w-full h-40 object-cover rounded-t-lg animate-pulse bg-gray-300"></div>
         <NuxtLink v-else-if="article.content.image && article.content.image.filename" :to="`/novice/${article.slug}`">
           <img :src="article.content.image.filename" alt="News" 
-          class="w-full h-40 object-cover rounded-t-lg">
-          <div class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25 rounded-t-lg">
-          </div>
+          class="w-full h-40 object-cover transform transition-transform duration-300 ease-out group-hover:scale-110">
+          <!-- <div class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25 rounded-t-lg">
+          </div> -->
         </NuxtLink>
       </div>
       <div class="px-6 py-4 mb-auto">

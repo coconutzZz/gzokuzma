@@ -1,23 +1,10 @@
 <template>
-  <div v-if="isDev" class="fixed bottom-4 right-4 bg-black text-white text-sm px-3 py-1 rounded z-50">
-    <span class="block sm:hidden">xs (&lt;640px)</span>
-    <span class="hidden sm:block md:hidden">sm (≥640px)</span>
-    <span class="hidden md:block lg:hidden">md (≥768px)</span>
-    <span class="hidden lg:block xl:hidden">lg (≥1024px)</span>
-    <span class="hidden xl:block 2xl:hidden">xl (≥1280px)</span>
-    <span class="hidden 2xl:block">2xl (≥1536px)</span>
-  </div>
+  <div class="min-h-screen flex flex-col leading-normal tracking-normal text-white gradient2 overflow-hidden">
+    <Header :is-background-visible="hasHeaderBg" />
 
-  <div class="leading-normal tracking-normal text-white gradient2 overflow-hidden">
-    <Header :is-background-visible="showHeader" />
-    
-    <!--Hero-->
-    <div class="relative pt-24 z-10" v-if="$slots.hero" >
-      <div class="container px-24 mx-auto">
-       <slot name="hero"></slot>
-      </div>
-    </div>
-    <div :class="hasHero ? '-mt-24 sm:-mt-20 md:-mt-28 xl:-mt-48 2xl:-mt-52' : '-mt-5 sm:mt-0 lg:-mt-14 xl:-mt-32'" class="w-[200%] sm:w-full transition-transform duration-500 bg-primary-500">
+    <HeroAssociations v-if="showHero" />
+
+    <div :class="showHero ? '-mt-24 sm:-mt-20 md:-mt-28 xl:-mt-48 2xl:-mt-52' : '-mt-5 sm:mt-0 lg:-mt-14 xl:-mt-32'" class="w-[200%] sm:w-full transition-transform duration-500 bg-primary-500">
       <svg viewBox="0 0 1420 266" xmlns="http://www.w3.org/2000/svg" class="">
         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
           <g transform="translate(0, 50)" fill="#FF4500" fill-rule="nonzero">
@@ -34,38 +21,33 @@
         </g>
       </svg>
     </div>
-    <section class="bg-white border-b" :class="hasHero ? 'pt-5 sm:py-8' : 'py-2'">
+
+    <section class="bg-white border-b py-2 flex-grow">
       <div class="container px-5 md:max-w-screen-xl mx-auto">
         <slot />
       </div>
     </section>
-    <slot name="above-footer"></slot>
-    <footer class="bg-gray-100 text-center p-4 text-sm text-gray-500">
-      &copy; {{ copyrightYear }}, Gasilska zveza Občine Kuzma
-    </footer>
+
+    <FooterStats v-if="showFooterStats" />
+    <Footer />
   </div>
 </template>
 <script setup>
-import Header from '~/components/Header.vue';
+const route = useRoute();
+const showHero = computed(() => route.meta.hero === 'associations')
+const showFooterStats = computed(() => route.meta.footerStats)
 
-const layoutTitle = useState('layoutTitle')
-
-const slots = useSlots();
-const isDev = import.meta.dev
-
-const hasHero = computed(() => !!slots.hero && slots.hero().length > 0)
-
-const showHeader = ref(false);
+const hasHeaderBg = ref(false);
 let lastScrollY = 0;
 
 const handleScroll = () => {
   const currentY = window.scrollY;
   
   if (currentY > lastScrollY) {
-    showHeader.value = currentY > lastScrollY && currentY > 150;
+    hasHeaderBg.value = currentY > lastScrollY && currentY > 150;
   }
   else if (currentY < 150) {
-    showHeader.value = false;
+    hasHeaderBg.value = false;
   }
 
   lastScrollY = currentY;
