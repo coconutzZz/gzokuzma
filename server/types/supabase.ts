@@ -7,7 +7,9 @@ export interface Department {
 
 export interface Fireman {
   id: string
-  name: string
-  role: 'president' | 'commander' | 'fireman'
-  department_id: string
+  first_name: string
+  last_name: string
+  department_role: 'president' | 'commander' | 'fireman'
+  department_id: string,
+  mobile_phone: string
 }

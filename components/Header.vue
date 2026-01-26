@@ -81,17 +81,21 @@
 </template>
 <script setup>
 const route = useRoute()
-const slug = Array.isArray(route.params.slug) ? route.params.slug.join('/') : route.params.slug;
+const slug = ref(Array.isArray(route.params.slug) ? route.params.slug : [route.params.slug]);
 
 const { data: menuStories } = useMenuStories()
 
 const submenuStories = computed(() => {
-  if (Object.keys(route.params).length === 0) 
-    return [];
+  const currentPath = route.fullPath.split('/');
+
+  if (Object.keys(route.params).length === 0) return [];
+
+  if (currentPath.length <= 1) return [];
+
   return menuStories.value.filter(story => {
     const parts = story.full_slug.split('/')
       return (
-        story.full_slug.startsWith(slug) &&
+        story.full_slug.indexOf(slug.value[0] + '/') > -1 &&
         parts[parts.length-1] != 'index'
       )
   })

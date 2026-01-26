@@ -11,7 +11,7 @@
       sm:text-[200px]
       md:-top-36
       md:text-[250px]
-      lg:-top-36
+      lg:-top-30
       lg:right-10
       ">
       {{ blok.year_founded }}

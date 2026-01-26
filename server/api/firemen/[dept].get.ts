@@ -7,8 +7,7 @@ export default defineEventHandler(async (event) => {
   const deptSlug = event.context.params?.dept
   if (!deptSlug) throw createError({ statusCode: 400, statusMessage: 'Department slug missing' })
 
-  // 1️⃣ Get department by slug
-  const departmentRes = await $fetch<Department[]>(`${config.supabaseUrl}/rest/v1/Departments?slug=eq.pgdkuzma`, {
+  const departmentRes = await $fetch<Department[]>(`${config.supabaseUrl}/rest/v1/Departments?slug=eq.${deptSlug}`, {
     headers: {
       apikey: config.supabaseServiceKey,
       Authorization: `Bearer ${config.supabaseServiceKey}`,
@@ -25,8 +24,6 @@ export default defineEventHandler(async (event) => {
 
   const department = departmentRes[0]
 
-
-  // 2️⃣ Get firemen in department
   const firemen = await $fetch<Fireman[]>(`${config.supabaseUrl}/rest/v1/Firemen?department_id=eq.${department.id}`, {
     headers: {
       apikey: config.supabaseServiceKey,
