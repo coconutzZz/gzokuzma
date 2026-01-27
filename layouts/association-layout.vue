@@ -2,7 +2,7 @@
   <div class="min-h-screen flex flex-col leading-normal tracking-normal text-white gradient2 overflow-hidden">
     <Header :is-background-visible="true" :is-fixed="isFixed" />
     <section class="bg-white border-b py-2 flex-grow">
-        <div class="container px-5 md:max-w-screen-xl mx-auto">
+        <div class="container sm:px-5 md:max-w-screen-xl mx-auto">
           <slot />
         </div>
     </section>

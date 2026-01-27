@@ -1,5 +1,6 @@
-// server/api/firemen/[dept].get.ts
-import type { Department, Fireman } from '../../types/supabase'
+import type { Fireman } from '../../types/supabase'
+import { getDepartmentBySlug } from '../../services/departments'
+
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
@@ -7,22 +8,7 @@ export default defineEventHandler(async (event) => {
   const deptSlug = event.context.params?.dept
   if (!deptSlug) throw createError({ statusCode: 400, statusMessage: 'Department slug missing' })
 
-  const departmentRes = await $fetch<Department[]>(`${config.supabaseUrl}/rest/v1/Departments?slug=eq.${deptSlug}`, {
-    headers: {
-      apikey: config.supabaseServiceKey,
-      Authorization: `Bearer ${config.supabaseServiceKey}`,
-      Accept: 'application/json'
-    }
-  })
-
-    console.log(departmentRes);
-  
-
-  if (!departmentRes || departmentRes.length === 0)
-    
-    throw createError({ statusCode: 404, statusMessage: 'Department not found' })
-
-  const department = departmentRes[0]
+  const department = await getDepartmentBySlug(deptSlug)
 
   const firemen = await $fetch<Fireman[]>(`${config.supabaseUrl}/rest/v1/Firemen?department_id=eq.${department.id}`, {
     headers: {
