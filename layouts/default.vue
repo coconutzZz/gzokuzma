@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex flex-col leading-normal tracking-normal text-white gradient2 overflow-hidden">
+  <div class="min-h-screen flex flex-col leading-normal tracking-normal gradient2 overflow-hidden">
     <Header :is-background-visible="hasHeaderBg" />
 
     <HeroAssociations v-if="showHero" />

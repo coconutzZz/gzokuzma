@@ -7,9 +7,9 @@
       -top-20
       -right-8
       text-[150px]
-      sm:-top-20
-      sm:text-[180px]
-      md:-top-36
+      sm:-top-26
+      sm:text-[200px]
+      md:-top-32
       md:text-[250px]
       lg:-top-30
       lg:right-10
@@ -17,7 +17,7 @@
       {{ department?.year_founded }}
     </div>
   </div>
-  <div class="relative z-10 flex items-center justify-center">
+  <div class="relative z-10 flex items-center justify-center sm:my-8">
     <img     
         :src="blok.logo.filename"
         alt="Featured"

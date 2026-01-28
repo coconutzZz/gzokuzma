@@ -11,14 +11,23 @@ export interface Department {
   company_register_number: number
   year_founded: number
   is_main_unit: boolean
+  facebook_url: string
 }
 
 export interface Fireman {
   id: string
   first_name: string
   last_name: string
-  department_role: 'president' | 'commander' | 'fireman'
+  department_role: 'predsednik' | 'poveljnik' | 'podpoveljnik' | 'tajnik' | 'blagajnik'
   department_id: string,
   mobile_phone: string,
   email: string
 }
+
+export const roleOrder: Record<Fireman['department_role'], number> = {
+  predsednik: 1,
+  poveljnik: 2,
+  podpoveljnik: 3,
+  tajnik: 4,
+  blagajnik: 5
+};
