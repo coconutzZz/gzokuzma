@@ -3,14 +3,16 @@
     <div class="embla__viewport rounded-xl" ref="emblaRef">
       <div class="embla__container">
         <div class="embla__slide flex items-center justify-center" v-for="(image, index) in images" :key="image.filename">
-          <div class="embla__slide__wrapper select-none">
-            <img :src="image.filename" class="rounded-xl"/>
+          <div class="embla__slide__wrapper select-none ">
+            <a :href="image.filename" class="glightbox">
+              <img :src="image.filename" class="rounded-xl"/>
+            </a>
           </div>
         </div>          
       </div>
     </div>
     <div class="embla-thumbs">
-      <div class="embla-thumbs__viewport">
+      <div class="embla-thumbs__viewport" ref="emblaThumbsRef">
         <div class="embla-thumbs__container flex flex-row">
           <div v-for="(image, index) in images" :key="image.filename" class="embla-thumbs__slide"
             :class="{'embla-thumbs__slide--selected': index === selectedIndex }">
@@ -27,13 +29,19 @@
 <script setup>
 import emblaCarouselVue from 'embla-carousel-vue'
 
+const { $glightbox } = useNuxtApp()
 const selectedIndex = ref(0);
 
-const [emblaRef, emblaApi] = emblaCarouselVue({
+const [emblaRef /* used in template */, emblaApi] = emblaCarouselVue({
     loop: true,
     containScroll: 'keepSnaps',
     dragFree: false
   },[])
+
+const [emblaThumbsRef /* used in template */, emblaApi2] = emblaCarouselVue({
+  containScroll: 'keepSnaps',
+  dragFree: true
+},[])
 
 defineProps({
   images: {
@@ -58,6 +66,9 @@ onMounted(async () => {
   if (!emblaApi.value) return
   emblaApi.value.on('select', onSelect)
   onSelect();
+  $glightbox({
+    selector: '.glightbox',
+  });
 })
 </script>
 <style lang="scss" scoped>
@@ -91,7 +102,9 @@ onMounted(async () => {
   margin-top: var(--thumbs-slide-spacing);
 }
 .embla-thumbs__viewport {
-  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
 }
 .embla-thumbs__container {
   margin-left: calc(var(--thumbs-slide-spacing) * -1);

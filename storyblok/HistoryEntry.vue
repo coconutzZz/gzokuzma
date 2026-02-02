@@ -10,15 +10,23 @@
         <div class="w-[calc(100%-2rem)] md:w-[calc(50%-2.5rem)] px-2 md:px-10">
             <div class="font-bold text-xl md:text-3xl text-primary-500 mb-2">{{ blok.title }}</div>
             <div v-html="resolvedRichText" />
+            <Gallery :images="props.blok.images" />
         </div>
     </div>
 </template>
 <script setup lang="ts">
+
 const props = defineProps({ blok: {
     type: Object,
     required: true
 }, postedOn: String, tagList: Array })
 
-
+//const hasFeaturedImage = computed(() => props.blok.image && props.blok.image.filename);
 const resolvedRichText = computed(() => renderRichText(props.blok.description));
 </script>
+
+<style lang="scss" scoped>
+.embla {
+  --slide-height: 15em;
+}
+</style>

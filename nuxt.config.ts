@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: [['@storyblok/nuxt', { accessToken: 'DPD4LZv5qY7kAXi13qj3HQtt' }],  '@nuxtjs/tailwindcss'],
+  modules: [['@storyblok/nuxt', { accessToken: process.env.STORYBLOK_ACCESS_TOKEN }],  '@nuxtjs/tailwindcss'],
   compatibilityDate: '2025-04-15',
   css: [
     '@/assets/css/swiper.css',

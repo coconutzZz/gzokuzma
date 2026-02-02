@@ -15,9 +15,9 @@
           alt="Featured"
           class="w-full h-64 object-cover rounded-xl mb-6"
         />       
-        <div class="prose max-w-none prose-lg text-gray-800" v-html="resolvedRichText"></div>
-        
-        <template v-if="props.blok?.gallery.length > 0 && isGalleryLoaded">
+        <!-- <div class="prose max-w-none prose-lg text-gray-800" v-html="resolvedRichText"></div> -->
+         <StoryblokRichText :doc="props.blok.content" :resolvers="resolvers" />
+         <template v-if="props.blok?.gallery.length > 0 && isGalleryLoaded">
           <Gallery v-for="gallery in galleryList" :key="gallery.title" :images="gallery.images" />
         </template>
       </main>
@@ -27,8 +27,6 @@
           <Gallery v-for="gallery in galleryList" :key="gallery.title" :images="gallery.images" />
         </template>
       </aside> -->
-
-      <!-- <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpgdmaterija%2Fposts%2Fpfbid0RDpM2h3KMZsiYYFXCFRMqV4ZUEGztRDzvoDUmEPbgNU5ZYLktA4zWdBFDpPWfHGLl&amp;show_text=true&amp;width=500" width="500" height="549" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe> -->
     </div>
 
     <div class="mt-8 flex flex-wrap gap-2">
@@ -40,7 +38,9 @@
 <script setup>
 import { DateTime } from "luxon";
 import SectionTitle from '~/components/SectionTitle.vue';
-import Breadcrumbs from "~/components/Breadcrumbs.vue";
+//import Breadcrumbs from "~/components/Breadcrumbs.vue";
+import { StoryblokRichText } from "@storyblok/vue";
+import FacebookPost from "./FacebookPost.vue";
 import Gallery from "~/components/Gallery.vue";
 
 const storyblokApi = useStoryblokApi()
@@ -49,9 +49,9 @@ const isGalleryLoaded = ref(false);
 
 const props = defineProps({ blok: Object, postedOn: String, tagList: Array });
  
-const resolvedRichText = computed(() => renderRichText(props.blok.content));
+//const resolvedRichText = computed(() => renderRichText(props.blok.content));
 
-const hasFeaturedImage = computed(() => props.blok.image && props.blok.image.filename);
+const hasFeaturedImage = computed(() => props.blok?.image && props.blok.image.filename);
 
 const galleryList = ref([]);
 
@@ -80,6 +80,15 @@ onMounted(async () => {
   }
 })
 
+const resolvers = {
+  [BlockTypes.COMPONENT]: (node) => {
+    const nodeBody = node.attrs.body[0];    
+    if (nodeBody && nodeBody.component === "FacebookPost" && nodeBody.url) {
+      return h(FacebookPost, { url: nodeBody.url });
+    }
+    return null;
+  },
+};
 </script>
 <style lang="scss">
 .article-detail {
