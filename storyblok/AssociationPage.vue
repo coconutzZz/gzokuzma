@@ -81,6 +81,15 @@
         <PersonCard v-for="p in sortedFiremen" :key="p.id" :person="p" />
       </div>
     </div>
+
+    <div class="mt-4 px-6 sm:px-2 md:col-span-2">
+      <h2 class="text-2xl font-semibold">Dokumenti</h2>  
+      <ul>
+        <li v-for="file in files" :key="file.id">
+          <a class="text-blue-600 hover:underline" :href="file.url" :title="file.name" target="_blank">{{ file.name }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <transition
@@ -110,7 +119,7 @@
 </template> 
 <script setup lang="ts">
 import PersonCard from '~/components/PersonCard.vue';
-import type { Fireman, Department } from '~/server/types/supabase'
+import type { Fireman, Department, DownloadableAsset } from '~/server/types/supabase'
 import { roleOrder } from '~/server/types/supabase'
 
 const route = useRoute()
@@ -144,6 +153,9 @@ let { data: firemen } = await useFetch<Fireman[]>(
   `/api/firemen/${department.value?.slug}`
 )
 
+const { data: files } = await useFetch<DownloadableAsset[]>(
+  `/api/files/${department.value?.slug}`);
+
 const handleScroll = () => {
   const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -157,7 +169,7 @@ const handleScroll = () => {
 };
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('scroll', handleScroll);  
 });
 
 onUnmounted(() => {

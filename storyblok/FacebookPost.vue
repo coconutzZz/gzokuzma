@@ -1,6 +1,6 @@
 <template>
     <div class="w-full text-center">
-        <div v-if="url" class="fb-post" :data-href="url" data-width="500"></div>
+        <div v-if="url" class="fb-post" :data-href="url"></div>
     </div>
 </template>
 

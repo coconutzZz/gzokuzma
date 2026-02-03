@@ -5,5 +5,5 @@
   </NuxtLayout>
 </template>
 <script setup>
-  import Breakpoints from './components/dev/Breakpoints.vue';
+import Breakpoints from './components/dev/Breakpoints.vue';
 </script>

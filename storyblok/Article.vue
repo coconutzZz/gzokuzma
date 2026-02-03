@@ -2,13 +2,13 @@
   <article class="article-detail mx-auto p-0  bg-white rounded-2xl">
     <SectionTitle title-tag="h1">{{ blok.title }}</SectionTitle>
     
-    <!-- <Breadcrumbs /> -->
+    <Breadcrumbs />
     <div class="flex items-center space-x-4 mb-6 text-sm text-gray-500">
       <span>Avtor: {{ blok.author }} | {{ formatPostedOn(postedOn) }}</span>
     </div>
 
     <div class="grid grid-cols-12 gap-4">
-      <main class="col-span-12 lg:col-span-9">
+      <main class="col-span-12" :class="tagList.length > 0 ? 'lg:col-span-9' : 'lg:col-span-8 lg:col-start-3'">
         <img
           v-if="hasFeaturedImage"
           :src="blok.image.filename"
@@ -22,16 +22,13 @@
         </template>
       </main>
 
-      <!--<aside class="col-span-12 lg:col-span-3">
-        <template v-if="props.blok?.gallery.length > 0 && isGalleryLoaded">
-          <Gallery v-for="gallery in galleryList" :key="gallery.title" :images="gallery.images" />
-        </template>
-      </aside> -->
+      <aside v-if="tagList.length > 0" class="col-span-12 lg:col-span-3">
+        <div class="flex flex-wrap gap-2">
+          <NuxtLink :to="`/novice?with_tag=${tag}`" v-for="tag in tagList" class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">#{{ tag }}</NuxtLink>
+        </div>
+      </aside>
     </div>
-
-    <div class="mt-8 flex flex-wrap gap-2">
-      <NuxtLink :to="`/novice?with_tag=${tag}`" v-for="tag in tagList" class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">#{{ tag }}</NuxtLink>
-    </div>
+    
   </article>  
 </template>
  

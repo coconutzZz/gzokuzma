@@ -31,3 +31,11 @@ export const roleOrder: Record<Fireman['department_role'], number> = {
   tajnik: 4,
   blagajnik: 5
 };
+
+export interface DownloadableAsset {
+  id: string
+  name: string,
+  url: string
+  created_at: string
+  type: string
+}
