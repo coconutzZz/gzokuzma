@@ -8,6 +8,6 @@ export const useMenuStories = () => {
       //version: 'published',
     })
 
-    return data.stories
+    return data.stories || []
   })
 }

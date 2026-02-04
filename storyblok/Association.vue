@@ -18,11 +18,11 @@
     </div>
   </div>
   <div class="relative z-10 flex items-center justify-center sm:my-8">
-    <img     
-        :src="blok.logo.filename"
-        alt="Featured"
-        :class="department?.is_main_unit ? 'h-28' : 'h-20'"
-      /> 
+    <NuxtImg :src="`/img/${department?.slug}.png`" 
+      :class="department?.is_main_unit ? 'h-28' : 'h-20'" 
+      placeholder="/img/pgddefault.png"
+    />
+   
     <h1 class="text-left pl-2">
       <span class="text-xs sm:text-lg">{{ department?.name_prefix }}</span><br/>
       <span class="text-md sm:text-6xl md:text-7xl uppercase">{{ cleanName }}</span>

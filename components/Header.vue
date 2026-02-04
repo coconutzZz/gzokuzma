@@ -1,9 +1,8 @@
 <template>
-  <!--Nav-->
   <nav id="header" :class="{ 'fixed': isFixed }, isBackgroundVisible ? 'bg-primary-500' : 'bg-none'" class="w-full z-30 top-0 transition-colors duration-700">
     <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2 max-w-screen-2xl md:max-w-screen-xl">
       <div class="pl-4 flex items-center">
-        <NuxtLink to="/" class="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl">
+        <NuxtLink to="/" class="text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl">
           <img src="/assets/img/gzo-znak.png" class="h-24"/>
         </NuxtLink>
       </div>
@@ -17,25 +16,26 @@
       </div>
       <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent pr-4 z-20" id="nav-content">
         <ul class="list-reset lg:flex justify-end flex-1 items-center">
-          <li v-for="blok in menu" :key="blok._uid" class="mr-3">
-            <NuxtLink :to="`/${(blok.link.url.length > 0 ? blok.link.url : blok.link.cached_url)}`" class="inline-block py-2 px-4 text-white font-bold no-underline">
+          <li v-for="blok in menuItems" :key="blok._uid" class="mr-3">
+            <NuxtLink 
+              :to="`/${(blok.link.url.length > 0 ? blok.link.url : blok.link.cached_url)}`" 
+              class="relative inline-block py-2 mx-4 text-white font-bold no-underline group"
+              active-class="is-active"
+            >
               {{ blok.name }}
-            </NuxtLink>        
+              
+              <span class="absolute bottom-0 left-0 h-0.5 bg-white transition-all duration-300 w-0 group-hover:w-full group-[.is-active]:w-full"></span>
+            </NuxtLink>      
           </li>
         </ul>
-        <!--
-        <button
-          class="mx-auto lg:mx-0 hover:underline bg-secondary test-white font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-        >
-          Kontakt
-        </button>-->
       </div>
-    </div>
-    <div class="bg-[#FF6347] py-2" v-if="submenuStories.length > 0">
+    </div>    
+    <slot />
+    <div class="bg-[#FF6347] py-1" v-if="subMenu && subMenu.length > 0">
         <div class="w-full container mx-auto max-w-screen-2xl md:max-w-screen-xl">
           <div class="text-center">
             <NuxtLink
-              v-for="item in submenuStories"
+              v-for="item in subMenu"
               :key="item.id"
               :to="`/${item.full_slug}`"
               class="text-white mr-4"
@@ -44,8 +44,7 @@
             </NuxtLink>
           </div>
         </div>
-    </div>  
-    
+    </div>
   </nav>
   <div :class="isDrawerOpen ? 'translate-x-0' : 'translate-x-full'" class="fixed top-0 right-0 h-full w-full md:w-[50%] bg-white shadow-lg transform transition-transform duration-300 z-50">
     <button class="text-primary-500 absolute right-2 top-5" @click="toggleDrawer()">
@@ -57,20 +56,16 @@
     <div class="flex flex-col justify-between h-full pt-52 pb-10">
       <div class="flex justify-center text-center">      
         <ul class="list-reset flex-row text-xl">
-          <li v-for="blok in menu" :key="blok._uid" class="mr-3">
+          <li v-for="blok in menuItems" :key="blok._uid" class="mr-3">
             <NuxtLink @click="toggleDrawer()" :to="`/${(blok.link.url.length > 0 ? blok.link.url : blok.link.cached_url)}`" class="inline-block py-2 px-4 text-primary-500 font-bold no-underline">
               {{ blok.name }}
             </NuxtLink>
           </li>
         </ul>
       </div>  
-      <div class="flex justify-center force-black">
+      <!-- <div class="flex justify-center force-black">
         <AssociationsMenu />
-        <!-- <NuxtLink v-for="association in associations" :to="`/drustva/${association.slug}`" class="flex flex-col items-center text-center" @click="toggleDrawer()">
-          <img :src="association.content.logo.filename" class="transition-transform duration-300 hover:scale-125 h-8" />
-          <span class="text-primary-500 font-semibold text-xs m-2">{{ association.content.short_name}}</span>
-        </NuxtLink> -->
-      </div>
+      </div> -->
     </div>
   </div>  
 <div
@@ -83,33 +78,7 @@
 const route = useRoute()
 const slug = ref(Array.isArray(route.params.slug) ? route.params.slug : [route.params.slug]);
 
-const { data: menuStories } = useMenuStories()
-
-const submenuStories = computed(() => {
-  const currentPath = route.fullPath.split('/');
-
-  if (Object.keys(route.params).length === 0) return [];
-
-  if (currentPath.length <= 1) return [];
-
-  return menuStories.value.filter(story => {
-    const parts = story.full_slug.split('/')
-      return (
-        story.full_slug.indexOf(slug.value[0] + '/') > -1 &&
-        parts[parts.length-1] != 'index'
-      )
-  })
-}
-
-);
-
-const current = computed(() =>
-  associations.value?.find(a =>
-    route.path.includes(a.slug)
-  )
-)
-
-defineProps({
+const props = defineProps({
   isBackgroundVisible: {
     type: Boolean,
     default: false
@@ -118,12 +87,40 @@ defineProps({
     type: Boolean,
     default: true
   }
-})
+});
+
+const { data: menuItems } = useMainMenuStories();
+const { data: menuStories, refresh } = await useMenuStories()
+
+// Watch the route path. If it starts with /drustva, 
+// ensure we have the latest data.
+watch(() => route.path, (newPath) => {
+  if (newPath.startsWith('/drustva')) {
+    refresh()
+  }
+}, { immediate: true })
+
+// Use the data directly in your computed subMenu
+const subMenu = computed(() => {
+  const stories = menuStories.value
+  if (!stories || !Array.isArray(stories)) return [];
+
+  // Use the first part of the slug to filter (e.g., 'pgdkuzma')
+  const currentSlugPart = route.params.slug?.[0] || route.params.slug;
+  if (!currentSlugPart) return [];
+
+  return stories.filter(story => {
+    return story.full_slug.includes(currentSlugPart + '/')
+  })
+});
+
+const current = computed(() =>
+  associations.value?.find(a =>
+    route.path.includes(a.slug)
+  )
+)
 
 const isDrawerOpen = ref(false);
-
-const menu = useState('main-menu');
-
 const toggleDrawer = () => isDrawerOpen.value = !isDrawerOpen.value;
 
 </script>

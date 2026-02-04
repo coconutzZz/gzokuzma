@@ -1,7 +1,4 @@
 <template> 
-<!-- <div class="text-black">
-  {{ story }}
-</div>  -->
   <StoryblokComponent v-if="story" :blok="story.content" :posted-on="story.created_at" :tag-list="story.tag_list" />
 </template>
 <script setup lang="ts">

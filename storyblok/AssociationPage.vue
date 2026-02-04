@@ -73,8 +73,8 @@
           DONIRAJ DRUŠTVU
         </Button>
       </div>
-      
     </div>
+    
     <div class="mt-4 px-6 sm:px-2 md:col-span-2">
       <h2 class="text-2xl font-semibold">Vodstvo</h2>  
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4">
@@ -82,7 +82,7 @@
       </div>
     </div>
 
-    <div class="mt-4 px-6 sm:px-2 md:col-span-2">
+    <div v-if="files && files.length > 0" class="mt-4 px-6 sm:px-2 md:col-span-2">
       <h2 class="text-2xl font-semibold">Dokumenti</h2>  
       <ul>
         <li v-for="file in files" :key="file.id">
@@ -138,23 +138,51 @@ const props = defineProps({ blok: {
 const association = computed(() => props.blok.association[0].content);
 const hasFeaturedContent = computed(() => props.blok.featured_image.filename || props.blok.featured_text)
 
+const deptSlug = route.params.slug[0];
 let { data: department } = await useFetch<Department>(
-  `/api/departments/${route.params.slug[0]}`
+  `/api/departments/${deptSlug}`,
+  { 
+    key: `dept-${deptSlug}`,
+    getCachedData(key) {
+      return useNuxtApp().payload.data[key] || useNuxtApp().static.data[key]
+    }
+  }
 )
 
 if (!department.value) {
-  const res = await useFetch<Department>(
-    `/api/departments/${association.value.id}`
+  const { data: res } = await useFetch<Department>(
+    `/api/departments/${association.value.id}`,
+    { 
+      key: `dept-${association.value.id}`,
+      getCachedData(key) {
+        return useNuxtApp().payload.data[key] || useNuxtApp().static.data[key]
+      }
+    }
   )
-  department = res.data
+  department = res
 }
 
-let { data: firemen } = await useFetch<Fireman[]>(
-  `/api/firemen/${department.value?.slug}`
+const { data: firemen } = await useFetch<Fireman[]>(
+  `/api/firemen/${department.value?.slug}`,
+  { 
+    key: `firemen-${department.value?.slug}`,
+    watch: [department], // Re-fetch only if department changes
+    getCachedData(key) {
+      return useNuxtApp().payload.data[key] || useNuxtApp().static.data[key]
+    }
+  }
 )
 
 const { data: files } = await useFetch<DownloadableAsset[]>(
-  `/api/files/${department.value?.slug}`);
+  `/api/files/${department.value?.slug}`,
+  { 
+    key: `files-${department.value?.slug}` ,
+    watch: [department],
+    getCachedData(key) {
+      return useNuxtApp().payload.data[key] || useNuxtApp().static.data[key]
+    }
+  },
+);
 
 const handleScroll = () => {
   const currentScroll = window.pageYOffset || document.documentElement.scrollTop;

@@ -61,11 +61,6 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
 });
 
-const copyrightYear = computed(() => {
-  const today = new Date();
-  return today.getFullYear();
-})
-
 </script>
 <style>
 .gradient {

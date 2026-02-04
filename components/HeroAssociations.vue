@@ -7,9 +7,5 @@
         </div>
       </div>
     </div>
-  </div>
-  
-</template> 
-<script setup>
-const { data: associations } = useAssociationStories()
-</script>
+  </div>  
+</template>

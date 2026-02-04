@@ -4,7 +4,6 @@
 <script setup lang="ts">
 const route = useRoute()
 
-
 let slug = Array.isArray(route.params.slug) ? route.params.slug : [route.params.slug]
 
 // remove 'index' at the end if present

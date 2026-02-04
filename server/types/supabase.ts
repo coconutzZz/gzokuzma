@@ -12,6 +12,8 @@ export interface Department {
   year_founded: number
   is_main_unit: boolean
   facebook_url: string
+  hide_menu: boolean
+  sort: number
 }
 
 export interface Fireman {

@@ -9,7 +9,6 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Department slug missing' })
   }
 
-  console.log(deptSlug);
   const supabase = createClient(config.public.supabaseUrl, config.public.supabasePublishableKey)
 
   const { data, error } = await supabase.storage
@@ -21,7 +20,7 @@ export default defineEventHandler(async (event) => {
   } 
 
 if (data == null) {
-  throw createError({ statusCode: 400, statusMessage: 'No files found' })
+  return [];
 }
 
  const realFiles = data.filter(
