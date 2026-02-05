@@ -31,7 +31,7 @@
       </div>
     </div>    
     <slot />
-    <div class="bg-[#FF6347] py-1" v-if="subMenu && subMenu.length > 0">
+    <div class="bg-[#FF6347] py-1" v-if="subMenu && subMenu.length > 1">
         <div class="w-full container mx-auto max-w-screen-2xl md:max-w-screen-xl">
           <div class="text-center">
             <NuxtLink

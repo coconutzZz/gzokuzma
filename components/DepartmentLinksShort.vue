@@ -3,7 +3,7 @@
   :key="d.id" 
   :to="`/drustva/${d.slug}`" 
   active-class="is-active"
-  @click="$emit('click')"class="group text-xs font-thin mx-2 mb-2 [&.is-active]:font-bold"
+  @click="$emit('click')"class="group text-xs text-white font-thin mx-2 mb-2 [&.is-active]:font-bold"
 >
   {{ d.name }}
 </NuxtLink>

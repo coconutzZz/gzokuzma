@@ -1,7 +1,6 @@
 <template>
   <div v-for="article in articles" :key="isLoading ? article : article.uuid">
     <div class="shadow-lg rounded-b-lg">
-
       <div class="relative overflow-hidden rounded-t-lg group">
         <div v-if="isLoading" class="w-full h-40 object-cover rounded-t-lg animate-pulse bg-gray-300"></div>
         <NuxtLink v-else-if="article.content.image && article.content.image.filename" :to="`/novice/${article.slug}`">
@@ -27,19 +26,7 @@
       </div>
       <div class="px-6 py-3 flex flex-row items-center justify-between bg-gray-100 rounded-b-lg">
           <span v-if="!isLoading" href="#" class="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
-              <svg height="13px" width="13px" version="1.1" id="Layer_1"
-                  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
-                  y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"
-                  xml:space="preserve">
-                  <g>
-                      <g>
-                          <path
-                              d="M256,0C114.837,0,0,114.837,0,256s114.837,256,256,256s256-114.837,256-256S397.163,0,256,0z M277.333,256 c0,11.797-9.536,21.333-21.333,21.333h-85.333c-11.797,0-21.333-9.536-21.333-21.333s9.536-21.333,21.333-21.333h64v-128 c0-11.797,9.536-21.333,21.333-21.333s21.333,9.536,21.333,21.333V256z">
-                          </path>
-                      </g>
-                  </g>
-              </svg>
-              <span class="ml-1">{{ formatPostedOn(article.created_at) }}</span>
+              {{ formatPostedOn(article.created_at) }}
           </span>
 
           <span v-if="!isLoading" class="py-1 text-xs font-regular text-gray-900 mr-1">                
@@ -62,6 +49,10 @@ const props = defineProps({
   withTag: {
     type: String,
     default: ""
+  },
+  byAuthor: {
+    type: String,
+    default: null
   }
 });
 
@@ -78,14 +69,27 @@ watch(() => props.withTag, async () => {
 });
 
 const loadArticles = async () => {
-  const { data } = await storyblokApi.get('cdn/stories', {
+  let filter_query = {};
+
+  let req = {
     version: 'draft',
     starts_with: 'novice',
     sort_by: "created_at:desc",
     per_page: props.count,
     page: 1,
-    with_tag: props.withTag
-  });
+    with_tag: props.withTag        
+  }
+
+  if (props.byAuthor) {
+    filter_query = {
+      ...filter_query, 
+      'author': {
+        in: props.byAuthor
+      }
+    }
+  }
+
+  const { data } = await storyblokApi.get('cdn/stories', {...req, filter_query});
   articles.value = data.stories;
   isLoading.value = false;
 }
