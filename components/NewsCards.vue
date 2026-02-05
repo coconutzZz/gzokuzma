@@ -59,7 +59,7 @@ const props = defineProps({
     type: Number,
     default: 6   
   },
-  with_tag: {
+  withTag: {
     type: String,
     default: ""
   }
@@ -71,7 +71,8 @@ onBeforeMount(async () => {
   await loadArticles();
 });
 
-watch(() => props.with_tag, async () => {
+
+watch(() => props.withTag, async () => {
   isLoading.value = true;
   await loadArticles();
 });
@@ -83,7 +84,7 @@ const loadArticles = async () => {
     sort_by: "created_at:desc",
     per_page: props.count,
     page: 1,
-    with_tag: props.with_tag
+    with_tag: props.withTag
   });
   articles.value = data.stories;
   isLoading.value = false;

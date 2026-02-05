@@ -3,7 +3,7 @@
     <div class="container px-24 mx-auto">
       <div class="container max-w-2xl mx-auto">
         <div class="sm:flex flex-row justify-between justify-items-center items-end hidden text-white">
-            <AssociationsMenu />
+            <DepartmentLinks />
         </div>
       </div>
     </div>

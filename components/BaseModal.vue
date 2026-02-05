@@ -29,13 +29,7 @@
         "
       >
         <slot />
-
-        <button
-          class="absolute top-3 right-3 text-gray-500 hover:text-black"
-          @click="$emit('update:modelValue', false)"
-        >
-          ✕
-        </button>
+        <ButtonClose @click="$emit('update:modelValue', false)" class="absolute top-3 right-3" />
       </div>
     </div>
   </Transition>
@@ -43,8 +37,16 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   modelValue: Boolean
 })
 defineEmits(['update:modelValue'])
+
+watch(() => props.modelValue, (isOpen) => {
+  if (isOpen) {
+    document.body.classList.add('overflow-hidden');
+  } else {
+    document.body.classList.remove('overflow-hidden');
+  }
+});
 </script>

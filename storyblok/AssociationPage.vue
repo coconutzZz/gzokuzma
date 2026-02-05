@@ -111,9 +111,11 @@
   </transition>
 
  <BaseModal v-model="open">
-  <div class="mt-10 text-center" v-if="blok.qr_code_bank_transfer && blok.qr_code_bank_transfer.filename">
-    <p>Za nakazilo prostovoljnih prispevkov uporabite QR kodo:</p>
-    <img :src="blok.qr_code_bank_transfer.filename" class="h-50 mx-auto"/>
+  <div class="flex flex-col justify-center h-full -mt-10">
+    <div class="sm:mt-20 text-center" v-if="blok.qr_code_bank_transfer && blok.qr_code_bank_transfer.filename">
+      <p>Za nakazilo prostovoljnih prispevkov uporabite QR kodo:</p>
+      <img :src="blok.qr_code_bank_transfer.filename" class="h-50 mx-auto"/>
+    </div>
   </div>
 </BaseModal>
 </template> 

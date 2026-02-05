@@ -47,13 +47,8 @@
     </div>
   </nav>
   <div :class="isDrawerOpen ? 'translate-x-0' : 'translate-x-full'" class="fixed top-0 right-0 h-full w-full md:w-[50%] bg-white shadow-lg transform transition-transform duration-300 z-50">
-    <button class="text-primary-500 absolute right-2 top-5" @click="toggleDrawer()">
-      <svg class="fill-current h-10 w-10" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
-    <div class="flex flex-col justify-between h-full pt-52 pb-10">
+    <ButtonClose @click="toggleDrawer()" class="absolute right-2 top-5" />
+    <div class="flex flex-col justify-center h-full pb-10">
       <div class="flex justify-center text-center">      
         <ul class="list-reset flex-row text-xl">
           <li v-for="blok in menuItems" :key="blok._uid" class="mr-3">
@@ -63,9 +58,9 @@
           </li>
         </ul>
       </div>  
-      <!-- <div class="flex justify-center force-black">
-        <AssociationsMenu />
-      </div> -->
+      <div class="md:hidden mt-5 force-black">
+        <DepartmentLinks @click="toggleDrawer()" />
+      </div> 
     </div>
   </div>  
 <div
@@ -76,7 +71,7 @@
 </template>
 <script setup>
 const route = useRoute()
-const slug = ref(Array.isArray(route.params.slug) ? route.params.slug : [route.params.slug]);
+//const slug = ref(Array.isArray(route.params.slug) ? route.params.slug : [route.params.slug]);
 
 const props = defineProps({
   isBackgroundVisible: {
@@ -92,20 +87,16 @@ const props = defineProps({
 const { data: menuItems } = useMainMenuStories();
 const { data: menuStories, refresh } = await useMenuStories()
 
-// Watch the route path. If it starts with /drustva, 
-// ensure we have the latest data.
 watch(() => route.path, (newPath) => {
   if (newPath.startsWith('/drustva')) {
     refresh()
   }
 }, { immediate: true })
 
-// Use the data directly in your computed subMenu
 const subMenu = computed(() => {
   const stories = menuStories.value
   if (!stories || !Array.isArray(stories)) return [];
 
-  // Use the first part of the slug to filter (e.g., 'pgdkuzma')
   const currentSlugPart = route.params.slug?.[0] || route.params.slug;
   if (!currentSlugPart) return [];
 
@@ -121,7 +112,13 @@ const current = computed(() =>
 )
 
 const isDrawerOpen = ref(false);
-const toggleDrawer = () => isDrawerOpen.value = !isDrawerOpen.value;
+const toggleDrawer = () => {
+  isDrawerOpen.value = !isDrawerOpen.value;
+  if (isDrawerOpen.value) 
+    document.body.classList.add('overflow-hidden')
+  else 
+    document.body.classList.remove('overflow-hidden')
+}
 
 </script>
 <style lang="scss" scoped>

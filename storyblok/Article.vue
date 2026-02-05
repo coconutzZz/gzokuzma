@@ -24,7 +24,7 @@
 
       <aside v-if="tagList.length > 0" class="col-span-12 lg:col-span-3">
         <div class="flex flex-wrap gap-2">
-          <NuxtLink :to="`/novice?with_tag=${tag}`" v-for="tag in tagList" class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">#{{ tag }}</NuxtLink>
+          <NuxtLink :to="`/novice?with_tag=${tag}`" v-for="tag in tagList" class="bg-blue-100 text-blue-800 hover:bg-blue-200 text-sm px-3 py-1 rounded-full">#{{ tag }}</NuxtLink>
         </div>
       </aside>
     </div>

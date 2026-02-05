@@ -1,9 +1,9 @@
 <template>
   <div class="min-h-screen flex flex-col leading-normal tracking-normal gradient2 overflow-hidden">
-    <Header :is-background-visible="true" :is-fixed="isFixed" :sub-menu-items="menuStories">
-      <div class="container max-w-2xl mx-auto hidden lg:block">
+    <Header :is-background-visible="true" :is-fixed="isFixed">
+      <div class="container max-w-2xl mx-auto hidden md:block">
         <div class="sm:flex flex-row justify-center text-white font-bold text-2xl lg:text-4xl uppercase">
-          <AssociationsMenu :show-images="false" />
+          <DepartmentLinksShort />
         </div>
       </div>
     </Header>
@@ -31,7 +31,4 @@ const handleScroll = () => {
 
   lastScrollY = currentY;
 };*/
-
-const { data: menuStories } = useMenuStories()
-
 </script>
