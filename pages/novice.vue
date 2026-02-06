@@ -3,6 +3,7 @@
 
   <span :to="`/novice?with_tag=${tag.name}`" v-for="tag in tags" :key="tag.name"
     @click="toggleTag(tag.name)"
+    class="mx-1 mt-4"
     :class="[
     'inline-flex items-center gap-1.5 cursor-pointer text-sm px-3 py-1 rounded-full transition-all duration-200',
     selectedTags.has(tag.name) 

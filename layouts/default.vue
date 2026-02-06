@@ -23,16 +23,18 @@
     </div>
 
     <section class="bg-white border-b py-2 flex-grow">
-      <div class="container px-5 md:max-w-screen-xl mx-auto">
+      <div class="container sm:px-5 md:max-w-screen-xl mx-auto">
         <slot />
       </div>
     </section>
 
-    <FooterStats v-if="showFooterStats" />
+    <Stats v-if="showFooterStats" :title="'Zveza v številkah'" :stats="stats" />
     <Footer />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import type { Stat } from '~/types/stats'
+
 const route = useRoute();
 const showHero = computed(() => route.meta.hero === 'associations')
 const showFooterStats = computed(() => route.meta.footerStats)
@@ -60,6 +62,25 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
 });
+
+const stats: Stat[] = [
+  {
+    text: 'let delovanja',
+    count: '25+'
+  },
+  {
+    text: 'Prostovoljnih društev',
+    count: 5
+  },
+  {
+    text: 'Članov in članic',
+    count: '340+'
+  },
+  {
+    text: 'Operativnih gasilcev',
+    count: '100+'
+  }
+]
 
 </script>
 <style>

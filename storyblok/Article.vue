@@ -2,9 +2,11 @@
   <article class="article-detail mx-auto p-0  bg-white rounded-2xl">
     <SectionTitle title-tag="h1">{{ blok.title }}</SectionTitle>
     
-    <Breadcrumbs />
-    <div class="flex items-center space-x-4 mb-6 text-sm text-gray-500">
-      <span>Avtor: {{ blok.author }} | {{ formatPostedOn(postedOn) }}</span>
+    <div class="px-5">
+      <Breadcrumbs />
+      <div class="flex items-center mb-2 sm:mb-6 text-sm text-gray-500">
+        <span>Avtor: {{ blok.author }} | {{ formatPostedOn(postedOn) }}</span>
+      </div>
     </div>
 
     <div class="grid grid-cols-12 gap-4">
@@ -13,13 +15,14 @@
           v-if="hasFeaturedImage"
           :src="blok.image.filename"
           alt="Featured"
-          class="w-full h-64 object-cover rounded-xl mb-6"
-        />       
-        <!-- <div class="prose max-w-none prose-lg text-gray-800" v-html="resolvedRichText"></div> -->
-         <StoryblokRichText :doc="props.blok.content" :resolvers="resolvers" />
-         <template v-if="props.blok?.gallery.length > 0 && isGalleryLoaded">
-          <Gallery v-for="gallery in galleryList" :key="gallery.title" :images="gallery.images" />
-        </template>
+          class="w-full h-64 object-cover sm:rounded-xl mb-2 sm:mb-6"
+        />
+        <div id="article-content" class="px-5">
+          <StoryblokRichText :doc="props.blok.content" :resolvers="resolvers" />
+          <template v-if="props.blok?.gallery.length > 0 && isGalleryLoaded">
+            <Gallery v-for="gallery in galleryList" :key="gallery.title" :images="gallery.images" />
+         </template>
+        </div>
       </main>
 
       <aside v-if="tagList.length > 0" class="col-span-12 lg:col-span-3">
@@ -35,7 +38,6 @@
 <script setup>
 import { DateTime } from "luxon";
 import SectionTitle from '~/components/SectionTitle.vue';
-//import Breadcrumbs from "~/components/Breadcrumbs.vue";
 import { StoryblokRichText } from "@storyblok/vue";
 import FacebookPost from "./FacebookPost.vue";
 import Gallery from "~/components/Gallery.vue";
@@ -46,8 +48,6 @@ const isGalleryLoaded = ref(false);
 
 const props = defineProps({ blok: Object, postedOn: String, tagList: Array });
  
-//const resolvedRichText = computed(() => renderRichText(props.blok.content));
-
 const hasFeaturedImage = computed(() => props.blok?.image && props.blok.image.filename);
 
 const galleryList = ref([]);
@@ -88,6 +88,11 @@ const resolvers = {
 };
 </script>
 <style lang="scss">
+@media (max-width: 375px) {
+  #article-content {
+    padding: 0 5px;
+  }
+}
 .article-detail {
   ol {
     color: #000;

@@ -75,7 +75,7 @@
       </div>
     </div>
     
-    <div class="mt-4 px-6 sm:px-2 md:col-span-2">
+    <div class="my-4 px-6 sm:px-2 md:col-span-2">
       <h2 class="text-2xl font-semibold">Vodstvo</h2>  
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4">
         <PersonCard v-for="p in sortedFiremen" :key="p.id" :person="p" />

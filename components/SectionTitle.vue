@@ -1,5 +1,5 @@
 <template>
-  <component :is="titleTag" class="w-full my-2 text-3xl sm:text-4xl md:text-5xl font-bold leading-tight"
+  <component :is="titleTag" class="w-full my-2 text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight"
     :class="{ 'text-center': textCenter }">
     <slot />
   </component>
