@@ -1,15 +1,17 @@
 <template>
   <div>
-    <div class="shadow-lg rounded-b-lg flex flex-row  md:flex-col">
-      <div class="w-1/2 sm:w-1/3 md:w-full relative overflow-hidden rounded-l-lg md:rounded-l-none md:rounded-t-lg group">
-          <div v-if="isLoading" class="w-full h-40 object-cover md:rounded-t-lg animate-pulse bg-gray-300"></div>
-          <NuxtLink v-else-if="article.content.image && article.content.image.filename" :to="`/novice/${article.slug}`">
+    <div class="shadow-lg rounded-b-lg flex flex-row  sm:flex-col">
+      <div v-if="isLoading || hasImage"
+        :class="{ 'w-1/2': isLoading || hasImage }"  
+        class="sm:w-full relative overflow-hidden rounded-l-lg sm:rounded-l-none sm:rounded-t-lg group">
+          <div v-if="isLoading" class="w-full h-40 object-cover sm:rounded-t-lg animate-pulse bg-gray-300"></div>
+          <NuxtLink v-else-if="hasImage" :to="`/novice/${article.slug}`">
               <img :src="article.content.image.filename" alt="News" 
               class="w-full h-40 object-cover transform transition-transform duration-300 ease-out group-hover:scale-110">
           </NuxtLink>
       </div>
-      <div class="w-1/2 sm:w-2/3 md:w-full">
-        <div class="max-h-[160px] px-2 py-4 sm:px-4 md:py-2 lg:px-6 lg:py-4 mb-auto">
+      <div :class="isLoading || hasImage ? 'w-1/2' : 'w-full'" class="sm:w-full">
+        <div :class="{ 'px-4' : !hasImage }" class="max-h-[160px] px-2 py-4 sm:py-2 lg:px-6 lg:py-4 mb-auto">
             <template v-if="isLoading">
               <div class="w-[50%] h-5 animate-pulse bg-gray-300"></div>
             </template>
@@ -23,7 +25,7 @@
                 </p>
             </template>
         </div>
-        <div class="hidden px-6 py-3 md:flex flex-row items-center justify-between bg-gray-100 rounded-b-lg">
+        <div class="hidden px-6 py-3 sm:flex flex-row items-center justify-between bg-gray-100 rounded-b-lg">
             <span v-if="!isLoading" href="#" class="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
                 {{ formatPostedOn(article.created_at) }}
             </span>
@@ -61,4 +63,8 @@ const formatPostedOn = (date) => {
 
   return diff < 30 ? `${Math.round(diff)} minutes ago` : then.setLocale("sl-si").toLocaleString(DateTime.DATE_MED);
 }
+
+const hasImage = computed(() => {
+  return props.article && props.article.content.image && props.article.content.image.filename;
+});
 </script>
