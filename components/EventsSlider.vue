@@ -28,7 +28,7 @@
     </div>
   </div>
   <swiper-container ref="swiperRef" :init="false" space-between="0" free-mode="true">
-    <swiper-slide class="pt-5 pb-6" v-for="(event, index) in events" :class="index === 0 ? 'ml-5' : ''">
+    <swiper-slide class="pt-5 md:pb-6" v-for="(event, index) in events" :class="index === 0 ? 'ml-5' : ''">
       <div class="flex items-center">
           <div :class="index === 0 ? 'bg-accent ring-accent' : 'bg-neutral ring-neutral'" class="mx-5 z-10 flex items-center justify-center w-6 h-6 rounded-full ring-8 shrink-0">
               <svg class="text-primary-500 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    @apply text-base text-gray-700;
+  }
   h1 {
     @apply text-4xl font-bold mb-4 text-primary-500;
   }
@@ -15,4 +18,10 @@
   p {
     @apply text-base text-gray-700 leading-relaxed mb-4;
   }
+  button {
+    @apply text-base text-white;
+  }
 }
+
+
+  

@@ -1,9 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: [['@storyblok/nuxt', { accessToken: 'DPD4LZv5qY7kAXi13qj3HQtt' }],  '@nuxtjs/tailwindcss'],
+  modules: [
+    ['@storyblok/nuxt', { accessToken: process.env.STORYBLOK_ACCESS_TOKEN }],  
+    '@nuxtjs/tailwindcss',
+    '@nuxt/image'
+  ],
   compatibilityDate: '2025-04-15',
-  css: ['@/assets/css/swiper.css','@/assets/css/main.css'],
+  css: [
+    '@/assets/css/swiper.css',
+    '@/assets/css/main.css'
+  ],
   vue: {
     compilerOptions: {
       isCustomElement: (tag) => ['swiper-container', 'swiper-slide'].includes(tag)
@@ -18,5 +25,11 @@ export default defineNuxtConfig({
     routes: [
       '/',
     ]
+  },
+  runtimeConfig: {
+    public: {
+      supabaseUrl: process.env.SUPABASE_URL,
+      supabasePublishableKey: process.env.SUPABASE_PUBLISHABLE_KEY
+    }
   }
 })

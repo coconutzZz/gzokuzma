@@ -1,5 +1,5 @@
 <template>
-  <nav class="text-sm my-5 text-gray-600 space-x-2">
+  <nav class="text-sm my-4 text-gray-600 space-x-2">
     <NuxtLink to="/" class="hover:underline">Domov</NuxtLink>
     <span>/</span>
     <template v-for="(crumb, index) in breadcrumbs" :key="index">
