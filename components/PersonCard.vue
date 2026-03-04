@@ -1,6 +1,6 @@
 <template>
  <div
-  class="flex w-full max-w-md items-center rounded-lg bg-slate-50 p-4 shadow-sm hover:shadow-md transition-shadow"
+  class="flex w-full items-center rounded-lg bg-slate-50 p-4 shadow-sm hover:shadow-md transition-shadow"
 >
   <!-- Avatar -->
   <div class="flex-shrink-0 mr-4">
