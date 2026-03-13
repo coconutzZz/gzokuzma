@@ -10,7 +10,7 @@
         <div class="w-[calc(100%-2rem)] md:w-[calc(50%-2.5rem)] px-2 md:px-10">
             <div class="font-bold text-xl md:text-3xl text-primary-500 mb-2">{{ blok.title }}</div>
             <div v-html="resolvedRichText" />
-            <Gallery :images="props.blok.images" />
+            <Gallery v-if="props.blok.images && props.blok.images.length > 0" :images="props.blok.images" />
         </div>
     </div>
 </template>
