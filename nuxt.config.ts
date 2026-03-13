@@ -54,7 +54,9 @@ export default defineNuxtConfig({
         // Safe conversion to array
       const allLinks = Object.values(data.links ?? {})
 
-      const departments = allLinks.filter(link => link.slug?.startsWith('drustva/'))
+      //const departments = allLinks.filter(link => link.slug?.startsWith('drustva/'))
+      const departments = allLinks.filter(link =>
+       ['drustva/', 'zveza'].some(prefix => link.slug?.startsWith(prefix)));
 
        // Initialize prerender routes array
       nitroConfig.prerender = nitroConfig.prerender || {}
