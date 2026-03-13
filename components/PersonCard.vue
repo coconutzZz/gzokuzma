@@ -4,8 +4,8 @@
 >
   <!-- Avatar -->
   <div class="flex-shrink-0 mr-4">
-    <img
-      src="/assets/img/person.svg"
+    <NuxtImg
+      src="/img/person.svg"
       alt="Person Avatar"
       class="h-16 w-16 rounded-full object-cover object-center"
     />
