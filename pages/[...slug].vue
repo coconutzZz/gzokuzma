@@ -1,10 +1,12 @@
 <template>
-   <StoryblokComponent
+  <StoryblokComponent
+    v-if="!isLoading"
     :blok="story?.data?.story?.content ?? null"
     :posted-on="story?.data?.story?.created_at ?? ''"
     :tag-list="story?.data?.story?.tag_list ?? []"
     :is-loading="isLoading"
   />
+  <LoadingArticle v-else />
 </template>
 <script setup lang="ts">
 const route = useRoute()
