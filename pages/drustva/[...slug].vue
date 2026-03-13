@@ -1,12 +1,12 @@
 <template> 
+  <AssociationPage v-if="isLoading" :is-loading="isLoading"/>
   <StoryblokComponent
-    v-if="!isLoading"
+    v-else
     :blok="story?.data?.story?.content ?? null"
     :posted-on="story?.data?.story?.created_at ?? ''"
     :tag-list="story?.data?.story?.tag_list ?? []"
     :is-loading="isLoading"
   />
-  <AssociationPage v-else :is-loading="isLoading"/>
 </template>
 <script setup lang="ts">
 const route = useRoute();
@@ -22,7 +22,8 @@ const normalizeStoryblokSlug = (slugArray: string[]) => {
 
 let sbSlug = normalizeStoryblokSlug(slug);
 
-const { data: story, status, error } = await useAsyncData(
+
+const { data: story, error } = await useAsyncData(
   `story-${sbSlug}`,
   () =>
     storyblokApi.get(`cdn/stories/${sbSlug}`, {
@@ -32,7 +33,12 @@ const { data: story, status, error } = await useAsyncData(
 )
 
 watchEffect(() => {
-  isLoading.value = !story.value && !error.value
+  if (story.value || error.value) {
+    // Delay hiding loader by 500ms
+    setTimeout(() => {
+      isLoading.value = false
+    }, 1500)
+  }
 })
 
 if (error.value) {

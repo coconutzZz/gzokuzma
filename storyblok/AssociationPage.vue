@@ -7,7 +7,7 @@
     'max-w-2xl mx-auto': !hasFeaturedContent
     }">
     <div v-if="hasFeaturedContent" class="mt-4 sm:mt-8">
-      <div v-if="isLoading" class="w-full h-96 object-cover sm:rounded-xl animate-pulse bg-gray-300"></div>
+      <div v-if="isLoading" class="w-full h-72 object-cover sm:rounded-xl animate-pulse bg-gray-300"></div>
       <img v-else-if="blok?.featured_image?.filename" :src="blok?.featured_image?.filename" 
         class="sm:rounded-xl"/>
       <!-- <p v-if="blok.featured_text" class="mt-4">
