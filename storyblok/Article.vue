@@ -41,6 +41,7 @@ import SectionTitle from '~/components/SectionTitle.vue';
 import { StoryblokRichText } from "@storyblok/vue";
 import FacebookPost from "./FacebookPost.vue";
 import Gallery from "~/components/Gallery.vue";
+const version = import.meta.env.DEV ? 'draft' : 'published';
 
 const storyblokApi = useStoryblokApi()
 
@@ -65,6 +66,7 @@ onMounted(async () => {
   if (props.blok?.gallery.length > 0) {
 
     const { data } = await storyblokApi.get("cdn/stories", {
+      version,
       by_uuids: props.blok?.gallery.join(",")
     });
 

@@ -1,5 +1,5 @@
 <template>
-  <StoryblokComponent :blok="association" :department="department" />    
+  <Association :department="department" :is-loading="isLoading" />    
 
   <div class="grid grid-cols-1 md:text-sm lg:text-base"
   :class="{ 
@@ -7,7 +7,8 @@
     'max-w-2xl mx-auto': !hasFeaturedContent
     }">
     <div v-if="hasFeaturedContent" class="mt-4 sm:mt-8">
-      <img v-if="blok.featured_image.filename" :src="blok.featured_image.filename" 
+      <div v-if="isLoading" class="w-full h-72 object-cover sm:rounded-xl animate-pulse bg-gray-300"></div>
+      <img v-else-if="blok?.featured_image?.filename" :src="blok?.featured_image?.filename" 
         class="sm:rounded-xl"/>
       <!-- <p v-if="blok.featured_text" class="mt-4">
         {{ blok.featured_text }}
@@ -15,7 +16,7 @@
     </div>
     <div class="px-2">
       <div class="mt-4 md:my-6 md:mx-2 sm:flex">
-        <div class="px-4 sm:px-0 sm:w-1/2">
+        <div v-if="!isLoading" class="px-4 sm:px-0 sm:w-1/2">
           <h2 class="text-2xl md:text-xl font-semibold">Kontaktni podatki</h2>        
           <strong>Naslov:</strong><br>
           <address>
@@ -28,9 +29,15 @@
             {{ department?.email }}
           </a>
         </div>
+        <div v-else class="px-4 sm:px-0 sm:w-1/2">
+          <div class="w-full h-4 mt-4 animate-pulse bg-gray-300"></div>
+          <div class="w-3/4 h-4 mt-4 animate-pulse bg-gray-300"></div>
+          <div class="w-full h-4 mt-4 animate-pulse bg-gray-300"></div>
+          <div class="w-1/2 h-4 mt-4 animate-pulse bg-gray-300"></div>
+        </div>
         <div class="sm:w-1/2 md:col-span-2">
           <hr class="my-5 sm:hidden">          
-          <div :class="{ 'flex flex-wrap gap-y-4' : hasFeaturedContent }">
+          <div v-if="!isLoading" :class="{ 'flex flex-wrap gap-y-4' : hasFeaturedContent }">
             <div class="px-4">
               Leto ustanovitve: 
               <strong>{{ department?.year_founded }}</strong>
@@ -46,6 +53,11 @@
             <div class="px-4"><strong>TRR:</strong>
               {{ department?.iban }}
             </div>
+          </div>
+          <div v-else class="flex flex-wrap gap-y-4 ml-2 mt-2">
+            <div class="w-full h-4 mt-2 animate-pulse bg-gray-300"></div>
+            <div class="w-3/4 h-4 animate-pulse bg-gray-300"></div>
+            <div class="w-full h-4  animate-pulse bg-gray-300"></div>
           </div>
   
           <hr class="my-5 sm:hidden">
@@ -65,7 +77,7 @@
         </a>
 
         <Button
-          v-if="blok.qr_code_bank_transfer && blok.qr_code_bank_transfer.filename"
+          v-if="blok?.qr_code_bank_transfer && blok?.qr_code_bank_transfer.filename"
           class="flex"
           @click="open = true"
         >
@@ -75,7 +87,7 @@
       </div>
     </div>
     
-    <div class="my-4 px-6 sm:px-2 md:col-span-2">
+    <div v-if="!isLoading" class="my-4 px-6 sm:px-2 md:col-span-2">
       <h2 class="text-2xl font-semibold">Vodstvo</h2>  
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4">
         <PersonCard v-for="p in sortedFiremen" :key="p.id" :person="p" />
@@ -91,7 +103,7 @@
       </ul>
     </div>
   </div>
-
+<!-- 
   <transition
     enter-active-class="transition-transform transition-opacity duration-300"
     enter-from-class="translate-y-16 opacity-0"
@@ -101,7 +113,7 @@
     leave-to-class="translate-y-16 opacity-0"
   >
     <Button
-      v-if="blok.qr_code_bank_transfer && blok.qr_code_bank_transfer.filename && showButton"
+      v-if="blok?.qr_code_bank_transfer && blok?.qr_code_bank_transfer.filename && showButton"
       class="fixed bottom-4 right-4 md:hidden flex"
       @click="open = true"
     >
@@ -112,12 +124,12 @@
 
  <BaseModal v-model="open">
   <div class="flex flex-col justify-center h-full -mt-10">
-    <div class="sm:mt-20 text-center" v-if="blok.qr_code_bank_transfer && blok.qr_code_bank_transfer.filename">
+    <div class="sm:mt-20 text-center" v-if="blok?.qr_code_bank_transfer && blok?.qr_code_bank_transfer.filename">
       <p>Za nakazilo prostovoljnih prispevkov uporabite QR kodo:</p>
       <img :src="blok.qr_code_bank_transfer.filename" class="h-50 mx-auto"/>
     </div>
   </div>
-</BaseModal>
+</BaseModal> -->
 </template> 
 <script setup lang="ts">
 import PersonCard from '~/components/PersonCard.vue';
@@ -131,14 +143,15 @@ const showButton = ref(false);
 
 let lastScroll = 0;
 
-const props = defineProps({ blok: {
-  type: Object,
-  required: true
+const props = defineProps(
+{ 
+  blok: Object, 
+  postedOn: String, 
+  tagList: Array, 
+  isLoading: Boolean 
+});
 
-}, postedOn: String, tagList: Array })
-
-const association = computed(() => props.blok.association[0].content);
-const hasFeaturedContent = computed(() => props.blok.featured_image.filename || props.blok.featured_text)
+const hasFeaturedContent = computed(() => props.isLoading || (props.blok?.featured_image?.filename || props.blok?.featured_text));
 
 const deptSlug = route.params.slug[0];
 let { data: department } = await useFetch<Department>(
@@ -153,9 +166,9 @@ let { data: department } = await useFetch<Department>(
 
 if (!department.value) {
   const { data: res } = await useFetch<Department>(
-    `/api/departments/${association.value.id}`,
+    `/api/departments/${deptSlug}`,
     { 
-      key: `dept-${association.value.id}`,
+      key: `dept-${deptSlug}`,
       getCachedData(key) {
         return useNuxtApp().payload.data[key] || useNuxtApp().static.data[key]
       }

@@ -5,8 +5,9 @@
     :is-loading="isLoading" />
 </template>
 <script setup>
+const version = import.meta.env.DEV ? 'draft' : 'published'
 const isLoading = ref(true);
-const storyblokApi = useStoryblokApi()
+const storyblokApi = useStoryblokApi();
 const props = defineProps({
   count: {
     type: Number,
@@ -38,7 +39,7 @@ const loadArticles = async () => {
   let filter_query = {};
 
   let req = {
-    version: 'draft',
+    version,
     starts_with: 'novice',
     sort_by: "created_at:desc",
     per_page: props.count,

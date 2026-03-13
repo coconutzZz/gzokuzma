@@ -22,7 +22,7 @@
  
 <script setup>
 import NewsCards from '~/components/NewsCards.vue'
-
+const version = import.meta.env.DEV ? 'draft' : 'published'
 const route = useRoute();
 const storyblokApi = useStoryblokApi()
 
@@ -38,7 +38,9 @@ onBeforeMount(async () => {
 });
 
 const loadTags = async () => {
-  const { data } = await storyblokApi.get('cdn/tags')
+  const { data } = await storyblokApi.get('cdn/tags', {
+    version    
+  });
   tags.value = data.tags;
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div v-if="!isLoading" class="relative">
     <div class="absolute select-none
     text-gray-100
       -z-0 pointer-events-none
@@ -23,24 +23,26 @@
       placeholder="/img/pgddefault.png"
     />
    
-    <h1 class="text-left pl-2">
+    <h1 v-if="!isLoading" class="text-left pl-2">
       <span class="text-xs sm:text-lg">{{ department?.name_prefix }}</span><br/>
       <span class="text-md sm:text-6xl md:text-7xl uppercase">{{ cleanName }}</span>
+    </h1>
+    <h1 v-else class="text-left pl-2">
+      <span class="text-md sm:text-6xl md:text-7xl uppercase">
+        <div class="w-24 h-8 mt-2 bg-gray-300 animate-pulse mb-2"></div>
+        <div class="w-64 h-12 bg-gray-300 animate-pulse"></div>
+      </span>
     </h1>
   </div>
 </template>
 <script setup lang="ts">
 import type { Department } from '~/server/types/supabase'
 const props = defineProps({ 
-  blok: {
-    type: Object,
-    required: true
-  },
-  postedOn: String, 
-  tagList: Array,
   department: {
-    type: Object as PropType<Department>,
-  }
+    type: Object as PropType<Department | null>,
+    default: null
+  },
+  isLoading: Boolean
 })
 
 const cleanName = computed(() => props.department?.name.slice(3))

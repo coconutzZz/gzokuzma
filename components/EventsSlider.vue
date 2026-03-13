@@ -60,6 +60,7 @@
 </template>
 <script setup>
 import { DateTime } from "luxon";
+const version = import.meta.env.DEV ? 'draft' : 'published'
 
 const swiperRef = ref(null);
 const events = ref([])
@@ -75,7 +76,7 @@ onBeforeMount(async () => {
   const day = String(today.getDate()).padStart(2, '0');
 
   const { data } = await storyblokApi.get("cdn/stories", {
-    version: "draft",
+    version,
     starts_with: `dogodki/${year}`,
     sort_by: "created_at:asc",
     filter_query: {

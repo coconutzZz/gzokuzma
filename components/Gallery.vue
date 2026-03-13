@@ -5,19 +5,20 @@
         <div class="embla__slide flex items-center justify-center" v-for="(image, index) in images" :key="image.filename">
           <div class="embla__slide__wrapper select-none ">
             <a :href="image.filename" class="glightbox">
-              <img :src="image.filename" class="rounded-xl"/>
+              <img :src="image.filename" class="rounded-xl" :alt="image.alt || ''" />
+              <div class="embla_slide__title" v-if="image.title">{{ image.title }}</div>
             </a>
           </div>
         </div>          
       </div>
     </div>
-    <div class="embla-thumbs">
+    <div class="embla-thumbs" v-if="images.length > 1">
       <div class="embla-thumbs__viewport" ref="emblaThumbsRef">
         <div class="embla-thumbs__container flex flex-row">
           <div v-for="(image, index) in images" :key="image.filename" class="embla-thumbs__slide"
             :class="{'embla-thumbs__slide--selected': index === selectedIndex }">
             <button type="button" @click="onThumbClick(index)">
-              <img class="rounded-lg" :src="image.filename" />
+              <img class="rounded-lg" :src="image.filename" :alt="image.alt || ''" />
             </button>
           </div>
         </div>
@@ -32,23 +33,23 @@ import emblaCarouselVue from 'embla-carousel-vue'
 const { $glightbox } = useNuxtApp()
 const selectedIndex = ref(0);
 
+const props = defineProps({
+  images: {
+    type: Array,
+    default: []
+  }
+});
+
 const [emblaRef /* used in template */, emblaApi] = emblaCarouselVue({
-    loop: true,
+    loop: props.images.length > 1,
     containScroll: 'keepSnaps',
     dragFree: false
   },[])
 
 const [emblaThumbsRef /* used in template */, emblaApi2] = emblaCarouselVue({
   containScroll: 'keepSnaps',
-  dragFree: true
+  dragFree: props.images.length > 1
 },[])
-
-defineProps({
-  images: {
-    type: Array,
-    default: []
-  }
-});
 
 const onThumbClick = (index) => {
   if (emblaApi.value) {
@@ -113,6 +114,9 @@ onMounted(async () => {
   flex: 0 0 22%;
   min-width: 0;
   padding-left: var(--thumbs-slide-spacing);
+}
+.embla_slide__title {
+  font-size: 1.0em;
 }
 @media (min-width: 576px) {
   .embla-thumbs__slide {

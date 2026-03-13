@@ -3,7 +3,7 @@
     <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2 max-w-screen-2xl md:max-w-screen-xl">
       <div class="pl-4 flex items-center">
         <NuxtLink to="/" class="text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl">
-          <img src="/assets/img/gzo-znak.png" class="h-24"/>
+          <NuxtImg src="/img/gzo-znak.png" class="h-24" />
         </NuxtLink>
       </div>
       <div class="block lg:hidden pr-4">
