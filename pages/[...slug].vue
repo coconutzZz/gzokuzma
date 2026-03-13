@@ -1,12 +1,16 @@
 <template>
-  <StoryblokComponent
-    v-if="!isLoading"
-    :blok="story?.data?.story?.content ?? null"
-    :posted-on="story?.data?.story?.created_at ?? ''"
-    :tag-list="story?.data?.story?.tag_list ?? []"
-    :is-loading="isLoading"
-  />
-  <LoadingArticle v-else />
+  <transition name="fade">
+    <LoadingArticle v-show="isLoading" />
+  </transition>
+
+  <transition name="fade">
+    <StoryblokComponent
+      v-show="!isLoading"
+      :blok="story?.data?.story?.content"
+      :posted-on="story?.data?.story?.created_at"
+      :tag-list="story?.data?.story?.tag_list"
+    />
+  </transition>
 </template>
 <script setup lang="ts">
 const route = useRoute()
@@ -37,3 +41,11 @@ if (error.value) {
 
 </script>
  
+<style>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+</style>
