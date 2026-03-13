@@ -5,7 +5,7 @@
         <div class="embla__slide flex items-center justify-center" v-for="(image, index) in images" :key="image.filename">
           <div class="embla__slide__wrapper select-none ">
             <a :href="image.filename" class="glightbox">
-              <NuxtImg :src="image.filename" class="rounded-xl" :alt="image.alt || ''" />
+              <img :src="image.filename" class="rounded-xl" :alt="image.alt || ''" />
               <div class="embla_slide__title" v-if="image.title">{{ image.title }}</div>
             </a>
           </div>
@@ -18,7 +18,7 @@
           <div v-for="(image, index) in images" :key="image.filename" class="embla-thumbs__slide"
             :class="{'embla-thumbs__slide--selected': index === selectedIndex }">
             <button type="button" @click="onThumbClick(index)">
-              <NuxtImg class="rounded-lg" :src="image.filename" :alt="image.alt || ''" />
+              <img class="rounded-lg" :src="image.filename" :alt="image.alt || ''" />
             </button>
           </div>
         </div>
