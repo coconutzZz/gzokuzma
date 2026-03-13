@@ -3,6 +3,17 @@ import StoryblokClient from 'storyblok-js-client'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  app: {
+    head: {
+      title: 'Gasilska Zveza Občine Kuzma',
+      meta: [
+        { name: 'description', content: 'Gasilska zveza občine Kuzma povezuje lokalne gasilske enote, spodbuja varnost, preventivo in sodelovanje v skupnosti ter zagotavlja hitro in učinkovito pomoč v sili.' }
+      ],
+      htmlAttrs: {
+        lang: 'sl'
+      }
+    }
+  },
   modules: [
     ['@storyblok/nuxt', { accessToken: process.env.STORYBLOK_ACCESS_TOKEN }],  
     '@nuxtjs/tailwindcss',
