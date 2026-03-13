@@ -151,7 +151,6 @@ const props = defineProps(
   isLoading: Boolean 
 });
 
-const association = computed(() => props.blok?.association[0].content);
 const hasFeaturedContent = computed(() => props.isLoading || (props.blok?.featured_image?.filename || props.blok?.featured_text));
 
 const deptSlug = route.params.slug[0];
@@ -167,9 +166,9 @@ let { data: department } = await useFetch<Department>(
 
 if (!department.value) {
   const { data: res } = await useFetch<Department>(
-    `/api/departments/${association.value.id}`,
+    `/api/departments/${deptSlug}`,
     { 
-      key: `dept-${association.value.id}`,
+      key: `dept-${deptSlug}`,
       getCachedData(key) {
         return useNuxtApp().payload.data[key] || useNuxtApp().static.data[key]
       }
