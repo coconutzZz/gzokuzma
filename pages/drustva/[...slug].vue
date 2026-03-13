@@ -1,16 +1,10 @@
 <template>
-  <transition name="fade">
-    <AssociationPage v-show="isLoading" :is-loading="isLoading" />
-  </transition>
-
-  <transition name="fade">
-    <StoryblokComponent
-      v-show="!isLoading"
-      :blok="story?.data?.story?.content"
-      :posted-on="story?.data?.story?.created_at"
-      :tag-list="story?.data?.story?.tag_list"
-    />
-  </transition>
+  <StoryblokComponent
+    v-show="!isLoading"
+    :blok="story?.data?.story?.content"
+    :posted-on="story?.data?.story?.created_at"
+    :tag-list="story?.data?.story?.tag_list"
+  />
 </template>
 <script setup lang="ts">
 const route = useRoute();
@@ -31,8 +25,7 @@ const { data: story, error } = await useAsyncData(
   `story-${sbSlug}`,
   () =>
     storyblokApi.get(`cdn/stories/${sbSlug}`, {
-      version,
-      resolve_relations: 'AssociationPage.association'
+      version
     })
 )
 
