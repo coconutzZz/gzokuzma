@@ -1,15 +1,15 @@
 <template>
   <div class="custom-nav">
-    <div class="custom-btn-prev">
+    <button class="custom-btn-prev" aria-label="Prejšnji dogodek">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M16 4L8 12L16 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-    </div>      
-    <div class="custom-btn-next">
+    </button>      
+    <button class="custom-btn-next" aria-label="Naslednji dogodek">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M8 4L16 12L8 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-    </div>      
+    </button>      
   </div>
   <div v-if="isLoading" class="flex items-center w-full">
     <div class="w-full pt-5 pb-6 ml-5">

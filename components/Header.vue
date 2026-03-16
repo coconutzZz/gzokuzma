@@ -1,9 +1,9 @@
 <template>
-  <nav id="header" :class="{ 'fixed': isFixed }, isBackgroundVisible ? 'bg-primary-500' : 'bg-none'" class="w-full z-30 top-0 transition-colors duration-700">
+  <nav role="navigation" id="header" :class="{ 'fixed': isFixed }, isBackgroundVisible ? 'bg-primary-500' : 'bg-none'" class="w-full z-30 top-0 transition-colors duration-700">
     <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2 max-w-screen-2xl md:max-w-screen-xl">
       <div class="pl-4 flex items-center">
-        <NuxtLink to="/" class="text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl">
-          <NuxtImg src="/img/gzo-znak.png" class="h-24" />
+        <NuxtLink to="/" class="text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" aria-label="Domov">
+          <NuxtImg src="/img/gzo-znak.png" class="h-24" alt="Logotip GZO Kuzma"/>
         </NuxtLink>
       </div>
       <div class="block lg:hidden pr-4">

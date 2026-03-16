@@ -21,6 +21,7 @@
     <NuxtImg :src="`/img/${department?.slug}.png`" 
       :class="department?.is_main_unit ? 'h-28' : 'h-20'" 
       placeholder="/img/pgddefault.png"
+      :alt="`Logotip ${department?.name}`"
     />
    
     <h1 v-if="!isLoading" class="text-left pl-2">
