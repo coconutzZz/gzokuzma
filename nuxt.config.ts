@@ -19,6 +19,12 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxt/image'
   ],
+  image: {
+    provider: 'storyblok',
+    storyblok: {
+      baseURL: 'https://a.storyblok.com'
+    }
+  },
   compatibilityDate: '2025-04-15',
   css: [
     '@/assets/css/swiper.css',

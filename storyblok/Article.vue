@@ -11,9 +11,9 @@
 
     <div class="grid grid-cols-12 gap-4">
       <main class="col-span-12" :class="tagList.length > 0 ? 'lg:col-span-9' : 'lg:col-span-8 lg:col-start-3'">
-        <img
+        <NuxtImg
           v-if="hasFeaturedImage"
-          :src="blok.image.filename + '/m/'"
+          :src="blok.image.filename "
           :alt="blok.title"
           class="w-full h-64 object-cover sm:rounded-xl mb-2 sm:mb-6"
         />
