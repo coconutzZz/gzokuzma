@@ -8,8 +8,10 @@
     }">
     <div v-if="hasFeaturedContent" class="mt-4 sm:mt-8">
       <div v-if="isLoading" class="w-full h-72 object-cover sm:rounded-xl animate-pulse bg-gray-300"></div>
-      <img v-else-if="blok?.featured_image?.filename" :src="blok?.featured_image?.filename" 
-        class="sm:rounded-xl"/>
+      <NuxtImg v-else-if="blok?.featured_image?.filename" :src="blok?.featured_image?.filename" 
+        class="sm:rounded-xl"
+        provider="storyblok"
+        format="webp" />
       <!-- <p v-if="blok.featured_text" class="mt-4">
         {{ blok.featured_text }}
       </p> -->
@@ -73,7 +75,7 @@
           class="w-14 h-14 bg-primary-500 rounded-full flex items-center justify-center mt-4 lg:mt-0
                 transition-transform duration-200 hover:scale-110 hover:bg-primary-dark mr-2"
         >
-          <img src="/assets/img/facebook.svg" alt="Facebook" class="w-6 h-6" />
+          <NuxtImg src="/assets/img/facebook.svg" alt="Facebook" class="w-6 h-6" />
         </a>
 
         <Button
@@ -81,7 +83,7 @@
           class="flex"
           @click="open = true"
         >
-          <img src="/assets/img/donate.svg" alt="" class="w-6 h-6 mr-2" />
+          <NuxtImg src="/assets/img/donate.svg" alt="" class="w-6 h-6 mr-2" />
           DONIRAJ DRUŠTVU
         </Button>
       </div>
@@ -103,7 +105,7 @@
       </ul>
     </div>
   </div>
-<!-- 
+
   <transition
     enter-active-class="transition-transform transition-opacity duration-300"
     enter-from-class="translate-y-16 opacity-0"
@@ -117,7 +119,7 @@
       class="fixed bottom-4 right-4 md:hidden flex"
       @click="open = true"
     >
-      <img src="/assets/img/donate.svg" alt="" class="w-6 h-6 mr-2" />
+      <NuxtImg src="/assets/img/donate.svg" alt="" class="w-6 h-6 mr-2" />
       DONIRAJ DRUŠTVU
     </Button>
   </transition>
@@ -126,10 +128,10 @@
   <div class="flex flex-col justify-center h-full -mt-10">
     <div class="sm:mt-20 text-center" v-if="blok?.qr_code_bank_transfer && blok?.qr_code_bank_transfer.filename">
       <p>Za nakazilo prostovoljnih prispevkov uporabite QR kodo:</p>
-      <img :src="blok.qr_code_bank_transfer.filename" class="h-50 mx-auto"/>
+      <NuxtImg :src="blok.qr_code_bank_transfer.filename" class="h-50 mx-auto" provider="storyblok" format="webp"/>
     </div>
   </div>
-</BaseModal> -->
+</BaseModal>
 </template> 
 <script setup lang="ts">
 import PersonCard from '~/components/PersonCard.vue';

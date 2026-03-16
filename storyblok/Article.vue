@@ -15,8 +15,9 @@
           v-if="hasFeaturedImage"
           :src="blok.image.filename "
           :alt="blok.title"
-          provider="storyblok"
           class="w-full h-64 object-cover sm:rounded-xl mb-2 sm:mb-6"
+          provider="storyblok"
+          format="webp"
         />
         <div id="article-content" class="px-5">
           <StoryblokRichText :doc="props.blok.content" :resolvers="resolvers" />
