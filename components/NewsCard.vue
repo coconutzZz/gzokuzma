@@ -6,7 +6,7 @@
         class="sm:w-full relative overflow-hidden rounded-l-lg sm:rounded-l-none sm:rounded-t-lg group">
           <div v-if="isLoading" class="w-full h-40 object-cover sm:rounded-t-lg animate-pulse bg-gray-300"></div>
           <NuxtLink v-else-if="hasImage" :to="`/novice/${article.slug}`">
-              <NuxtImg :src="article.content.image.filename" :alt="article.content.title"  provider="storyblok"
+              <NuxtImg :src="article.content.image.filename" :alt="article.content.title" provider="storyblok" :modifiers="{ filters: { format: 'webp', quality: 80 }}"
               class="w-full h-40 object-cover transform transition-transform duration-300 ease-out group-hover:scale-110" />
           </NuxtLink>
       </div>

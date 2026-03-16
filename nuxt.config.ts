@@ -23,17 +23,9 @@ export default defineNuxtConfig({
     providers: {
       storyblok: {
         provider: 'storyblok',
-        baseURL: 'https://a.storyblok.com',
-        defaults: {
-          modifiers: {
-            filters: {
-              format: 'webp',  // automatically convert images to WebP
-              quality: 80      // optional: set default quality
-            }
-          },
-        }
+        baseURL: 'https://a.storyblok.com'        
       }
-    }
+    },
   },
   compatibilityDate: '2025-04-15',
   css: [

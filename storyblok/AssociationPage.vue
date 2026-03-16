@@ -10,7 +10,7 @@
       <div v-if="isLoading" class="w-full h-72 object-cover sm:rounded-xl animate-pulse bg-gray-300"></div>
       <NuxtImg v-else-if="blok?.featured_image?.filename" :src="blok?.featured_image?.filename" 
         class="sm:rounded-xl"
-        provider="storyblok" />
+        provider="storyblok" :modifiers="{ filters: { format: 'webp'}}" />
       <!-- <p v-if="blok.featured_text" class="mt-4">
         {{ blok.featured_text }}
       </p> -->

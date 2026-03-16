@@ -6,7 +6,7 @@
           <div class="embla__slide__wrapper select-none ">
             <a :href="image.filename" class="glightbox">
               <NuxtImg :src="image.filename" class="rounded-xl" :alt="image.alt || ''" 
-                  provider="storyblok"/>
+                  provider="storyblok" :modifiers="{ filters: { format: 'webp', quality: 80 }}"/>
               <div class="embla_slide__title" v-if="image.title">{{ image.title }}</div>
             </a>
           </div>
@@ -20,7 +20,7 @@
             :class="{'embla-thumbs__slide--selected': index === selectedIndex }">
             <button type="button" @click="onThumbClick(index)">
               <NuxtImg class="rounded-lg" :src="image.filename" :alt="image.alt || ''" 
-                  provider="storyblok" />
+                  provider="storyblok" :modifiers="{ filters: { format: 'webp', quality: 80 }}" />
             </button>
           </div>
         </div>
