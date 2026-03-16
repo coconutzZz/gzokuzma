@@ -16,9 +16,7 @@
           :src="blok.image.filename "
           :alt="blok.title"
           class="w-full h-64 object-cover sm:rounded-xl mb-2 sm:mb-6"
-          provider="storyblok"
-          format="webp"
-        />
+          provider="storyblok" />
         <div id="article-content" class="px-5">
           <StoryblokRichText :doc="props.blok.content" :resolvers="resolvers" />
           <template v-if="props.blok?.gallery.length > 0 && isGalleryLoaded">

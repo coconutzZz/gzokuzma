@@ -10,8 +10,7 @@
       <div v-if="isLoading" class="w-full h-72 object-cover sm:rounded-xl animate-pulse bg-gray-300"></div>
       <NuxtImg v-else-if="blok?.featured_image?.filename" :src="blok?.featured_image?.filename" 
         class="sm:rounded-xl"
-        provider="storyblok"
-        format="webp" />
+        provider="storyblok" />
       <!-- <p v-if="blok.featured_text" class="mt-4">
         {{ blok.featured_text }}
       </p> -->
@@ -128,7 +127,7 @@
   <div class="flex flex-col justify-center h-full -mt-10">
     <div class="sm:mt-20 text-center" v-if="blok?.qr_code_bank_transfer && blok?.qr_code_bank_transfer.filename">
       <p>Za nakazilo prostovoljnih prispevkov uporabite QR kodo:</p>
-      <NuxtImg :src="blok.qr_code_bank_transfer.filename" class="h-50 mx-auto" provider="storyblok" format="webp"/>
+      <NuxtImg :src="blok.qr_code_bank_transfer.filename" class="h-50 mx-auto" provider="storyblok" />
     </div>
   </div>
 </BaseModal>
