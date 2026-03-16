@@ -75,7 +75,7 @@
           class="w-14 h-14 bg-primary-500 rounded-full flex items-center justify-center mt-4 lg:mt-0
                 transition-transform duration-200 hover:scale-110 hover:bg-primary-dark mr-2"
         >
-          <NuxtImg src="/assets/img/facebook.svg" alt="Facebook" class="w-6 h-6" />
+          <NuxtImg src="/img/facebook.svg" alt="Facebook" class="w-6 h-6" />
         </a>
 
         <Button
@@ -83,7 +83,7 @@
           class="flex"
           @click="open = true"
         >
-          <NuxtImg src="/assets/img/donate.svg" alt="" class="w-6 h-6 mr-2" />
+          <NuxtImg src="/img/donate.svg" alt="" class="w-6 h-6 mr-2" />
           DONIRAJ DRUŠTVU
         </Button>
       </div>
@@ -119,7 +119,7 @@
       class="fixed bottom-4 right-4 md:hidden flex"
       @click="open = true"
     >
-      <NuxtImg src="/assets/img/donate.svg" alt="" class="w-6 h-6 mr-2" />
+      <NuxtImg src="/img/donate.svg" alt="" class="w-6 h-6 mr-2" />
       DONIRAJ DRUŠTVU
     </Button>
   </transition>
