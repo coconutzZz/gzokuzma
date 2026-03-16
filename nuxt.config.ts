@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     '@nuxt/image'
   ],
   image: {
-    provider: 'ipx',
+    provider: 'ipxStatic',
     domains: ['a.storyblok.com']
   },
   compatibilityDate: '2025-04-15',
