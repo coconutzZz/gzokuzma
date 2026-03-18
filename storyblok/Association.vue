@@ -4,15 +4,15 @@
     text-gray-100
       -z-0 pointer-events-none
       font-extrabold
-      -top-20
-      -right-8
+      -top-16
+      -right-4
       text-[150px]
       sm:-top-26
       sm:text-[200px]
       md:-top-32
       md:text-[250px]
       lg:-top-30
-      lg:right-10
+      lg:right-4
       ">
       {{ department?.year_founded }}
     </div>

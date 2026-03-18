@@ -1,7 +1,7 @@
 <template>
   <Association :department="department" :is-loading="isLoading" />    
 
-  <div class="grid grid-cols-1 md:text-sm lg:text-base"
+  <div class="grid grid-cols-1 md:text-sm lg:text-base mt-2"
   :class="{ 
     'md:grid-cols-2': hasFeaturedContent,
     'max-w-2xl mx-auto': !hasFeaturedContent
@@ -9,7 +9,7 @@
     <div v-if="hasFeaturedContent" class="mt-4 sm:mt-8">
       <div v-if="isLoading" class="w-full h-72 object-cover sm:rounded-xl animate-pulse bg-gray-300"></div>
       <NuxtImg v-else-if="blok?.featured_image?.filename" :src="blok?.featured_image?.filename" 
-        class="sm:rounded-xl"
+        class="sm:rounded-xl w-full h-72 object-cover"
         provider="storyblok" :modifiers="{ filters: { format: 'webp'}}" />
       <!-- <p v-if="blok.featured_text" class="mt-4">
         {{ blok.featured_text }}
