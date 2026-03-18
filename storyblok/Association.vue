@@ -4,10 +4,10 @@
     text-gray-100
       -z-0 pointer-events-none
       font-extrabold
-      -top-16
+      -top-14
       -right-4
       text-[150px]
-      sm:-top-26
+      sm:-top-28
       sm:text-[200px]
       md:-top-32
       md:text-[250px]
