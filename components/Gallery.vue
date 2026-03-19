@@ -2,7 +2,7 @@
   <div class="embla">
     <div class="embla__viewport rounded-xl" ref="emblaRef">
       <div class="embla__container">
-        <div class="embla__slide flex items-center justify-center" v-for="(image, index) in images" :key="image.filename">
+        <div class="embla__slide md:flex md:items-center md:justify-center" v-for="(image, index) in images" :key="image.filename">
           <div class="embla__slide__wrapper select-none ">
             <a :href="image.filename" class="glightbox">
               <NuxtImg :src="image.filename" class="rounded-xl" :alt="image.alt || ''" 
@@ -123,6 +123,12 @@ onMounted(async () => {
 @media (min-width: 576px) {
   .embla-thumbs__slide {
     flex: 0 0 15%;
+  }  
+}
+@media (max-width: 768px) {
+  .embla__viewport {
+    width: 100%;
+    aspect-ratio: 16/9; /* keeps a responsive height based on width */
   }
 }
 
