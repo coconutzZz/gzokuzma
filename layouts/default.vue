@@ -13,7 +13,7 @@
               <path d="M0,90 C140,60 320,40 520,70 C700,100 860,120 1080,90 C1220,70 1380,50 1440,40 L1440,180 L0,180 Z" opacity="0.25"></path>
               <path d="M0,120 C160,90 360,70 560,100 C760,130 940,140 1160,110 C1300,90 1420,70 1440,60 L1440,180 L0,180 Z" opacity="0.35"></path>
             </g>
-            <g transform="translate(0, 80)" fill="#FF6347" fill-rule="nonzero">
+            <g transform="translate(0, 80)" fill="#E65A40" fill-rule="nonzero">
               <path d="M0,50 C100,80 280,110 440,100 C620,90 820,60 1000,80 C1180,100 1340,130 1440,150 L1440,180 L0,180 Z"></path>
             </g>
             <g transform="translate(0, 120)" fill="#FFF" fill-rule="nonzero">      
@@ -25,7 +25,7 @@
     </header>
 
     <main role="main" class="bg-white border-b py-2 flex-grow">      
-      <div class="container sm:px-5 md:max-w-screen-xl mx-auto">
+      <div class="container sm:px-5 md:max-w-screen-xl xl:max-w-screen-2xl mx-auto">
         <slot />
       </div>
     </main>

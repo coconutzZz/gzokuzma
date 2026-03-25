@@ -10,7 +10,7 @@
       </Header>
     </header>
     <main role="main" class="bg-white border-b py-2 flex-grow">
-      <div class="container sm:px-5 md:max-w-screen-xl mx-auto">
+      <div class="container sm:px-5 md:max-w-screen-xl xl:max-w-screen-2xl mx-auto">
         <slot />
       </div>
     </main>
