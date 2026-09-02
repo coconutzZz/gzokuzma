@@ -1,11 +1,15 @@
 <template>
-  <div class="my-6 aspect-video w-full m-auto">
-    <iframe
-      :src="props.url"
-      class="h-full w-full border-0"
-      loading="lazy"
-      allowfullscreen
-    />
+  <div class="w-full text-center mx-auto min-h-[500px] relative">  
+    <div 
+      class="fb-post mx-auto"     
+    > 
+      <iframe
+        :src="props.url"
+        class="h-full w-full border-0"
+        loading="lazy"
+        allowfullscreen
+      />
+    </div>
   </div>
 </template>
 
