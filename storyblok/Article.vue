@@ -40,6 +40,7 @@ import { DateTime } from "luxon";
 import SectionTitle from '~/components/SectionTitle.vue';
 import { StoryblokRichText } from "@storyblok/vue";
 import FacebookPost from "./FacebookPost.vue";
+import RichtextIframe from "./RichtextIframe.vue";
 import Gallery from "~/components/Gallery.vue";
 const version = import.meta.env.DEV ? 'draft' : 'published';
 
@@ -84,6 +85,9 @@ const resolvers = {
     const nodeBody = node.attrs.body[0];    
     if (nodeBody && nodeBody.component === "FacebookPost" && nodeBody.url) {
       return h(FacebookPost, { url: nodeBody.url });
+    }
+    if (nodeBody && nodeBody.component === "RichtextIframe" && nodeBody.url) {
+      return h(RichtextIframe, { url: nodeBody.url });
     }
     return null;
   },
