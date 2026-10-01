@@ -21,6 +21,11 @@
 </template>
  
 <script setup>
+usePageSeo({
+  title: 'Novice',
+  description: 'Aktualne novice, dogodki in dejavnosti Gasilske zveze Občine Kuzma in lokalnih gasilskih društev.'
+})
+
 import NewsCards from '~/components/NewsCards.vue'
 const version = import.meta.env.DEV ? 'draft' : 'published'
 const route = useRoute();

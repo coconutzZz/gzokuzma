@@ -6,4 +6,5 @@
 </template>
 <script setup>
 import Breakpoints from './components/dev/Breakpoints.vue';
+usePageSeo()
 </script>

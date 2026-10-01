@@ -8,6 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "test:history": "node --test tests/history.test.mjs",
+    "test:seo": "node --test tests/seo.test.mjs",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {

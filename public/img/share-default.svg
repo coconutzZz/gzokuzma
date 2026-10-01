@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#262c69"/>
+  <path d="M0 505 Q300 405 600 515 T1200 500 V630 H0Z" fill="#e65a40"/>
+  <path d="M0 575 Q300 490 600 580 T1200 565 V630 H0Z" fill="#ff6347"/>
+  <rect x="85" y="105" width="95" height="8" rx="4" fill="#ff6347"/>
+  <g fill="#fff" font-family="Arial, sans-serif">
+    <text x="85" y="245" font-size="76" font-weight="700">Gasilska zveza</text>
+    <text x="85" y="345" font-size="76" font-weight="700">Občine Kuzma</text>
+    <text x="90" y="420" font-size="30">gzo-kuzma.si</text>
+  </g>
+</svg>

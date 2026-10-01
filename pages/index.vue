@@ -11,6 +11,8 @@
   </div>
 </template>
 <script setup>
+usePageSeo()
+
 definePageMeta({
   layout: 'default',
   hero: 'associations',

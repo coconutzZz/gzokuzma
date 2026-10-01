@@ -1,6 +1,7 @@
 import StoryblokClient from 'storyblok-js-client'
 import { fileURLToPath } from 'node:url'
 import { generateHistoryManifest } from './scripts/history'
+import { SITE_NAME, SITE_DESCRIPTION } from './utils/seo'
 
 const historySourceDir = fileURLToPath(new URL('./public/history', import.meta.url))
 const historyOutputDir = fileURLToPath(new URL('./.cache/history', import.meta.url))
@@ -10,9 +11,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   app: {
     head: {
-      title: 'Gasilska Zveza Občine Kuzma',
+      title: SITE_NAME,
       meta: [
-        { name: 'description', content: 'Gasilska zveza občine Kuzma povezuje lokalne gasilske enote, spodbuja varnost, preventivo in sodelovanje v skupnosti ter zagotavlja hitro in učinkovito pomoč v sili.' }
+        { name: 'description', content: SITE_DESCRIPTION }
       ],
       htmlAttrs: {
         lang: 'sl'
@@ -96,6 +97,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
+      siteUrl: 'https://gzo-kuzma.si',
       supabaseUrl: process.env.SUPABASE_URL,
       supabasePublishableKey: process.env.SUPABASE_PUBLISHABLE_KEY
     }

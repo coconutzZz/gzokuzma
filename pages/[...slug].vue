@@ -6,6 +6,8 @@
   />
 </template>
 <script setup lang="ts">
+import { getStorySeo } from '~/utils/seo'
+
 const route = useRoute()
 const storyblokApi = useStoryblokApi();
 const version = import.meta.env.DEV ? 'draft' : 'published'
@@ -22,6 +24,8 @@ const { data: story, status, error } = await useAsyncData(
       version
     })
 )
+
+usePageSeo(() => getStorySeo(story.value?.data?.story))
 
 watchEffect(() => {
   isLoading.value = !story.value && !error.value

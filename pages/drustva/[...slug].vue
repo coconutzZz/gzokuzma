@@ -7,6 +7,8 @@
   />
 </template>
 <script setup lang="ts">
+import { getStorySeo } from '~/utils/seo'
+
 const route = useRoute();
 const storyblokApi = useStoryblokApi();
 const version = import.meta.env.DEV ? 'draft' : 'published'
@@ -28,6 +30,18 @@ const { data: story, error } = await useAsyncData(
       version
     })
 )
+
+const { data: departments } = await useDepartments()
+usePageSeo(() => {
+  const department = departments.value?.find(item => item.slug === slug[0])
+  const currentStory = story.value?.data?.story
+  const isDepartmentHome = slug.length === 1 || (slug.length === 2 && slug[1] === 'index')
+  return getStorySeo(currentStory, {
+    title: department && (isDepartmentHome || !currentStory?.name
+      ? department.name : `${currentStory.name} | ${department.name}`),
+    description: department ? `Predstavitev, novice in zgodovina društva ${department.name}.` : undefined
+  })
+})
 
 watchEffect(() => {
   if (story.value || error.value) {
