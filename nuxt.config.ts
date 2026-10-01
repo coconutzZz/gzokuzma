@@ -1,4 +1,9 @@
 import StoryblokClient from 'storyblok-js-client'
+import { fileURLToPath } from 'node:url'
+import { generateHistoryManifest } from './scripts/history'
+
+const historySourceDir = fileURLToPath(new URL('./public/history', import.meta.url))
+const historyOutputDir = fileURLToPath(new URL('./.cache/history', import.meta.url))
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -39,6 +44,7 @@ export default defineNuxtConfig({
   },
   components: true,
   ssr: true,
+  watch: ['public/history/**/index.md'],
   nitro: {
     preset: 'netlify'
   },
@@ -48,8 +54,17 @@ export default defineNuxtConfig({
     ]
   },
   hooks: {
+    async 'builder:watch'(_event, path) {
+      if (path.replace(/\\/g, '/').includes('public/history/')) {
+        await generateHistoryManifest(historySourceDir, historyOutputDir)
+      }
+    },
     async 'nitro:config'(nitroConfig) {
-      if (!nitroConfig || nitroConfig.dev) {
+      await generateHistoryManifest(historySourceDir, historyOutputDir)
+      nitroConfig.serverAssets = nitroConfig.serverAssets || []
+      nitroConfig.serverAssets.push({ baseName: 'history', dir: historyOutputDir })
+
+      if (nitroConfig.dev) {
         return
       }
 

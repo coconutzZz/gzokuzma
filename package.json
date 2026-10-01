@@ -7,6 +7,7 @@
     "dev": "set NODE_TLS_REJECT_UNAUTHORIZED=0 && nuxt dev --https --ssl-cert server.crt --ssl-key server.key",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "test:history": "node --test tests/history.test.mjs",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
@@ -22,7 +23,8 @@
     "nuxt": "^3.10.3",
     "swiper": "^11.2.6",
     "vue": "^3.4.19",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "yaml": "^2.7.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
