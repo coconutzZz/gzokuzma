@@ -12,6 +12,7 @@
             <p v-if="historyEntry.description.type === 'text'" class="whitespace-pre-line">{{ historyEntry.description.value }}</p>
             <div v-else v-html="resolvedRichText" />
             <Gallery v-if="historyEntry.images?.length" :images="historyEntry.images" />
+            <HistoryGallery v-else-if="historyEntry.gallerySlug" :key="historyEntry.gallerySlug" :slug="historyEntry.gallerySlug" />
         </div>
     </div>
 </template>

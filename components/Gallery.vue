@@ -4,7 +4,7 @@
       <div class="embla__container">
         <div class="embla__slide md:flex md:items-center md:justify-center" v-for="(image, index) in images" :key="image.filename">
           <div class="embla__slide__wrapper select-none ">
-            <a :href="image.filename" class="glightbox">
+            <a :href="image.filename" class="glightbox" :data-gallery="galleryId" :aria-label="image.alt || image.title || `Fotografija ${index + 1}`">
               <NuxtImg :src="image.filename" class="rounded-xl" :alt="image.alt || ''" 
                   provider="storyblok" :modifiers="{ filters: { format: 'webp', quality: 80 }}"/>
               <div class="embla_slide__title" v-if="image.title">{{ image.title }}</div>
@@ -18,7 +18,7 @@
         <div class="embla-thumbs__container flex flex-row">
           <div v-for="(image, index) in images" :key="image.filename" class="embla-thumbs__slide"
             :class="{'embla-thumbs__slide--selected': index === selectedIndex }">
-            <button type="button" @click="onThumbClick(index)">
+            <button type="button" :aria-label="image.alt || image.title || `Fotografija ${index + 1}`" :aria-current="index === selectedIndex ? 'true' : undefined" @click="onThumbClick(index)">
               <NuxtImg class="rounded-lg" :src="image.filename" :alt="image.alt || ''" 
                   provider="storyblok" :modifiers="{ filters: { format: 'webp', quality: 80 }}" />
             </button>
@@ -31,14 +31,17 @@
 
 <script setup>
 import emblaCarouselVue from 'embla-carousel-vue'
+import { useId } from 'vue'
 
 const { $glightbox } = useNuxtApp()
+const galleryId = `gallery-${useId()}`
+let lightbox
 const selectedIndex = ref(0);
 
 const props = defineProps({
   images: {
     type: Array,
-    default: []
+    default: () => []
   }
 });
 
@@ -65,13 +68,17 @@ const onSelect = () => {
   selectedIndex.value = emblaApi.value.selectedScrollSnap()
 }
 
-onMounted(async () => {
-  if (!emblaApi.value) return
-  emblaApi.value.on('select', onSelect)
-  onSelect();
-  $glightbox({
-    selector: '.glightbox',
-  });
+onMounted(() => {
+  emblaApi.value?.on('select', onSelect)
+  onSelect()
+  lightbox = $glightbox({
+    selector: `.glightbox[data-gallery="${galleryId}"]`,
+  })
+})
+
+onBeforeUnmount(() => {
+  emblaApi.value?.off('select', onSelect)
+  lightbox?.destroy()
 })
 </script>
 <style lang="scss" scoped>

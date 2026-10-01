@@ -6,16 +6,16 @@
       :disabled="disabled || !items.length"
       aria-haspopup="listbox"
       :aria-expanded="isOpen"
-      class="disabled:cursor-not-allowed disabled:hover:scale-100"
+      class="!px-3 !py-1.5 text-sm disabled:cursor-not-allowed disabled:hover:scale-100"
       @click="toggleMenu"
       @keydown.down.prevent="openMenu()"
       @keydown.up.prevent="openMenu(true)"
       @keydown.esc.stop.prevent="closeMenu(true)"
     >
-      <span class="inline-flex items-center gap-2">
+      <span class="inline-flex items-center gap-1.5">
         <span>{{ prefix }} {{ selectedItem ? selectedItem.title : placeholder }}</span>
         <svg
-          class="h-4 w-4"
+          class="h-3.5 w-3.5"
           viewBox="0 0 20 20"
           fill="currentColor"
           aria-hidden="true"

@@ -1,14 +1,16 @@
 <template>
-  <div v-editable="blok">
-    <DropdownButton
-      v-model="sortOrder"
-      :items="[
-        { value: 'desc', title: 'novejši naprej' },
-        { value: 'asc', title: 'starejši naprej' }
-      ]"
-      prefix="Razvrsti po: "
-      @change="handleChange"
-    />
+  <div v-editable="blok" class="pt-5">
+    <div class="flex justify-end">
+      <DropdownButton
+        v-model="sortOrder"
+        :items="[
+          { value: 'desc', title: 'novejši naprej' },
+          { value: 'asc', title: 'starejši naprej' }
+        ]"
+        prefix="Razvrsti po: "
+        @change="handleChange"
+      />
+    </div>
     <p v-if="!hasInlineEntries && status === 'pending'" role="status" class="py-4">Nalaganje zgodovine...</p>
     <div v-else-if="!hasInlineEntries && error" role="alert" class="py-4">
       <p>Zgodovine trenutno ni mogo&#269;e nalo&#382;iti.</p>

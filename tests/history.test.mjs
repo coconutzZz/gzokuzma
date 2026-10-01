@@ -9,6 +9,7 @@ import { createApp, createError, defineEventHandler, getQuery, toWebHandler } fr
 const jiti = createJiti(import.meta.url)
 const { generateHistoryManifest, parseHistoryEntry, readHistoryManifest } = await jiti.import('../scripts/history.ts')
 const { normalizeHistoryEntry } = await jiti.import('../utils/history-entry.ts')
+const { createHistoryGalleryLoader, normalizeHistoryGalleryImages } = await jiti.import('../utils/history-gallery.ts')
 
 const frontmatter = (year, extra = '') => `---\nyear: "${year}"\ntitle: History\ndescription: >-\n  First line\n  second line.\n${extra}---\n`
 
@@ -70,6 +71,66 @@ test('keeps plain descriptions as text for escaped Vue rendering', () => {
   const entry = normalizeHistoryEntry({ description: '<script>alert(1)</script>' }, 'fallback')
   assert.deepEqual(entry.description, { type: 'text', value: '<script>alert(1)</script>' })
   assert.equal(entry.id, 'fallback')
+})
+
+test('gallery assets preserve image metadata and skip empty or malformed assets', () => {
+  assert.deepEqual(normalizeHistoryGalleryImages([
+    { filename: 'https://a.storyblok.com/photo.jpg', alt: 'Historical photo', title: '1925' },
+    { filename: '', alt: 'Empty asset' },
+    null,
+    { filename: 42 },
+    { filename: 'https://a.storyblok.com/other.jpg', alt: null, title: 42 }
+  ]), [
+    { filename: 'https://a.storyblok.com/photo.jpg', alt: 'Historical photo', title: '1925' },
+    { filename: 'https://a.storyblok.com/other.jpg', alt: undefined, title: undefined }
+  ])
+  assert.deepEqual(normalizeHistoryGalleryImages(undefined), [])
+})
+
+test('gallery loader is lazy, shares pending requests, and caches loaded images', async () => {
+  let calls = 0
+  let resolve
+  const load = createHistoryGalleryLoader(() => {
+    calls++
+    return new Promise(done => { resolve = done })
+  })
+  assert.equal(calls, 0)
+  const first = load('gallery/1925', 'draft')
+  assert.equal(load('gallery/1925', 'draft'), first)
+  await Promise.resolve()
+  assert.equal(calls, 1)
+  const images = [{ filename: 'https://a.storyblok.com/photo.jpg' }]
+  resolve(images)
+  assert.equal(await first, images)
+  assert.equal(await load('gallery/1925', 'draft'), images)
+  assert.equal(calls, 1)
+})
+
+test('gallery cache separates slugs and versions and also caches empty galleries', async () => {
+  const calls = []
+  const load = createHistoryGalleryLoader(async (slug, version) => {
+    calls.push([slug, version])
+    return []
+  })
+  await load('gallery/1925', 'draft')
+  await load('gallery/1925', 'published')
+  await load('gallery/1927', 'draft')
+  await load('gallery/1925', 'draft')
+  assert.deepEqual(calls, [
+    ['gallery/1925', 'draft'], ['gallery/1925', 'published'], ['gallery/1927', 'draft']
+  ])
+})
+
+test('failed gallery requests are not cached and can be retried', async () => {
+  let calls = 0
+  const load = createHistoryGalleryLoader(() => {
+    calls++
+    if (calls === 1) throw new Error('Storyblok unavailable')
+    return Promise.resolve([])
+  })
+  await assert.rejects(load('gallery/1925', 'draft'), /Storyblok unavailable/)
+  assert.deepEqual(await load('gallery/1925', 'draft'), [])
+  assert.equal(calls, 2)
 })
 
 test('API selects a department and rejects missing, repeated, and unknown slugs', async (t) => {
