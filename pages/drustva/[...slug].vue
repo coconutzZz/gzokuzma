@@ -1,6 +1,5 @@
 <template>
   <StoryblokComponent
-    v-show="!isLoading"
     :blok="story?.data?.story?.content"
     :posted-on="story?.data?.story?.created_at"
     :tag-list="story?.data?.story?.tag_list"
@@ -43,6 +42,7 @@ usePageSeo(() => {
   })
 })
 
+/*
 watchEffect(() => {
   if (story.value || error.value) {
     // Delay hiding loader by 500ms
@@ -50,7 +50,7 @@ watchEffect(() => {
       isLoading.value = false
     }, 1500)
   }
-})
+})*/
 
 if (error.value) {
   showError({ statusCode: 404, statusMessage: 'Stran ne obstaja' })
