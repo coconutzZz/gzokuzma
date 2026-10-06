@@ -4,8 +4,7 @@
       <Header :is-background-visible="hasHeaderBg" />
   
       <HeroAssociations v-if="showHero" />
-  
-      <div :class="showHero ? '-mt-24 sm:-mt-20 md:-mt-28 xl:-mt-48 2xl:-mt-52' : '-mt-5 sm:mt-0 lg:-mt-14 xl:-mt-32'" class="w-[200%] sm:w-full transition-transform duration-500 bg-primary-500">
+      <div :class="showHero ? '-mt-24 sm:-mt-20 md:-mt-28 xl:-mt-48 2xl:-mt-52' : '-mt-16 sm:mt-0 lg:-mt-14 xl:-mt-32'" class="w-[200%] sm:w-full transition-transform duration-500 bg-primary-500">
         <svg viewBox="0 0 1420 266" xmlns="http://www.w3.org/2000/svg" class="">
           <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g transform="translate(0, 50)" fill="#FF4500" fill-rule="nonzero">

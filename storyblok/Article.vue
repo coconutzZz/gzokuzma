@@ -1,31 +1,44 @@
 <template>
-  <article class="article-detail mx-auto p-0  bg-white rounded-2xl">
-    <SectionTitle title-tag="h1">{{ blok.title }}</SectionTitle>
-    
-    <div class="px-5">
-      <Breadcrumbs />
-      <div class="flex items-center mb-2 sm:mb-6 text-sm text-gray-500">
-        <span>Avtor: {{ blok.author }} | {{ formatPostedOn(postedOn) }}</span>
+  <article class="article-detail mx-auto p-0  bg-white rounded-2xl">    
+    <div class="grid grid-cols-12 gap-4">    
+      <div class="hidden lg:block col-span-2">        
+        <div class="my-4 text-sm text-gray-500">
+          <div>Avtor: {{ blok.author }}</div>
+          <div>{{ formatPostedOn(postedOn) }}</div>
+        </div>
       </div>
-    </div>
 
-    <div class="grid grid-cols-12 gap-4">
-      <main class="col-span-12" :class="tagList.length > 0 ? 'lg:col-span-9' : 'lg:col-span-8 lg:col-start-3'">
+      <main class="col-span-12" :class="tagList.length > 0 ? 'lg:col-span-7' : 'lg:col-span-9'">       
+
+        <div class="px-2 lg:px-0">
+          <Breadcrumbs />       
+          
+          <SectionTitle title-tag="h1" :text-center="false">{{ blok.title }}</SectionTitle>
+  
+          <div class="py-2 lg:hidden">
+            <div class="flex items-center mb-2 sm:mb-6 text-sm text-gray-500">
+              <span>Avtor: {{ blok.author }} | {{ formatPostedOn(postedOn) }}</span>
+            </div>
+          </div>
+        </div>
+
         <NuxtImg
           v-if="hasFeaturedImage"
           :src="blok.image.filename "
           :alt="blok.title"
-          class="w-full h-auto md:h-84 object-cover sm:rounded-xl mb-2 sm:mb-6"
+          class="w-full h-auto md:max-h-72 md:h-68 object-cover sm:rounded-xl mb-2 lg:my-6"
           provider="storyblok" :modifiers="{ filters: { format: 'webp', quality: 80 }}" />
-        <div id="article-content" class="px-5">
+
+        <div id="article-content" class="px-2 lg:px-5">
           <StoryblokRichText :doc="props.blok.content" :resolvers="resolvers" />
           <template v-if="props.blok?.gallery.length > 0 && isGalleryLoaded">
             <Gallery v-for="gallery in galleryList" :key="gallery.title" :images="gallery.images" />
          </template>
         </div>
+
       </main>
 
-      <aside v-if="tagList.length > 0" class="col-span-12 lg:col-span-3">
+      <aside v-if="tagList.length > 0" class="col-span-12 lg:col-span-3 mt-4 lg:mt-14">
         <div class="flex flex-wrap gap-2">
           <NuxtLink :to="`/novice?with_tag=${tag}`" v-for="tag in tagList" class="bg-blue-100 text-blue-800 hover:bg-blue-200 text-sm px-3 py-1 rounded-full">#{{ tag }}</NuxtLink>
         </div>
