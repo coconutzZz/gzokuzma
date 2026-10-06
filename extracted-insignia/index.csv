@@ -1,0 +1,88 @@
+﻿file,name,width,height
+01_cini/pionir.png,Pionir,108,117
+01_cini/gasilec.png,Gasilec,110,119
+01_cini/visji_gasilec.png,Višji gasilec,108,116
+01_cini/nizji_gasilski_castnik.png,Nižji gasilski častnik,109,117
+01_cini/gasilski_castnik.png,Gasilski častnik,110,120
+01_cini/visji_gasilski_castnik_organizacijske_smeri.png,Višji gasilski častnik organizacijske smeri,109,119
+01_cini/visji_gasilski_castnik.png,Višji gasilski častnik,109,117
+01_cini/visoki_gasilski_castnik_organizacijske_smeri.png,Visoki gasilski častnik organizacijske smeri,108,117
+01_cini/visoki_gasilski_castnik.png,Visoki gasilski častnik,110,118
+01_cini/mladinec.png,Mladinec,108,116
+01_cini/gasilec_i_stopnje.png,Gasilec I. stopnje,109,118
+01_cini/visji_gasilec_i_stopnje.png,Višji gasilec I. stopnje,110,116
+01_cini/nizji_gasilski_castnik_i_stopnje.png,Nižji gasilski častnik I. stopnje,109,115
+01_cini/gasilski_castnik_i_stopnje.png,Gasilski častnik I. stopnje,110,118
+01_cini/visji_gasilski_castnik_organizacijske_smeri_i_stopnje.png,Višji gasilski častnik organizacijske smeri I. stopnje,110,117
+01_cini/visji_gasilski_castnik_i_stopnje.png,Višji gasilski častnik I. stopnje,109,119
+01_cini/visoki_gasilski_castnik_organizacijske_smeri_i_stopnje.png,Visoki gasilski častnik organizacijske smeri I. stopnje,110,119
+01_cini/visoki_gasilski_castnik_i_stopnje.png,Visoki gasilski častnik I. stopnje,109,118
+01_cini/gasilec_pripravnik.png,Gasilec pripravnik,109,117
+01_cini/gasilec_ii_stopnje.png,Gasilec II. stopnje,111,116
+01_cini/visji_gasilec_ii_stopnje.png,Višji gasilec II. stopnje,109,116
+01_cini/nizji_gasilski_castnik_ii_stopnje.png,Nižji gasilski častnik II. stopnje,110,116
+01_cini/gasilski_castnik_ii_stopnje.png,Gasilski častnik II. stopnje,110,117
+01_cini/visji_gasilski_castnik_organizacijske_smeri_ii_stopnje.png,Višji gasilski častnik organizacijske smeri II. stopnje,111,116
+01_cini/visji_gasilski_castnik_ii_stopnje.png,Višji gasilski častnik II. stopnje,110,116
+01_cini/visoki_gasilski_castnik_organizacijske_smeri_ii_stopnje.png,Visoki gasilski častnik organizacijske smeri II. stopnje,110,117
+01_cini/visoki_gasilski_castnik_ii_stopnje.png,Visoki gasilski častnik II. stopnje,111,117
+02_specialnosti/strojnik.png,Strojnik,64,88
+02_specialnosti/strojnik_avtolestve.png,Strojnik avtolestve,65,88
+02_specialnosti/orodjar.png,Orodjar,64,89
+02_specialnosti/nosilec_dihalnega_aparata.png,Nosilec dihalnega aparata,64,88
+02_specialnosti/skrbnik_dihalnih_zascitnih_naprav.png,Skrbnik dihalnih zaščitnih naprav,64,88
+02_specialnosti/gasenje_notranjih_pozarov_modul_a.png,Gašenje notranjih požarov - modul A,65,88
+02_specialnosti/gasenje_notranjih_pozarov_modul_b.png,Gašenje notranjih požarov - modul B,63,89
+02_specialnosti/gasenje_notranjih_pozarov_modul_c.png,Gašenje notranjih požarov - modul C,65,88
+02_specialnosti/uporabnik_radijskih_postaj.png,Uporabnik radijskih postaj,64,88
+02_specialnosti/instruktor_radijskih_zvez.png,Inštruktor radijskih zvez,65,87
+02_specialnosti/tehnicni_resevalec.png,Tehnični reševalec,64,88
+02_specialnosti/resevalec_ob_nesrecah_z_nevarnimi_snovmi.png,Reševalec ob nesrečah z nevarnimi snovmi,64,88
+02_specialnosti/gasenje_pozarov_v_naravnem_okolju.png,Gašenje požarov v naravnem okolju,63,89
+02_specialnosti/vodja_colna.png,Vodja čolna,64,87
+02_specialnosti/resevalec_na_vodi.png,Reševalec na vodi,66,89
+02_specialnosti/potapljac_1_zvezdica.png,Potapljač - 1 zvezdica,64,91
+02_specialnosti/potapljac_2_zvezdici.png,Potapljač - 2 zvezdici,64,89
+02_specialnosti/potapljac_3_zvezdice.png,Potapljač - 3 zvezdice,64,90
+02_specialnosti/potapljac_4_zvezdice.png,Potapljač - 4 zvezdice,65,89
+02_specialnosti/sodnik_gasilskih_in_gasilskosportnih_tekmovalnih_disciplin.png,Sodnik gasilskih in gasilskošportnih tekmovalnih disciplin,64,89
+02_specialnosti/bolnicar.png,Bolničar,64,89
+02_specialnosti/zdravnik.png,Zdravnik,65,89
+02_specialnosti/informatik.png,Informatik,63,89
+02_specialnosti/vodja_clanic.png,Vodja članic,63,88
+02_specialnosti/mentor_mladine.png,Mentor mladine,64,89
+02_specialnosti/mentor_mladine_i.png,Mentor mladine I,66,89
+02_specialnosti/preventivec.png,Preventivec,65,89
+02_specialnosti/instruktor.png,Inštruktor,64,89
+02_specialnosti/predavatelj.png,Predavatelj,64,89
+03_osnovne_oznake/pionir_mladinec_desetar.png,Pionir - mladinec desetar,143,78
+03_osnovne_oznake/gasilec.png,Gasilec,144,77
+03_osnovne_oznake/operativni_gasilec.png,Operativni gasilec,143,75
+04_operativne_funkcije/desetar.png,Desetar,142,76
+04_operativne_funkcije/poveljnik_sektorja.png,Poveljnik sektorja,144,78
+04_operativne_funkcije/clan_poveljstva_gz.png,Član poveljstva GZ,142,78
+04_operativne_funkcije/regijski_poveljnik_in_pomocnik_poveljnika_gzs.png,Regijski poveljnik in pomočnik poveljnika GZS,144,77
+04_operativne_funkcije/vodnik_namestnik_poveljnika_in_podpoveljnik_pgd.png,"Vodnik, namestnik poveljnika in podpoveljnik PGD",142,77
+04_operativne_funkcije/namestnik_obcinskega_poveljnika_in_obcinski_podpoveljnik.png,Namestnik občinskega poveljnika in občinski podpoveljnik,144,77
+04_operativne_funkcije/namestnik_poveljnika_in_podpoveljnik_gz.png,Namestnik poveljnika in podpoveljnik GZ,143,78
+04_operativne_funkcije/namestnik_poveljnika_in_podpoveljnik_gzs.png,Namestnik poveljnika in podpoveljnik GZS,145,76
+04_operativne_funkcije/poveljnik_pgd.png,Poveljnik PGD,142,76
+04_operativne_funkcije/obcinski_poveljnik.png,Občinski poveljnik,144,76
+04_operativne_funkcije/poveljnik_gz.png,Poveljnik GZ,143,78
+04_operativne_funkcije/poveljnik_gzs.png,Poveljnik GZS,144,77
+05_organizacijske_funkcije/clan_upravnega_odbora_pgd_in_clan_drugih_voljenih_organov_pgd.png,Član upravnega odbora PGD in član drugih voljenih organov PGD,143,76
+05_organizacijske_funkcije/clan_upravnega_odbora_gz_in_clan_drugih_voljenih_organov_gz.png,Član upravnega odbora GZ in član drugih voljenih organov GZ,144,76
+05_organizacijske_funkcije/clan_upravnega_odbora_gzs_in_clan_drugih_voljenih_organov_gzs.png,Član upravnega odbora GZS in član drugih voljenih organov GZS,145,79
+05_organizacijske_funkcije/podpredsednik_in_tajnik_pgd.png,Podpredsednik in tajnik PGD,143,75
+05_organizacijske_funkcije/podpredsednik_in_tajnik_gz.png,Podpredsednik in tajnik GZ,144,77
+05_organizacijske_funkcije/namestnik_predsednika_in_podpredsednik_gzs.png,Namestnik predsednika in podpredsednik GZS,144,79
+05_organizacijske_funkcije/predsednik_pgd.png,Predsednik PGD,143,76
+05_organizacijske_funkcije/predsednik_gz.png,Predsednik GZ,144,77
+05_organizacijske_funkcije/predsednik_gzs.png,Predsednik GZS,144,78
+06_castne_funkcije/castni_poveljnik_pgd.png,Častni poveljnik PGD,161,92
+06_castne_funkcije/castni_obcinski_poveljnik.png,Častni občinski poveljnik,162,94
+06_castne_funkcije/castni_poveljnik_gz.png,Častni poveljnik GZ,163,94
+06_castne_funkcije/castni_poveljnik_gzs.png,Častni poveljnik GZS,163,93
+06_castne_funkcije/castni_predsednik_pgd.png,Častni predsednik PGD,161,91
+06_castne_funkcije/castni_predsednik_gz.png,Častni predsednik GZ,162,93
+06_castne_funkcije/castni_predsednik_gzs.png,Častni predsednik GZS,162,95

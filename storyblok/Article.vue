@@ -15,7 +15,7 @@
           v-if="hasFeaturedImage"
           :src="blok.image.filename "
           :alt="blok.title"
-          class="w-full h-64 object-cover sm:rounded-xl mb-2 sm:mb-6"
+          class="w-full h-auto md:h-84 object-cover sm:rounded-xl mb-2 sm:mb-6"
           provider="storyblok" :modifiers="{ filters: { format: 'webp', quality: 80 }}" />
         <div id="article-content" class="px-5">
           <StoryblokRichText :doc="props.blok.content" :resolvers="resolvers" />
@@ -41,6 +41,7 @@ import SectionTitle from '~/components/SectionTitle.vue';
 import { StoryblokRichText } from "@storyblok/vue";
 import FacebookPost from "./FacebookPost.vue";
 import RichtextIframe from "./RichtextIframe.vue";
+import SplitContent from "./SplitContent.vue";
 import Gallery from "~/components/Gallery.vue";
 const version = import.meta.env.DEV ? 'draft' : 'published';
 
@@ -88,6 +89,9 @@ const resolvers = {
     }
     if (nodeBody && nodeBody.component === "RichtextIframe" && nodeBody.url) {
       return h(RichtextIframe, { url: nodeBody.url });
+    }
+    if (nodeBody && ["SplitContent", "splitcontent", "split_content"].includes(nodeBody.component)) {
+      return h(SplitContent, { blok: nodeBody });
     }
     return null;
   },

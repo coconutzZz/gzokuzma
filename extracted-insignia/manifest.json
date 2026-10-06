@@ -1,0 +1,1837 @@
+{
+  "source": "GZS-CINI_2017-tisk-1-pdf.jpg",
+  "source_size": [
+    2292,
+    1571
+  ],
+  "count": 87,
+  "items": [
+    {
+      "category": "01_cini",
+      "label": "Pionir",
+      "search_box": [
+        85,
+        328,
+        195,
+        448
+      ],
+      "file": "01_cini/pionir.png",
+      "size": [
+        108,
+        117
+      ],
+      "source_bounds": [
+        88,
+        331,
+        192,
+        444
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Gasilec",
+      "search_box": [
+        242,
+        328,
+        352,
+        448
+      ],
+      "file": "01_cini/gasilec.png",
+      "size": [
+        110,
+        119
+      ],
+      "source_bounds": [
+        244,
+        331,
+        350,
+        446
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Višji gasilec",
+      "search_box": [
+        399,
+        328,
+        509,
+        448
+      ],
+      "file": "01_cini/visji_gasilec.png",
+      "size": [
+        108,
+        116
+      ],
+      "source_bounds": [
+        402,
+        331,
+        506,
+        443
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Nižji gasilski častnik",
+      "search_box": [
+        555,
+        328,
+        665,
+        448
+      ],
+      "file": "01_cini/nizji_gasilski_castnik.png",
+      "size": [
+        109,
+        117
+      ],
+      "source_bounds": [
+        558,
+        331,
+        663,
+        444
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Gasilski častnik",
+      "search_box": [
+        712,
+        328,
+        822,
+        448
+      ],
+      "file": "01_cini/gasilski_castnik.png",
+      "size": [
+        110,
+        120
+      ],
+      "source_bounds": [
+        714,
+        330,
+        820,
+        446
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Višji gasilski častnik organizacijske smeri",
+      "search_box": [
+        868,
+        328,
+        978,
+        448
+      ],
+      "file": "01_cini/visji_gasilski_castnik_organizacijske_smeri.png",
+      "size": [
+        109,
+        119
+      ],
+      "source_bounds": [
+        870,
+        330,
+        975,
+        445
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Višji gasilski častnik",
+      "search_box": [
+        1027,
+        328,
+        1137,
+        448
+      ],
+      "file": "01_cini/visji_gasilski_castnik.png",
+      "size": [
+        109,
+        117
+      ],
+      "source_bounds": [
+        1029,
+        331,
+        1134,
+        444
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Visoki gasilski častnik organizacijske smeri",
+      "search_box": [
+        1182,
+        328,
+        1292,
+        448
+      ],
+      "file": "01_cini/visoki_gasilski_castnik_organizacijske_smeri.png",
+      "size": [
+        108,
+        117
+      ],
+      "source_bounds": [
+        1185,
+        331,
+        1289,
+        444
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Visoki gasilski častnik",
+      "search_box": [
+        1339,
+        328,
+        1449,
+        448
+      ],
+      "file": "01_cini/visoki_gasilski_castnik.png",
+      "size": [
+        110,
+        118
+      ],
+      "source_bounds": [
+        1340,
+        331,
+        1446,
+        445
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Mladinec",
+      "search_box": [
+        85,
+        530,
+        195,
+        650
+      ],
+      "file": "01_cini/mladinec.png",
+      "size": [
+        108,
+        116
+      ],
+      "source_bounds": [
+        88,
+        534,
+        192,
+        646
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Gasilec I. stopnje",
+      "search_box": [
+        242,
+        530,
+        352,
+        650
+      ],
+      "file": "01_cini/gasilec_i_stopnje.png",
+      "size": [
+        109,
+        118
+      ],
+      "source_bounds": [
+        245,
+        533,
+        350,
+        647
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Višji gasilec I. stopnje",
+      "search_box": [
+        399,
+        530,
+        509,
+        650
+      ],
+      "file": "01_cini/visji_gasilec_i_stopnje.png",
+      "size": [
+        110,
+        116
+      ],
+      "source_bounds": [
+        401,
+        533,
+        507,
+        645
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Nižji gasilski častnik I. stopnje",
+      "search_box": [
+        555,
+        530,
+        665,
+        650
+      ],
+      "file": "01_cini/nizji_gasilski_castnik_i_stopnje.png",
+      "size": [
+        109,
+        115
+      ],
+      "source_bounds": [
+        558,
+        534,
+        663,
+        645
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Gasilski častnik I. stopnje",
+      "search_box": [
+        712,
+        530,
+        822,
+        650
+      ],
+      "file": "01_cini/gasilski_castnik_i_stopnje.png",
+      "size": [
+        110,
+        118
+      ],
+      "source_bounds": [
+        715,
+        533,
+        821,
+        647
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Višji gasilski častnik organizacijske smeri I. stopnje",
+      "search_box": [
+        868,
+        530,
+        978,
+        650
+      ],
+      "file": "01_cini/visji_gasilski_castnik_organizacijske_smeri_i_stopnje.png",
+      "size": [
+        110,
+        117
+      ],
+      "source_bounds": [
+        870,
+        533,
+        976,
+        646
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Višji gasilski častnik I. stopnje",
+      "search_box": [
+        1027,
+        530,
+        1137,
+        650
+      ],
+      "file": "01_cini/visji_gasilski_castnik_i_stopnje.png",
+      "size": [
+        109,
+        119
+      ],
+      "source_bounds": [
+        1030,
+        532,
+        1135,
+        647
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Visoki gasilski častnik organizacijske smeri I. stopnje",
+      "search_box": [
+        1182,
+        530,
+        1292,
+        650
+      ],
+      "file": "01_cini/visoki_gasilski_castnik_organizacijske_smeri_i_stopnje.png",
+      "size": [
+        110,
+        119
+      ],
+      "source_bounds": [
+        1184,
+        532,
+        1290,
+        647
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Visoki gasilski častnik I. stopnje",
+      "search_box": [
+        1339,
+        530,
+        1449,
+        650
+      ],
+      "file": "01_cini/visoki_gasilski_castnik_i_stopnje.png",
+      "size": [
+        109,
+        118
+      ],
+      "source_bounds": [
+        1341,
+        533,
+        1446,
+        647
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Gasilec pripravnik",
+      "search_box": [
+        85,
+        733,
+        195,
+        853
+      ],
+      "file": "01_cini/gasilec_pripravnik.png",
+      "size": [
+        109,
+        117
+      ],
+      "source_bounds": [
+        88,
+        736,
+        193,
+        849
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Gasilec II. stopnje",
+      "search_box": [
+        242,
+        733,
+        352,
+        853
+      ],
+      "file": "01_cini/gasilec_ii_stopnje.png",
+      "size": [
+        111,
+        116
+      ],
+      "source_bounds": [
+        244,
+        736,
+        351,
+        848
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Višji gasilec II. stopnje",
+      "search_box": [
+        399,
+        733,
+        509,
+        853
+      ],
+      "file": "01_cini/visji_gasilec_ii_stopnje.png",
+      "size": [
+        109,
+        116
+      ],
+      "source_bounds": [
+        401,
+        736,
+        506,
+        848
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Nižji gasilski častnik II. stopnje",
+      "search_box": [
+        555,
+        733,
+        665,
+        853
+      ],
+      "file": "01_cini/nizji_gasilski_castnik_ii_stopnje.png",
+      "size": [
+        110,
+        116
+      ],
+      "source_bounds": [
+        558,
+        736,
+        664,
+        848
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Gasilski častnik II. stopnje",
+      "search_box": [
+        712,
+        733,
+        822,
+        853
+      ],
+      "file": "01_cini/gasilski_castnik_ii_stopnje.png",
+      "size": [
+        110,
+        117
+      ],
+      "source_bounds": [
+        714,
+        736,
+        820,
+        849
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Višji gasilski častnik organizacijske smeri II. stopnje",
+      "search_box": [
+        868,
+        733,
+        978,
+        853
+      ],
+      "file": "01_cini/visji_gasilski_castnik_organizacijske_smeri_ii_stopnje.png",
+      "size": [
+        111,
+        116
+      ],
+      "source_bounds": [
+        869,
+        736,
+        976,
+        848
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Višji gasilski častnik II. stopnje",
+      "search_box": [
+        1027,
+        733,
+        1137,
+        853
+      ],
+      "file": "01_cini/visji_gasilski_castnik_ii_stopnje.png",
+      "size": [
+        110,
+        116
+      ],
+      "source_bounds": [
+        1029,
+        736,
+        1135,
+        848
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Visoki gasilski častnik organizacijske smeri II. stopnje",
+      "search_box": [
+        1182,
+        733,
+        1292,
+        853
+      ],
+      "file": "01_cini/visoki_gasilski_castnik_organizacijske_smeri_ii_stopnje.png",
+      "size": [
+        110,
+        117
+      ],
+      "source_bounds": [
+        1184,
+        736,
+        1290,
+        849
+      ]
+    },
+    {
+      "category": "01_cini",
+      "label": "Visoki gasilski častnik II. stopnje",
+      "search_box": [
+        1339,
+        733,
+        1449,
+        853
+      ],
+      "file": "01_cini/visoki_gasilski_castnik_ii_stopnje.png",
+      "size": [
+        111,
+        117
+      ],
+      "source_bounds": [
+        1340,
+        736,
+        1447,
+        849
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Strojnik",
+      "search_box": [
+        1499,
+        333,
+        1567,
+        423
+      ],
+      "file": "02_specialnosti/strojnik.png",
+      "size": [
+        64,
+        88
+      ],
+      "source_bounds": [
+        1503,
+        336,
+        1563,
+        420
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Strojnik avtolestve",
+      "search_box": [
+        1591,
+        333,
+        1659,
+        423
+      ],
+      "file": "02_specialnosti/strojnik_avtolestve.png",
+      "size": [
+        65,
+        88
+      ],
+      "source_bounds": [
+        1594,
+        336,
+        1655,
+        420
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Orodjar",
+      "search_box": [
+        1683,
+        333,
+        1751,
+        423
+      ],
+      "file": "02_specialnosti/orodjar.png",
+      "size": [
+        64,
+        89
+      ],
+      "source_bounds": [
+        1687,
+        336,
+        1747,
+        421
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Nosilec dihalnega aparata",
+      "search_box": [
+        1775,
+        333,
+        1843,
+        423
+      ],
+      "file": "02_specialnosti/nosilec_dihalnega_aparata.png",
+      "size": [
+        64,
+        88
+      ],
+      "source_bounds": [
+        1779,
+        336,
+        1839,
+        420
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Skrbnik dihalnih zaščitnih naprav",
+      "search_box": [
+        1867,
+        333,
+        1935,
+        423
+      ],
+      "file": "02_specialnosti/skrbnik_dihalnih_zascitnih_naprav.png",
+      "size": [
+        64,
+        88
+      ],
+      "source_bounds": [
+        1871,
+        336,
+        1931,
+        420
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Gašenje notranjih požarov - modul A",
+      "search_box": [
+        1959,
+        333,
+        2027,
+        423
+      ],
+      "file": "02_specialnosti/gasenje_notranjih_pozarov_modul_a.png",
+      "size": [
+        65,
+        88
+      ],
+      "source_bounds": [
+        1962,
+        336,
+        2023,
+        420
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Gašenje notranjih požarov - modul B",
+      "search_box": [
+        2051,
+        333,
+        2119,
+        423
+      ],
+      "file": "02_specialnosti/gasenje_notranjih_pozarov_modul_b.png",
+      "size": [
+        63,
+        89
+      ],
+      "source_bounds": [
+        2055,
+        336,
+        2114,
+        421
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Gašenje notranjih požarov - modul C",
+      "search_box": [
+        2143,
+        333,
+        2211,
+        423
+      ],
+      "file": "02_specialnosti/gasenje_notranjih_pozarov_modul_c.png",
+      "size": [
+        65,
+        88
+      ],
+      "source_bounds": [
+        2146,
+        336,
+        2207,
+        420
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Uporabnik radijskih postaj",
+      "search_box": [
+        1499,
+        478,
+        1567,
+        568
+      ],
+      "file": "02_specialnosti/uporabnik_radijskih_postaj.png",
+      "size": [
+        64,
+        88
+      ],
+      "source_bounds": [
+        1503,
+        481,
+        1563,
+        565
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Inštruktor radijskih zvez",
+      "search_box": [
+        1591,
+        478,
+        1659,
+        568
+      ],
+      "file": "02_specialnosti/instruktor_radijskih_zvez.png",
+      "size": [
+        65,
+        87
+      ],
+      "source_bounds": [
+        1593,
+        482,
+        1654,
+        565
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Tehnični reševalec",
+      "search_box": [
+        1683,
+        478,
+        1751,
+        568
+      ],
+      "file": "02_specialnosti/tehnicni_resevalec.png",
+      "size": [
+        64,
+        88
+      ],
+      "source_bounds": [
+        1687,
+        481,
+        1747,
+        565
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Reševalec ob nesrečah z nevarnimi snovmi",
+      "search_box": [
+        1775,
+        478,
+        1843,
+        568
+      ],
+      "file": "02_specialnosti/resevalec_ob_nesrecah_z_nevarnimi_snovmi.png",
+      "size": [
+        64,
+        88
+      ],
+      "source_bounds": [
+        1779,
+        481,
+        1839,
+        565
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Gašenje požarov v naravnem okolju",
+      "search_box": [
+        1867,
+        478,
+        1935,
+        568
+      ],
+      "file": "02_specialnosti/gasenje_pozarov_v_naravnem_okolju.png",
+      "size": [
+        63,
+        89
+      ],
+      "source_bounds": [
+        1871,
+        480,
+        1930,
+        565
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Vodja čolna",
+      "search_box": [
+        1959,
+        478,
+        2027,
+        568
+      ],
+      "file": "02_specialnosti/vodja_colna.png",
+      "size": [
+        64,
+        87
+      ],
+      "source_bounds": [
+        1962,
+        481,
+        2022,
+        564
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Reševalec na vodi",
+      "search_box": [
+        2051,
+        478,
+        2119,
+        568
+      ],
+      "file": "02_specialnosti/resevalec_na_vodi.png",
+      "size": [
+        66,
+        89
+      ],
+      "source_bounds": [
+        2053,
+        480,
+        2115,
+        565
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Potapljač - 1 zvezdica",
+      "search_box": [
+        1499,
+        623,
+        1567,
+        713
+      ],
+      "file": "02_specialnosti/potapljac_1_zvezdica.png",
+      "size": [
+        64,
+        91
+      ],
+      "source_bounds": [
+        1503,
+        624,
+        1563,
+        711
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Potapljač - 2 zvezdici",
+      "search_box": [
+        1591,
+        623,
+        1659,
+        713
+      ],
+      "file": "02_specialnosti/potapljac_2_zvezdici.png",
+      "size": [
+        64,
+        89
+      ],
+      "source_bounds": [
+        1594,
+        626,
+        1654,
+        711
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Potapljač - 3 zvezdice",
+      "search_box": [
+        1683,
+        623,
+        1751,
+        713
+      ],
+      "file": "02_specialnosti/potapljac_3_zvezdice.png",
+      "size": [
+        64,
+        90
+      ],
+      "source_bounds": [
+        1687,
+        625,
+        1747,
+        711
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Potapljač - 4 zvezdice",
+      "search_box": [
+        1775,
+        623,
+        1843,
+        713
+      ],
+      "file": "02_specialnosti/potapljac_4_zvezdice.png",
+      "size": [
+        65,
+        89
+      ],
+      "source_bounds": [
+        1778,
+        626,
+        1839,
+        711
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Sodnik gasilskih in gasilskošportnih tekmovalnih disciplin",
+      "search_box": [
+        1867,
+        623,
+        1935,
+        713
+      ],
+      "file": "02_specialnosti/sodnik_gasilskih_in_gasilskosportnih_tekmovalnih_disciplin.png",
+      "size": [
+        64,
+        89
+      ],
+      "source_bounds": [
+        1871,
+        626,
+        1931,
+        711
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Bolničar",
+      "search_box": [
+        1959,
+        623,
+        2027,
+        713
+      ],
+      "file": "02_specialnosti/bolnicar.png",
+      "size": [
+        64,
+        89
+      ],
+      "source_bounds": [
+        1962,
+        626,
+        2022,
+        711
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Zdravnik",
+      "search_box": [
+        2051,
+        623,
+        2119,
+        713
+      ],
+      "file": "02_specialnosti/zdravnik.png",
+      "size": [
+        65,
+        89
+      ],
+      "source_bounds": [
+        2054,
+        626,
+        2115,
+        711
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Informatik",
+      "search_box": [
+        1499,
+        769,
+        1567,
+        859
+      ],
+      "file": "02_specialnosti/informatik.png",
+      "size": [
+        63,
+        89
+      ],
+      "source_bounds": [
+        1503,
+        772,
+        1562,
+        857
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Vodja članic",
+      "search_box": [
+        1591,
+        769,
+        1659,
+        859
+      ],
+      "file": "02_specialnosti/vodja_clanic.png",
+      "size": [
+        63,
+        88
+      ],
+      "source_bounds": [
+        1595,
+        773,
+        1654,
+        857
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Mentor mladine",
+      "search_box": [
+        1683,
+        769,
+        1751,
+        859
+      ],
+      "file": "02_specialnosti/mentor_mladine.png",
+      "size": [
+        64,
+        89
+      ],
+      "source_bounds": [
+        1687,
+        772,
+        1747,
+        857
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Mentor mladine I",
+      "search_box": [
+        1775,
+        769,
+        1843,
+        859
+      ],
+      "file": "02_specialnosti/mentor_mladine_i.png",
+      "size": [
+        66,
+        89
+      ],
+      "source_bounds": [
+        1777,
+        772,
+        1839,
+        857
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Preventivec",
+      "search_box": [
+        1867,
+        769,
+        1935,
+        859
+      ],
+      "file": "02_specialnosti/preventivec.png",
+      "size": [
+        65,
+        89
+      ],
+      "source_bounds": [
+        1870,
+        772,
+        1931,
+        857
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Inštruktor",
+      "search_box": [
+        1959,
+        769,
+        2027,
+        859
+      ],
+      "file": "02_specialnosti/instruktor.png",
+      "size": [
+        64,
+        89
+      ],
+      "source_bounds": [
+        1962,
+        772,
+        2022,
+        857
+      ]
+    },
+    {
+      "category": "02_specialnosti",
+      "label": "Predavatelj",
+      "search_box": [
+        2051,
+        769,
+        2119,
+        859
+      ],
+      "file": "02_specialnosti/predavatelj.png",
+      "size": [
+        64,
+        89
+      ],
+      "source_bounds": [
+        2054,
+        772,
+        2114,
+        857
+      ]
+    },
+    {
+      "category": "03_osnovne_oznake",
+      "label": "Pionir - mladinec desetar",
+      "search_box": [
+        108,
+        1098,
+        253,
+        1178
+      ],
+      "file": "03_osnovne_oznake/pionir_mladinec_desetar.png",
+      "size": [
+        143,
+        78
+      ],
+      "source_bounds": [
+        110,
+        1101,
+        249,
+        1175
+      ]
+    },
+    {
+      "category": "03_osnovne_oznake",
+      "label": "Gasilec",
+      "search_box": [
+        108,
+        1226,
+        253,
+        1306
+      ],
+      "file": "03_osnovne_oznake/gasilec.png",
+      "size": [
+        144,
+        77
+      ],
+      "source_bounds": [
+        110,
+        1229,
+        250,
+        1302
+      ]
+    },
+    {
+      "category": "03_osnovne_oznake",
+      "label": "Operativni gasilec",
+      "search_box": [
+        108,
+        1368,
+        253,
+        1448
+      ],
+      "file": "03_osnovne_oznake/operativni_gasilec.png",
+      "size": [
+        143,
+        75
+      ],
+      "source_bounds": [
+        110,
+        1372,
+        249,
+        1443
+      ]
+    },
+    {
+      "category": "04_operativne_funkcije",
+      "label": "Desetar",
+      "search_box": [
+        325,
+        1098,
+        472,
+        1178
+      ],
+      "file": "04_operativne_funkcije/desetar.png",
+      "size": [
+        142,
+        76
+      ],
+      "source_bounds": [
+        328,
+        1102,
+        466,
+        1174
+      ]
+    },
+    {
+      "category": "04_operativne_funkcije",
+      "label": "Poveljnik sektorja",
+      "search_box": [
+        480,
+        1098,
+        627,
+        1178
+      ],
+      "file": "04_operativne_funkcije/poveljnik_sektorja.png",
+      "size": [
+        144,
+        78
+      ],
+      "source_bounds": [
+        481,
+        1101,
+        621,
+        1175
+      ]
+    },
+    {
+      "category": "04_operativne_funkcije",
+      "label": "Član poveljstva GZ",
+      "search_box": [
+        635,
+        1098,
+        782,
+        1178
+      ],
+      "file": "04_operativne_funkcije/clan_poveljstva_gz.png",
+      "size": [
+        142,
+        78
+      ],
+      "source_bounds": [
+        637,
+        1101,
+        775,
+        1175
+      ]
+    },
+    {
+      "category": "04_operativne_funkcije",
+      "label": "Regijski poveljnik in pomočnik poveljnika GZS",
+      "search_box": [
+        790,
+        1098,
+        937,
+        1178
+      ],
+      "file": "04_operativne_funkcije/regijski_poveljnik_in_pomocnik_poveljnika_gzs.png",
+      "size": [
+        144,
+        77
+      ],
+      "source_bounds": [
+        791,
+        1102,
+        931,
+        1175
+      ]
+    },
+    {
+      "category": "04_operativne_funkcije",
+      "label": "Vodnik, namestnik poveljnika in podpoveljnik PGD",
+      "search_box": [
+        325,
+        1226,
+        472,
+        1306
+      ],
+      "file": "04_operativne_funkcije/vodnik_namestnik_poveljnika_in_podpoveljnik_pgd.png",
+      "size": [
+        142,
+        77
+      ],
+      "source_bounds": [
+        328,
+        1229,
+        466,
+        1302
+      ]
+    },
+    {
+      "category": "04_operativne_funkcije",
+      "label": "Namestnik občinskega poveljnika in občinski podpoveljnik",
+      "search_box": [
+        480,
+        1226,
+        627,
+        1306
+      ],
+      "file": "04_operativne_funkcije/namestnik_obcinskega_poveljnika_in_obcinski_podpoveljnik.png",
+      "size": [
+        144,
+        77
+      ],
+      "source_bounds": [
+        481,
+        1228,
+        621,
+        1301
+      ]
+    },
+    {
+      "category": "04_operativne_funkcije",
+      "label": "Namestnik poveljnika in podpoveljnik GZ",
+      "search_box": [
+        635,
+        1226,
+        782,
+        1306
+      ],
+      "file": "04_operativne_funkcije/namestnik_poveljnika_in_podpoveljnik_gz.png",
+      "size": [
+        143,
+        78
+      ],
+      "source_bounds": [
+        637,
+        1228,
+        776,
+        1302
+      ]
+    },
+    {
+      "category": "04_operativne_funkcije",
+      "label": "Namestnik poveljnika in podpoveljnik GZS",
+      "search_box": [
+        790,
+        1226,
+        937,
+        1306
+      ],
+      "file": "04_operativne_funkcije/namestnik_poveljnika_in_podpoveljnik_gzs.png",
+      "size": [
+        145,
+        76
+      ],
+      "source_bounds": [
+        791,
+        1229,
+        932,
+        1301
+      ]
+    },
+    {
+      "category": "04_operativne_funkcije",
+      "label": "Poveljnik PGD",
+      "search_box": [
+        325,
+        1368,
+        472,
+        1448
+      ],
+      "file": "04_operativne_funkcije/poveljnik_pgd.png",
+      "size": [
+        142,
+        76
+      ],
+      "source_bounds": [
+        328,
+        1372,
+        466,
+        1444
+      ]
+    },
+    {
+      "category": "04_operativne_funkcije",
+      "label": "Občinski poveljnik",
+      "search_box": [
+        480,
+        1368,
+        627,
+        1448
+      ],
+      "file": "04_operativne_funkcije/obcinski_poveljnik.png",
+      "size": [
+        144,
+        76
+      ],
+      "source_bounds": [
+        481,
+        1371,
+        621,
+        1443
+      ]
+    },
+    {
+      "category": "04_operativne_funkcije",
+      "label": "Poveljnik GZ",
+      "search_box": [
+        635,
+        1368,
+        782,
+        1448
+      ],
+      "file": "04_operativne_funkcije/poveljnik_gz.png",
+      "size": [
+        143,
+        78
+      ],
+      "source_bounds": [
+        637,
+        1370,
+        776,
+        1444
+      ]
+    },
+    {
+      "category": "04_operativne_funkcije",
+      "label": "Poveljnik GZS",
+      "search_box": [
+        790,
+        1368,
+        937,
+        1448
+      ],
+      "file": "04_operativne_funkcije/poveljnik_gzs.png",
+      "size": [
+        144,
+        77
+      ],
+      "source_bounds": [
+        791,
+        1371,
+        931,
+        1444
+      ]
+    },
+    {
+      "category": "05_organizacijske_funkcije",
+      "label": "Član upravnega odbora PGD in član drugih voljenih organov PGD",
+      "search_box": [
+        988,
+        1098,
+        1135,
+        1178
+      ],
+      "file": "05_organizacijske_funkcije/clan_upravnega_odbora_pgd_in_clan_drugih_voljenih_organov_pgd.png",
+      "size": [
+        143,
+        76
+      ],
+      "source_bounds": [
+        991,
+        1102,
+        1130,
+        1174
+      ]
+    },
+    {
+      "category": "05_organizacijske_funkcije",
+      "label": "Član upravnega odbora GZ in član drugih voljenih organov GZ",
+      "search_box": [
+        1143,
+        1098,
+        1290,
+        1178
+      ],
+      "file": "05_organizacijske_funkcije/clan_upravnega_odbora_gz_in_clan_drugih_voljenih_organov_gz.png",
+      "size": [
+        144,
+        76
+      ],
+      "source_bounds": [
+        1145,
+        1102,
+        1285,
+        1174
+      ]
+    },
+    {
+      "category": "05_organizacijske_funkcije",
+      "label": "Član upravnega odbora GZS in član drugih voljenih organov GZS",
+      "search_box": [
+        1297,
+        1098,
+        1444,
+        1178
+      ],
+      "file": "05_organizacijske_funkcije/clan_upravnega_odbora_gzs_in_clan_drugih_voljenih_organov_gzs.png",
+      "size": [
+        145,
+        79
+      ],
+      "source_bounds": [
+        1299,
+        1101,
+        1440,
+        1176
+      ]
+    },
+    {
+      "category": "05_organizacijske_funkcije",
+      "label": "Podpredsednik in tajnik PGD",
+      "search_box": [
+        988,
+        1226,
+        1135,
+        1306
+      ],
+      "file": "05_organizacijske_funkcije/podpredsednik_in_tajnik_pgd.png",
+      "size": [
+        143,
+        75
+      ],
+      "source_bounds": [
+        991,
+        1229,
+        1130,
+        1300
+      ]
+    },
+    {
+      "category": "05_organizacijske_funkcije",
+      "label": "Podpredsednik in tajnik GZ",
+      "search_box": [
+        1143,
+        1226,
+        1290,
+        1306
+      ],
+      "file": "05_organizacijske_funkcije/podpredsednik_in_tajnik_gz.png",
+      "size": [
+        144,
+        77
+      ],
+      "source_bounds": [
+        1145,
+        1228,
+        1285,
+        1301
+      ]
+    },
+    {
+      "category": "05_organizacijske_funkcije",
+      "label": "Namestnik predsednika in podpredsednik GZS",
+      "search_box": [
+        1297,
+        1226,
+        1444,
+        1306
+      ],
+      "file": "05_organizacijske_funkcije/namestnik_predsednika_in_podpredsednik_gzs.png",
+      "size": [
+        144,
+        79
+      ],
+      "source_bounds": [
+        1300,
+        1227,
+        1440,
+        1302
+      ]
+    },
+    {
+      "category": "05_organizacijske_funkcije",
+      "label": "Predsednik PGD",
+      "search_box": [
+        988,
+        1368,
+        1135,
+        1448
+      ],
+      "file": "05_organizacijske_funkcije/predsednik_pgd.png",
+      "size": [
+        143,
+        76
+      ],
+      "source_bounds": [
+        991,
+        1372,
+        1130,
+        1444
+      ]
+    },
+    {
+      "category": "05_organizacijske_funkcije",
+      "label": "Predsednik GZ",
+      "search_box": [
+        1143,
+        1368,
+        1290,
+        1448
+      ],
+      "file": "05_organizacijske_funkcije/predsednik_gz.png",
+      "size": [
+        144,
+        77
+      ],
+      "source_bounds": [
+        1145,
+        1370,
+        1285,
+        1443
+      ]
+    },
+    {
+      "category": "05_organizacijske_funkcije",
+      "label": "Predsednik GZS",
+      "search_box": [
+        1297,
+        1368,
+        1444,
+        1448
+      ],
+      "file": "05_organizacijske_funkcije/predsednik_gzs.png",
+      "size": [
+        144,
+        78
+      ],
+      "source_bounds": [
+        1299,
+        1371,
+        1439,
+        1445
+      ]
+    },
+    {
+      "category": "06_castne_funkcije",
+      "label": "Častni poveljnik PGD",
+      "search_box": [
+        1501,
+        1209,
+        1668,
+        1305
+      ],
+      "file": "06_castne_funkcije/castni_poveljnik_pgd.png",
+      "size": [
+        161,
+        92
+      ],
+      "source_bounds": [
+        1504,
+        1214,
+        1661,
+        1302
+      ]
+    },
+    {
+      "category": "06_castne_funkcije",
+      "label": "Častni občinski poveljnik",
+      "search_box": [
+        1681,
+        1209,
+        1848,
+        1305
+      ],
+      "file": "06_castne_funkcije/castni_obcinski_poveljnik.png",
+      "size": [
+        162,
+        94
+      ],
+      "source_bounds": [
+        1684,
+        1212,
+        1842,
+        1302
+      ]
+    },
+    {
+      "category": "06_castne_funkcije",
+      "label": "Častni poveljnik GZ",
+      "search_box": [
+        1861,
+        1209,
+        2028,
+        1305
+      ],
+      "file": "06_castne_funkcije/castni_poveljnik_gz.png",
+      "size": [
+        163,
+        94
+      ],
+      "source_bounds": [
+        1865,
+        1212,
+        2024,
+        1302
+      ]
+    },
+    {
+      "category": "06_castne_funkcije",
+      "label": "Častni poveljnik GZS",
+      "search_box": [
+        2043,
+        1209,
+        2210,
+        1305
+      ],
+      "file": "06_castne_funkcije/castni_poveljnik_gzs.png",
+      "size": [
+        163,
+        93
+      ],
+      "source_bounds": [
+        2045,
+        1213,
+        2204,
+        1302
+      ]
+    },
+    {
+      "category": "06_castne_funkcije",
+      "label": "Častni predsednik PGD",
+      "search_box": [
+        1501,
+        1352,
+        1668,
+        1449
+      ],
+      "file": "06_castne_funkcije/castni_predsednik_pgd.png",
+      "size": [
+        161,
+        91
+      ],
+      "source_bounds": [
+        1504,
+        1356,
+        1661,
+        1443
+      ]
+    },
+    {
+      "category": "06_castne_funkcije",
+      "label": "Častni predsednik GZ",
+      "search_box": [
+        1861,
+        1352,
+        2028,
+        1449
+      ],
+      "file": "06_castne_funkcije/castni_predsednik_gz.png",
+      "size": [
+        162,
+        93
+      ],
+      "source_bounds": [
+        1865,
+        1354,
+        2023,
+        1443
+      ]
+    },
+    {
+      "category": "06_castne_funkcije",
+      "label": "Častni predsednik GZS",
+      "search_box": [
+        2043,
+        1352,
+        2210,
+        1449
+      ],
+      "file": "06_castne_funkcije/castni_predsednik_gzs.png",
+      "size": [
+        162,
+        95
+      ],
+      "source_bounds": [
+        2046,
+        1354,
+        2204,
+        1445
+      ]
+    }
+  ]
+}

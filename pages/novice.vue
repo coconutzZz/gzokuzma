@@ -2,18 +2,19 @@
   <div class="px-5">
     <SectionTitle>Aktualno</SectionTitle>
 
-    <span :to="`/novice?with_tag=${tag.name}`" v-for="tag in tags" :key="tag.name"
-      @click="toggleTag(tag.name)"
-      class="mx-1 mt-4"
-      :class="[
-      'inline-flex items-center sm:gap-1.5 cursor-pointer text-sm px-3 py-1 rounded-full transition-all duration-200',
-      selectedTags.has(tag.name) 
-        ? 'bg-blue-600 text-white shadow-sm' 
-        : 'bg-blue-100 text-blue-800 hover:bg-blue-200'
-      ]">
-      #{{ tag.name }} ({{ tag.taggings_count }})
-    </span>
-
+    <div class="hidden sm:block">        
+      <span :to="`/novice?with_tag=${tag.name}`" v-for="tag in tags" :key="tag.name"
+        @click="toggleTag(tag.name)"
+        class="mx-1 mt-4"
+        :class="[
+        'inline-flex items-center sm:gap-1.5 cursor-pointer text-sm px-3 py-1 rounded-full transition-all duration-200',
+        selectedTags.has(tag.name) 
+          ? 'bg-blue-600 text-white shadow-sm' 
+          : 'bg-blue-100 text-blue-800 hover:bg-blue-200'
+        ]">
+        #{{ tag.name }} ({{ tag.taggings_count }})
+      </span>
+    </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 my-5 sm:gap-5 md:my-16">
       <NewsCards :with-tag="withTag"/>
     </div>

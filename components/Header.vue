@@ -1,5 +1,5 @@
 <template>
-  <nav role="navigation" id="header" :class="{ 'fixed': isFixed }, isBackgroundVisible ? 'bg-primary-500' : 'bg-none'" class="w-full z-30 top-0 transition-colors duration-700">
+  <nav ref="headerNavigation" aria-label="Glavna navigacija" id="header" :class="{ 'fixed': isFixed }, isBackgroundVisible ? 'bg-primary-500' : 'bg-none'" class="w-full z-30 top-0 transition-colors duration-700">
     <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2 max-w-screen-2xl md:max-w-screen-xl xl:max-w-screen-2xl">
       <div class="pl-4 flex items-center">
         <NuxtLink to="/" class="text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" aria-label="Domov">
@@ -7,14 +7,22 @@
         </NuxtLink>
       </div>
       <div class="block lg:hidden pr-4">
-        <button @click="toggleDrawer()" class="flex items-center p-1 text-white hover:text-accent focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-          <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <title>Menu</title>
+        <button
+          ref="drawerTrigger"
+          type="button"
+          aria-label="Odpri meni"
+          aria-haspopup="dialog"
+          :aria-expanded="isDrawerOpen"
+          :aria-controls="drawerId"
+          @click="openDrawer"
+          class="flex items-center p-2.5 text-white hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent transform transition hover:scale-105 duration-300 ease-in-out motion-reduce:transition-none motion-reduce:transform-none"
+        >
+          <svg aria-hidden="true" class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
           </svg>
         </button>
       </div>
-      <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent pr-4 z-20" id="nav-content">
+      <div ref="desktopMenu" class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent pr-4 z-20" id="nav-content">
         <ul class="list-reset lg:flex justify-end flex-1 items-center">
           <li v-for="blok in menuItems" :key="blok._uid" class="mr-3">
             <NuxtLink 
@@ -46,28 +54,40 @@
         </div>
     </div>
   </nav>
-  <div :class="isDrawerOpen ? 'translate-x-0' : 'translate-x-full'" class="fixed top-0 right-0 h-full w-full md:w-[50%] bg-white shadow-lg transform transition-transform duration-300 z-50">
-    <ButtonClose @click="toggleDrawer()" class="absolute right-2 top-5" />
-    <div class="flex flex-col justify-center h-full pb-10">
+  <dialog
+    ref="drawer"
+    :id="drawerId"
+    aria-label="Glavni meni"
+    aria-modal="true"
+    class="mobile-menu fixed inset-y-0 left-auto right-0 m-0 h-dvh max-h-none w-full max-w-none md:w-[50%] border-0 p-0 bg-white shadow-lg overflow-y-auto"
+    @cancel.prevent="closeDrawer()"
+    @close="syncDrawerClosed"
+    @keydown.tab="wrapDrawerFocus"
+    @pointerdown="onDrawerPointerDown"
+    @click="onDrawerClick"
+  >
+    <ButtonClose
+      type="button"
+      aria-label="Zapri meni"
+      autofocus
+      @click="closeDrawer()"
+      class="absolute right-2 top-5 min-h-11 min-w-11 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-500"
+    />
+    <nav aria-label="Mobilna navigacija" class="flex flex-col justify-center min-h-full py-20">
       <div class="flex justify-center text-center">      
         <ul class="list-reset flex-row text-xl">
           <li v-for="blok in menuItems" :key="blok._uid" class="mr-3">
-            <NuxtLink @click="toggleDrawer()" :to="`/${(blok.link.url.length > 0 ? blok.link.url : blok.link.cached_url)}`" class="inline-block py-2 px-4 text-primary-500 font-bold no-underline">
+            <NuxtLink @click="closeDrawer()" :to="`/${(blok.link.url.length > 0 ? blok.link.url : blok.link.cached_url)}`" class="inline-block py-2 px-4 text-primary-500 font-bold no-underline">
               {{ blok.name }}
             </NuxtLink>
           </li>
         </ul>
       </div>  
       <div class="md:hidden mt-5 force-black">
-        <DepartmentLinks @click="toggleDrawer()" />
+        <DepartmentLinks @click="closeDrawer()" />
       </div> 
-    </div>
-  </div>  
-<div
-  v-if="isDrawerOpen"
-  @click="toggleDrawer()"
-  class="fixed inset-0 bg-black bg-opacity-50 z-40"
-/>
+    </nav>
+  </dialog>
 </template>
 <script setup>
 const route = useRoute()
@@ -111,17 +131,129 @@ const current = computed(() =>
   )
 )
 
-const isDrawerOpen = ref(false);
-const toggleDrawer = () => {
-  isDrawerOpen.value = !isDrawerOpen.value;
-  if (isDrawerOpen.value) 
-    document.body.classList.add('overflow-hidden')
-  else 
-    document.body.classList.remove('overflow-hidden')
+const drawerId = `mobile-menu-${useId()}`
+const drawer = ref(null)
+const drawerTrigger = ref(null)
+const headerNavigation = ref(null)
+const desktopMenu = ref(null)
+const isDrawerOpen = ref(false)
+let desktopQuery
+let scrollLocked = false
+let hadScrollLock = false
+let pointerStartedOnBackdrop = false
+
+function openDrawer() {
+  if (!drawer.value || drawer.value.open || desktopQuery?.matches) return
+
+  // showModal handles initial focus, focus containment and an inert background.
+  drawer.value.showModal()
+  isDrawerOpen.value = true
+  hadScrollLock = document.body.classList.contains('overflow-hidden')
+  document.body.classList.add('overflow-hidden')
+  scrollLocked = true
 }
+
+function unlockScroll() {
+  if (!scrollLocked) return
+  if (!hadScrollLock) document.body.classList.remove('overflow-hidden')
+  scrollLocked = false
+}
+
+function syncDrawerClosed() {
+  if (drawer.value?.open) return
+  isDrawerOpen.value = false
+  pointerStartedOnBackdrop = false
+  unlockScroll()
+}
+
+function closeDrawer(restoreFocus = true) {
+  if (!isDrawerOpen.value) return
+  drawer.value?.close()
+  syncDrawerClosed()
+  if (restoreFocus && drawerTrigger.value?.getClientRects().length) {
+    drawerTrigger.value.focus()
+  }
+}
+
+function wrapDrawerFocus(event) {
+  if (event.altKey || event.ctrlKey || event.metaKey) return
+  const controls = [...drawer.value.querySelectorAll('a[href], button:not([disabled])')]
+    .filter(element => element.getClientRects().length)
+  const first = controls[0]
+  const last = controls[controls.length - 1]
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault()
+    last?.focus()
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault()
+    first?.focus()
+  }
+}
+
+function isBackdropEvent(event) {
+  if (event.target !== drawer.value) return false
+  const bounds = drawer.value.getBoundingClientRect()
+  return event.clientX < bounds.left || event.clientX > bounds.right ||
+    event.clientY < bounds.top || event.clientY > bounds.bottom
+}
+
+function onDrawerPointerDown(event) {
+  pointerStartedOnBackdrop = isBackdropEvent(event)
+}
+
+function onDrawerClick(event) {
+  if (pointerStartedOnBackdrop && isBackdropEvent(event)) closeDrawer()
+  pointerStartedOnBackdrop = false
+}
+
+function onDesktopChange(event) {
+  if (!event.matches || !isDrawerOpen.value) return
+  closeDrawer(false)
+  const desktopLink = desktopMenu.value?.querySelector('a[aria-current="page"]') ||
+    desktopMenu.value?.querySelector('a[href]') || headerNavigation.value?.querySelector('a[href]')
+  desktopLink?.focus()
+}
+
+watch(() => route.fullPath, () => closeDrawer())
+
+onMounted(() => {
+  desktopQuery = window.matchMedia('(min-width: 1024px)')
+  desktopQuery.addEventListener('change', onDesktopChange)
+})
+
+onBeforeUnmount(() => {
+  desktopQuery?.removeEventListener('change', onDesktopChange)
+  closeDrawer(false)
+  unlockScroll()
+})
 
 </script>
 <style lang="scss" scoped>
+  .mobile-menu::backdrop {
+    background: rgb(0 0 0 / 0.5);
+  }
+
+  .mobile-menu[open] {
+    animation: mobile-menu-enter 0.3s ease-out;
+  }
+
+  .mobile-menu :deep(a:focus-visible) {
+    outline: 2px solid theme('colors.primary.500');
+    outline-offset: 4px;
+    border-radius: 0.25rem;
+  }
+
+  @keyframes mobile-menu-enter {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu[open] {
+      animation: none;
+    }
+  }
+
   .force-black {
     color: black !important;
   }
