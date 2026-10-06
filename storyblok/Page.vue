@@ -1,10 +1,8 @@
 <template>
-  <div v-editable="blok" class="grid grid-cols-12 gap-4">
-    <div class="col-span-12">
-      <Breadcrumbs />
+  <div v-editable="blok" :class="blok.css_class">
+      <Breadcrumbs v-if="blok.show_breadcrumbs" />
       <SectionTitle v-if="blok.title">{{ blok.title }}</SectionTitle>
-      <StoryblokComponent v-for="blok in blok.body" :key="blok._uid" :blok="blok" />
-    </div>
+      <StoryblokComponent v-for="blok in blok.body" :key="blok._uid" :blok="blok" />    
   </div>
 </template>
  
