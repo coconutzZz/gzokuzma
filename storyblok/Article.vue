@@ -6,6 +6,7 @@
           <div>Avtor: {{ blok.author }}</div>
           <div>{{ formatPostedOn(postedOn) }}</div>
         </div>
+        <ShareButtons :title="blok.title" />
       </div>
 
       <main class="col-span-12" :class="tagList.length > 0 ? 'lg:col-span-7' : 'lg:col-span-9'">       
@@ -36,6 +37,8 @@
          </template>
         </div>
 
+        
+        <ShareButtons class="my-4 px-2 lg:px-5" :title="blok.title" />
       </main>
 
       <aside v-if="tagList.length > 0" class="col-span-12 lg:col-span-3 mt-4 lg:mt-14">
@@ -43,6 +46,7 @@
           <NuxtLink :to="`/novice?with_tag=${tag}`" v-for="tag in tagList" class="bg-blue-100 text-blue-800 hover:bg-blue-200 text-sm px-3 py-1 rounded-full">#{{ tag }}</NuxtLink>
         </div>
       </aside>
+
     </div>
     
   </article>  
