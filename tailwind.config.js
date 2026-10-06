@@ -10,6 +10,8 @@ module.exports = {
     './plugins/**/*.{js,ts}',
     './nuxt.config.{js,ts}'
   ],
+  // These classes are supplied by Storyblok rather than source templates.
+  safelist: ['float-left', 'w-md'],
   theme: {
     screens: {
       sm: '576px',
@@ -19,6 +21,9 @@ module.exports = {
       '2xl': '1536px',
     },
     extend: {
+      width: {
+        md: '28rem',
+      },
       colors: {
         primary: {
           50:  '#f5f6fa',

@@ -1,44 +1,46 @@
 <template>
   <article class="article-detail mx-auto p-0  bg-white rounded-2xl">    
-    <div class="grid grid-cols-12 gap-4">    
-      <div class="hidden lg:block col-span-2">        
-        <div class="my-4 text-sm text-gray-500">
-          <div>Avtor: {{ blok.author }}</div>
-          <div>{{ formatPostedOn(postedOn) }}</div>
+    <div class="grid grid-cols-12 gap-4">      
+      <main class="col-span-12" :class="tagList.length > 0 ? 'lg:col-span-9' : 'lg:col-start-3 lg:col-span-9'">       
+
+        <div class="hidden lg:block absolute w-200px ">        
+          <div class="my-4 text-sm text-gray-500">
+            <div>Avtor: {{ blok.author }}</div>
+            <div>{{ formatPostedOn(postedOn) }}</div>
+          </div>
+          <ShareButtons :title="blok.title" />
         </div>
-        <ShareButtons :title="blok.title" />
-      </div>
 
-      <main class="col-span-12" :class="tagList.length > 0 ? 'lg:col-span-7' : 'lg:col-span-9'">       
-
-        <div class="px-2 lg:px-0">
-          <Breadcrumbs />       
-          
-          <SectionTitle title-tag="h1" :text-center="false">{{ blok.title }}</SectionTitle>
-  
-          <div class="py-2 lg:hidden">
-            <div class="flex items-center mb-2 sm:mb-6 text-sm text-gray-500">
-              <span>Avtor: {{ blok.author }} | {{ formatPostedOn(postedOn) }}</span>
+        <div class="lg:ml-[200px]">
+          <div class="px-2 lg:px-0">
+            <Breadcrumbs />       
+            
+            <SectionTitle title-tag="h1" :text-center="false">{{ blok.title }}</SectionTitle>
+    
+            <div class="py-2 lg:hidden">
+              <div class="flex items-center mb-2 sm:mb-6 text-sm text-gray-500">
+                <span>Avtor: {{ blok.author }} | {{ formatPostedOn(postedOn) }}</span>
+              </div>
             </div>
           </div>
+  
+          <NuxtImg
+            v-if="hasFeaturedImage"
+            :src="blok.image.filename "
+            :alt="blok.title"
+            class="w-full h-auto md:max-h-72 md:h-68 object-cover sm:rounded-xl mb-2 lg:my-6"
+            provider="storyblok" :modifiers="{ filters: { format: 'webp', quality: 80 }}" />
+  
+          <div id="article-content" class="px-2 lg:px-0">
+            <StoryblokRichText :doc="props.blok.content" :resolvers="resolvers" />
+
+            <template v-if="props.blok?.gallery.length > 0 && isGalleryLoaded">
+              <Gallery v-for="gallery in galleryList" :key="gallery.title" :images="gallery.images" />
+           </template>
+          </div> 
+          
+          <ShareButtons class="my-4 px-2 lg:px-5" :title="blok.title" />
         </div>
-
-        <NuxtImg
-          v-if="hasFeaturedImage"
-          :src="blok.image.filename "
-          :alt="blok.title"
-          class="w-full h-auto md:max-h-72 md:h-68 object-cover sm:rounded-xl mb-2 lg:my-6"
-          provider="storyblok" :modifiers="{ filters: { format: 'webp', quality: 80 }}" />
-
-        <div id="article-content" class="px-2 lg:px-5">
-          <StoryblokRichText :doc="props.blok.content" :resolvers="resolvers" />
-          <template v-if="props.blok?.gallery.length > 0 && isGalleryLoaded">
-            <Gallery v-for="gallery in galleryList" :key="gallery.title" :images="gallery.images" />
-         </template>
-        </div>
-
-        
-        <ShareButtons class="my-4 px-2 lg:px-5" :title="blok.title" />
       </main>
 
       <aside v-if="tagList.length > 0" class="col-span-12 lg:col-span-3 mt-4 lg:mt-14">
@@ -56,9 +58,7 @@
 import { DateTime } from "luxon";
 import SectionTitle from '~/components/SectionTitle.vue';
 import { StoryblokRichText } from "@storyblok/vue";
-import FacebookPost from "./FacebookPost.vue";
-import RichtextIframe from "./RichtextIframe.vue";
-import SplitContent from "./SplitContent.vue";
+import { useStoryblokRichTextResolvers } from '~/composables/useStoryblokRichTextResolvers';
 import Gallery from "~/components/Gallery.vue";
 const version = import.meta.env.DEV ? 'draft' : 'published';
 
@@ -67,6 +67,7 @@ const storyblokApi = useStoryblokApi()
 const isGalleryLoaded = ref(false);
 
 const props = defineProps({ blok: Object, postedOn: String, tagList: Array });
+const resolvers = useStoryblokRichTextResolvers();
  
 const hasFeaturedImage = computed(() => props.blok?.image && props.blok.image.filename);
 
@@ -98,21 +99,6 @@ onMounted(async () => {
   }
 })
 
-const resolvers = {
-  [BlockTypes.COMPONENT]: (node) => {
-    const nodeBody = node.attrs.body[0];    
-    if (nodeBody && nodeBody.component === "FacebookPost" && nodeBody.url) {
-      return h(FacebookPost, { url: nodeBody.url });
-    }
-    if (nodeBody && nodeBody.component === "RichtextIframe" && nodeBody.url) {
-      return h(RichtextIframe, { url: nodeBody.url });
-    }
-    if (nodeBody && ["SplitContent", "splitcontent", "split_content"].includes(nodeBody.component)) {
-      return h(SplitContent, { blok: nodeBody });
-    }
-    return null;
-  },
-};
 </script>
 <style lang="scss">
 @media (max-width: 375px) {
@@ -132,8 +118,5 @@ const resolvers = {
     list-style: circle;
     padding-left: 40px;
   }
-}
-h1 {
-  font-size: 2em !important;
 }
 </style>

@@ -13,7 +13,7 @@
       <h2 v-if="title" class="order-1 mb-0">{{ title }}</h2>
 
       <div v-if="hasText" class="split-content__text order-2 min-w-0">
-        <StoryblokRichText :doc="blok.text" />
+        <StoryblokRichText :doc="blok.text" :resolvers="resolvers" />
       </div>
 
       <div v-if="buttonUrl" class="order-4">
@@ -48,6 +48,8 @@
 import { computed } from 'vue';
 import { StoryblokRichText } from '@storyblok/vue';
 import Button from '~/components/Button.vue';
+import { useStoryblokRichTextResolvers } from '~/composables/useStoryblokRichTextResolvers';
+import { useStoryblokButtonUrlResolver } from '~/composables/useStoryblokButtonUrlResolver';
 
 const props = defineProps({
   blok: {
@@ -55,6 +57,8 @@ const props = defineProps({
     default: () => ({})
   }
 });
+
+const resolvers = useStoryblokRichTextResolvers();
 
 const title = computed(() => props.blok?.title?.trim() || '');
 const hasImage = computed(() => Boolean(props.blok?.image?.filename));
@@ -82,28 +86,7 @@ const hasRichTextContent = (node) => {
 
 const hasText = computed(() => hasRichTextContent(props.blok?.text));
 
-const buttonUrl = computed(() => {
-  const link = props.blok?.button;
-  if (!link) return '';
-
-  let url = (link.linktype === 'story'
-    ? link.story?.full_slug || link.cached_url
-    : link.url || link.cached_url)?.trim() || '';
-
-  if (link.linktype === 'story') {
-    if (!url && !link.id) return '';
-    url = `/${url.replace(/^\/+/, '')}`;
-  } else if (link.linktype === 'email') {
-    if (!url) return '';
-    return url.startsWith('mailto:') ? url : `mailto:${url}`;
-  }
-
-  if (link.anchor) {
-    url = `${url.split('#')[0]}#${link.anchor.replace(/^#/, '')}`;
-  }
-
-  return url;
-});
+const buttonUrl = useStoryblokButtonUrlResolver(() => props.blok?.button);
 
 const hasContent = computed(() => Boolean(title.value || hasText.value || buttonUrl.value));
 </script>
