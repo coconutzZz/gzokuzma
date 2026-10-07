@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="shadow-lg rounded-b-lg flex flex-row  sm:flex-col">
+    <div class="relative shadow-lg rounded-b-lg flex flex-row  sm:flex-col">
       <div v-if="isLoading || hasImage"
         :class="{ 'w-1/2': isLoading || hasImage }"  
         class="sm:w-full relative overflow-hidden rounded-l-lg sm:rounded-l-none sm:rounded-t-lg group">
@@ -17,7 +17,9 @@
             </template>
             <template v-else>
                 <NuxtLink :to="`/novice/${article.slug}`"
-                    class="font-medium text-secondary text-sm sm:text-lg inline-block transition duration-500 ease-in-out mb-2">
+                    class="font-medium text-secondary text-sm sm:text-lg inline-block transition duration-500 ease-in-out mb-2
+                      after:absolute after:inset-0 after:z-10 after:rounded-lg after:content-[''] sm:after:hidden
+                      focus-visible:after:ring-2 focus-visible:after:ring-primary-500 focus-visible:after:ring-offset-2">
                   {{ article.content.title }}
                 </NuxtLink>
                 <p class="text-gray-500 text-xs sm:text-sm overflow-hidden line-clamp-[5]">

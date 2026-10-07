@@ -6,6 +6,9 @@
   body {
     @apply text-base text-gray-700;
   }
+  a {
+    @apply text-primary-500 font-medium;
+  }
   h1 {
     @apply text-4xl font-bold mb-4 text-primary-500;
   }
@@ -22,6 +25,3 @@
     @apply text-base text-white;
   }
 }
-
-
-  

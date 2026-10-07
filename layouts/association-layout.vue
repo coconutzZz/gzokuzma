@@ -9,7 +9,7 @@
         </div>
       </Header>
     </header>
-    <main role="main" class="bg-white border-b py-2 flex-grow">
+    <main role="main" class="bg-white border-b pt-10 pb-20 flex-grow">
       <div class="container sm:px-5 md:max-w-screen-xl xl:max-w-screen-2xl mx-auto">
         <slot />
       </div>
