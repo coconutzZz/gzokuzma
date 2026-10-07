@@ -25,7 +25,8 @@
 <script setup lang="ts">
 import type { StoryblokHistory } from '~/types/history'
 import { normalizeHistoryEntry } from '~/utils/history-entry'
-import DropdownButton from '~/components/DropdownButton.vue'
+import DropdownButton from '~/components/ui/DropdownButton.vue'
+import HistoryEntry from '~/components/history/HistoryEntry.vue'
 
 const sortOrder = ref('desc');
 

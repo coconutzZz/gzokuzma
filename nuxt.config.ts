@@ -43,7 +43,10 @@ export default defineNuxtConfig({
       isCustomElement: (tag) => ['swiper-container', 'swiper-slide'].includes(tag)
     }
   },
-  components: true,
+  components: [
+    { path: '~/components/dev', prefix: 'Dev' },
+    { path: '~/components', pathPrefix: false }
+  ],
   ssr: true,
   watch: ['public/history/**/index.md'],
   nitro: {

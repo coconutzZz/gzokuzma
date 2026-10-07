@@ -25,7 +25,7 @@
 
 <script setup>
 import { computed } from 'vue';
-import Button from '~/components/Button.vue';
+import Button from '~/components/ui/Button.vue';
 import { useStoryblokButtonUrlResolver } from '~/composables/useStoryblokButtonUrlResolver';
 
 const props = defineProps({

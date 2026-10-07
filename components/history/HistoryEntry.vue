@@ -18,17 +18,13 @@
 </template>
 <script setup lang="ts">
 
-import type { HistoryEntryData, StoryblokHistoryEntry } from '~/types/history'
-import { normalizeHistoryEntry } from '~/utils/history-entry'
+import type { HistoryEntryData } from '~/types/history'
 import { renderRichText } from '@storyblok/vue'
 
 const props = defineProps<{
-  entry?: HistoryEntryData
-  blok?: StoryblokHistoryEntry
-  postedOn?: string
-  tagList?: string[]
+  entry: HistoryEntryData
 }>()
-const historyEntry = computed(() => props.entry ?? normalizeHistoryEntry(props.blok ?? {}, 'history-entry'))
+const historyEntry = computed(() => props.entry)
 const resolvedRichText = computed(() => historyEntry.value.description.type === 'richtext'
   ? renderRichText(historyEntry.value.description.value)
   : '')

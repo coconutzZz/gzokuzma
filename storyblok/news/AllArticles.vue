@@ -5,6 +5,6 @@
 </template>
  
 <script setup>
-import NewsCards from '~/components/NewsCards.vue'
+import NewsCards from '~/components/news/NewsCards.vue'
 defineProps({ blok: Object });
 </script>

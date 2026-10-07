@@ -56,10 +56,10 @@
  
 <script setup>
 import { DateTime } from "luxon";
-import SectionTitle from '~/components/SectionTitle.vue';
+import SectionTitle from '~/components/ui/SectionTitle.vue';
 import { StoryblokRichText } from "@storyblok/vue";
 import { useStoryblokRichTextResolvers } from '~/composables/useStoryblokRichTextResolvers';
-import Gallery from "~/components/Gallery.vue";
+import Gallery from "~/components/content/Gallery.vue";
 const version = import.meta.env.DEV ? 'draft' : 'published';
 
 const storyblokApi = useStoryblokApi()

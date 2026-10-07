@@ -8,6 +8,6 @@
 </template>
  
 <script setup>
-import SectionTitle from '~/components/SectionTitle.vue';
+import SectionTitle from '~/components/ui/SectionTitle.vue';
 defineProps({ blok: Object })
 </script>

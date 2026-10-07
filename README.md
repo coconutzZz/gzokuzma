@@ -74,6 +74,38 @@ bun run preview
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
+## Component organization
+
+Components are grouped by responsibility and feature:
+
+- `components/ui/`: buttons, modals, and section titles.
+- `components/site/`: header, footer, and breadcrumbs.
+- `components/content/`: galleries, sharing buttons, statistics, and embedded media.
+- `components/history/`, `components/events/`, `components/news/`, and
+  `components/departments/`: components belonging to those features.
+- `components/dev/`: development helpers.
+
+Keep feature components together even when several pages use them. Nuxt imports
+components by filename (`pathPrefix: false`), so filenames must be unique across
+these folders. Development helpers retain the `Dev` prefix. Explicit imports
+must include the component's folder.
+
+Storyblok components represent CMS blocks and are grouped by feature:
+
+- `storyblok/content/`: page containers and general content blocks.
+- `storyblok/news/`: articles and article listings.
+- `storyblok/departments/`: department page blocks.
+- `storyblok/history/`: the history timeline block.
+
+The Storyblok SDK registers these components globally by filename, so keep CMS
+component names unique. `plugins/storyblok-components.ts` preserves existing CMS
+name aliases. Components receiving ordinary props, such as department headings
+and embedded media, live in the matching `components/` feature folder.
+
+The history timeline's Storyblok block is `storyblok/history/History.vue`; its
+entry and gallery components live in `components/history/` and receive application
+data.
+
 ## Page metadata and social sharing
 
 `usePageSeo()` sets the page title, description, Open Graph and Twitter tags, and

@@ -1,9 +1,9 @@
 import { h } from 'vue'
 import { BlockTypes, type StoryblokRichTextNode } from '@storyblok/vue'
-import FacebookPost from '~/storyblok/FacebookPost.vue'
-import RichtextIframe from '~/storyblok/RichtextIframe.vue'
-import SplitContent from '~/storyblok/SplitContent.vue'
-import CallToAction from '~/storyblok/CallToAction.vue'
+import FacebookPost from '~/components/content/FacebookPost.vue'
+import RichtextIframe from '~/components/content/RichtextIframe.vue'
+import SplitContent from '~/storyblok/content/SplitContent.vue'
+import CallToAction from '~/storyblok/content/CallToAction.vue'
 
 export function useStoryblokRichTextResolvers() {
   return {

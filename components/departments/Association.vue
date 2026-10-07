@@ -18,10 +18,10 @@
     </div>
   </div>
   <div class="relative z-10 flex items-center justify-center sm:my-8">
-    <NuxtImg :src="`/img/${department?.slug}.png`" 
-      :class="department?.is_main_unit ? 'h-28' : 'h-20'" 
-      placeholder="/img/pgddefault.png"
-      :alt="`Logotip ${department?.name}`"
+    <DepartmentLogo
+      :height="department?.is_main_unit ? 'h-28' : 'h-20'"
+      :department-slug="department?.slug"
+      :department-name="department?.name"
     />
    
     <h1 v-if="!isLoading" class="text-left pl-2">

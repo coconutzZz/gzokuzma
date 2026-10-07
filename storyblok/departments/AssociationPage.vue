@@ -133,7 +133,8 @@
 </BaseModal>
 </template> 
 <script setup lang="ts">
-import PersonCard from '~/components/PersonCard.vue';
+import Association from '~/components/departments/Association.vue';
+import PersonCard from '~/components/departments/PersonCard.vue';
 import type { Fireman, Department, DownloadableAsset } from '~/server/types/supabase'
 import { roleOrder } from '~/server/types/supabase'
 

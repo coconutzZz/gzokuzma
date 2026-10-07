@@ -47,7 +47,7 @@
 <script setup>
 import { computed } from 'vue';
 import { StoryblokRichText } from '@storyblok/vue';
-import Button from '~/components/Button.vue';
+import Button from '~/components/ui/Button.vue';
 import { useStoryblokRichTextResolvers } from '~/composables/useStoryblokRichTextResolvers';
 import { useStoryblokButtonUrlResolver } from '~/composables/useStoryblokButtonUrlResolver';
 
