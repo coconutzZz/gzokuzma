@@ -2,7 +2,7 @@
 <NuxtLink v-for="d in filteredDepartments" 
   :key="d.id" 
   :to="`/drustva/${d.slug}`"
-  class="flex flex-col items-center text-center group"
+  class="flex flex-col items-center text-center text-inherit group"
   active-class="is-active"
   @click="$emit('click')">
   <DepartmentLogo
@@ -11,7 +11,7 @@
     :department-name="d.name"
     class="transition-transform duration-300 hover:scale-125"
   />
-  <span :class="d.is_main_unit ? 'font-bold' : 'font-semibold'" class="text-primary font-semibold text-xs m-2 group-[.is-active]:font-bold">
+  <span :class="d.is_main_unit ? 'font-bold' : 'font-semibold'" class="font-semibold text-xs m-2 group-[.is-active]:font-bold">
     {{ d.name }}
   </span>
 </NuxtLink>
