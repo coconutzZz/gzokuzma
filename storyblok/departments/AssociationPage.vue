@@ -105,24 +105,6 @@
     </div>
   </div>
 
-  <transition
-    enter-active-class="transition-transform transition-opacity duration-300"
-    enter-from-class="translate-y-16 opacity-0"
-    enter-to-class="translate-y-0 opacity-100"
-    leave-active-class="transition-transform transition-opacity duration-300"
-    leave-from-class="translate-y-0 opacity-100"
-    leave-to-class="translate-y-16 opacity-0"
-  >
-    <Button
-      v-if="blok?.qr_code_bank_transfer && blok?.qr_code_bank_transfer.filename && showButton"
-      class="fixed bottom-4 right-4 md:hidden flex"
-      @click="open = true"
-    >
-      <NuxtImg src="/img/donate.svg" alt="" class="w-6 h-6 mr-2" />
-      DONIRAJ DRUŠTVU
-    </Button>
-  </transition>
-
  <BaseModal v-model="open">
   <div class="flex flex-col justify-center h-full -mt-10">
     <div class="sm:mt-20 text-center" v-if="blok?.qr_code_bank_transfer && blok?.qr_code_bank_transfer.filename">
@@ -135,15 +117,13 @@
 <script setup lang="ts">
 import Association from '~/components/departments/Association.vue';
 import PersonCard from '~/components/departments/PersonCard.vue';
+import { useFloatingActions } from '~/composables/useFloatingActions'
 import type { Fireman, Department, DownloadableAsset } from '~/server/types/supabase'
 import { roleOrder } from '~/server/types/supabase'
 
 const route = useRoute()
 
 const open = ref(false)
-const showButton = ref(false);
-
-let lastScroll = 0;
 
 const props = defineProps(
 { 
@@ -152,6 +132,16 @@ const props = defineProps(
   tagList: Array, 
   isLoading: Boolean 
 });
+
+const { registerAction } = useFloatingActions()
+registerAction({
+  id: 'association-donation',
+  label: 'DONIRAJ DRUŠTVU',
+  icon: '/img/donate.svg',
+  mobileOnly: true,
+  isAvailable: () => Boolean(props.blok?.qr_code_bank_transfer?.filename),
+  onClick: () => { open.value = true }
+})
 
 const hasFeaturedContent = computed(() => props.isLoading || (props.blok?.featured_image?.filename || props.blok?.featured_text));
 
@@ -200,26 +190,6 @@ const { data: files } = await useFetch<DownloadableAsset[]>(
     }
   },
 );
-
-const handleScroll = () => {
-  const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-  if (currentScroll > lastScroll && currentScroll > 100) {
-    showButton.value = true;
-  } else {
-    showButton.value = false;
-  }
-
-  lastScroll = currentScroll <= 0 ? 0 : currentScroll; // reset for top
-};
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll);  
-});
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
 
 const sortedFiremen = computed(() => firemen.value?.sort(
   (a, b) => roleOrder[a.department_role] - roleOrder[b.department_role]) 

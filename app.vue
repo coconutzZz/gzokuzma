@@ -3,10 +3,15 @@
     <Breakpoints />
     <NuxtPage />
   </NuxtLayout>
-  <ScrollToTop />
+  <FloatingActions />
 </template>
 <script setup>
 import Breakpoints from './components/dev/Breakpoints.vue';
-import ScrollToTop from './components/ui/ScrollToTop.vue';
+import FloatingActions from './components/ui/FloatingActions.vue';
+import { provideFloatingActions } from './composables/useFloatingActions';
+import { providePageScroll } from './composables/usePageScroll';
+
+providePageScroll()
+provideFloatingActions()
 usePageSeo()
 </script>

@@ -38,33 +38,22 @@
 </template>
 <script setup lang="ts">
 import type { Stat } from '~/types/stats'
+import { usePageScroll } from '~/composables/usePageScroll'
 
 const route = useRoute();
 const showHero = computed(() => route.meta.hero === 'associations')
 const showFooterStats = computed(() => route.meta.footerStats)
 
 const hasHeaderBg = ref(false);
-let lastScrollY = 0;
-
-const handleScroll = () => {
-  const currentY = window.scrollY;
+const { scrollY } = usePageScroll()
   
-  if (currentY > lastScrollY) {
-    hasHeaderBg.value = currentY > lastScrollY && currentY > 150;
+watch(scrollY, (currentY, previousY) => {
+  if (currentY > previousY) {
+    hasHeaderBg.value = currentY > 150;
   }
   else if (currentY < 150) {
     hasHeaderBg.value = false;
   }
-
-  lastScrollY = currentY;
-};
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
 });
 
 const stats: Stat[] = [
