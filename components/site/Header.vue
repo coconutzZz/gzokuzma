@@ -39,14 +39,20 @@
       </div>
     </div>    
     <slot />
-    <div class="bg-[#FF6347] py-1" v-if="subMenu && subMenu.length > 1">
+    <div class="md:bg-secondary py-1 mb-2 md:mb-0 md:py-2" v-if="subMenu && subMenu.length > 1">
         <div class="w-full container mx-auto max-w-screen-2xl md:max-w-screen-xl">
           <div class="text-center">
             <NuxtLink
               v-for="item in subMenu"
               :key="item.id"
               :to="`/${item.full_slug}`"
-              class="text-white mr-4"
+              active-class="is-active"
+              class="rounded-full md:mx-2 text-sm md:text-md font-semibold text-white/80 px-2 py-1 mb-4 mx-1 border-white/50 border-2 md:border-secondary md:text-white
+            md:hover:border-2
+          md:hover:border-white/50
+          [&.is-active]:md:bg-white
+          [&.is-active]:md:text-secondary
+              [&.is-active]:bg-secondary [&.is-active]:text-white"
             >
               {{ item.name }}
             </NuxtLink>
@@ -124,12 +130,6 @@ const subMenu = computed(() => {
     return story.full_slug.includes(currentSlugPart + '/')
   })
 });
-
-const current = computed(() =>
-  associations.value?.find(a =>
-    route.path.includes(a.slug)
-  )
-)
 
 const drawerId = `mobile-menu-${useId()}`
 const drawer = ref(null)
