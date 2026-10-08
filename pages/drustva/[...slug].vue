@@ -11,7 +11,6 @@ import { getStorySeo } from '~/utils/seo'
 const route = useRoute();
 const storyblokApi = useStoryblokApi();
 const version = import.meta.env.DEV ? 'draft' : 'published'
-const isLoading = ref(true)
 
 let slug = Array.isArray(route.params.slug) ? route.params.slug : [route.params.slug]
 
@@ -42,15 +41,6 @@ usePageSeo(() => {
   })
 })
 
-/*
-watchEffect(() => {
-  if (story.value || error.value) {
-    // Delay hiding loader by 500ms
-    setTimeout(() => {
-      isLoading.value = false
-    }, 1500)
-  }
-})*/
 
 if (error.value) {
   showError({ statusCode: 404, statusMessage: 'Stran ne obstaja' })
