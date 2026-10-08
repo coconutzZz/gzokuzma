@@ -105,6 +105,10 @@
     </div>
   </div>
 
+  <div v-if="blok && blok.body && blok.body.length > 0" class="mt-4 md:mt-8">
+    <StoryblokComponent v-for="blok in blok.body" :key="blok._uid" :blok="blok" />
+  </div>
+
  <BaseModal v-model="open">
   <div class="flex flex-col justify-center h-full -mt-10">
     <div class="sm:mt-20 text-center" v-if="blok?.qr_code_bank_transfer && blok?.qr_code_bank_transfer.filename">

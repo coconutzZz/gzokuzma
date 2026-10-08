@@ -6,7 +6,6 @@
     <StoryblokComponent v-for="blok in blok.body" :key="blok._uid" :blok="blok" />
     <ShareButtons v-if="blok.show_share_buttons" class="sm:hidden" />
   </div>
-
 </template>
  
 <script setup>
