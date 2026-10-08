@@ -112,7 +112,7 @@
  <BaseModal v-model="open">
   <div class="flex flex-col justify-center h-full -mt-10">
     <div class="sm:mt-20 text-center" v-if="blok?.qr_code_bank_transfer && blok?.qr_code_bank_transfer.filename">
-      <p>Za nakazilo prostovoljnih prispevkov uporabite QR kodo:</p>
+      <p>Za nakazilo prostovoljnih prispevkov, z vašo bančno aplikacijo skenirajte QR kodo. Podatki za UPN se bodo samodejno izpolnili.</p>
       <NuxtImg :src="blok.qr_code_bank_transfer.filename" class="h-50 mx-auto" provider="storyblok" />
     </div>
   </div>
