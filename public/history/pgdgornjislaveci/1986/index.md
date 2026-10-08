@@ -10,5 +10,5 @@ description: >-
   gasilski dom je bil predan svojemu namenu leta 1993. Pri gradnji so se posebej izkazali Alojz Kovač,
   Rudi Rogan, Viljem Prem, Drago Lovenjak in Alojz Krpič. Naloge strojnika je istega leta prevzel
   Slavko Krpič.
-gallery-slug: pgdgornjislaveci/zgodovina/1986
+gallery-slug: galerije/pgdgornjislaveci/zgodovina/1986
 ---

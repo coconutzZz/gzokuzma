@@ -6,5 +6,5 @@ description: >-
   Začela se je tudi prenova vaško-gasilskega doma z novo fasado, zamenjavo strešne kritine in novimi
   garažnimi vrati. Članice so na pregledu društev in občinskem tekmovanju osvojile prvo mesto v
   konkurenci z novo žensko enoto iz Doliča.
-gallery-slug: pgdgornjislaveci/zgodovina/2013
+gallery-slug: galerije/pgdgornjislaveci/zgodovina/2013
 ---

@@ -10,5 +10,5 @@ description: >-
   Josipa Oska začela gradnja gasilskega doma na lokaciji dotedanje orodjarne. V pritličju je bila
   orodjarna, v nadstropju pa soba za sestanke. Društvo je nabavilo tudi motorno brizgalno Savica z
   zmogljivostjo 300 litrov na minuto.
-gallery-slug: pgdgornjislaveci/zgodovina/1942
+gallery-slug: galerije/pgdgornjislaveci/zgodovina/1942
 ---

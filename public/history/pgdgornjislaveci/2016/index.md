@@ -6,5 +6,5 @@ description: >-
   predračune. Septembra so člani sodelovali na mednarodni gasilski vaji, ki so jo organizirali
   madžarski kolegi. Na njej so sodelovala prostovoljna društva iz Slovenije, Avstrije in Madžarske ter
   madžarska poklicna enota.
-gallery-slug: pgdgornjislaveci/zgodovina/2016
+gallery-slug: galerije/pgdgornjislaveci/zgodovina/2016
 ---

@@ -7,5 +7,5 @@ description: >-
   organiziralo 9. tekmovanje za pokal Kamen grabe z 11 ekipami. Gasilci so marca pomagali pri
   zahtevnem požaru gospodarskega poslopja, avgusta pri požaru avtomobila v Kuzmi in oktobra sodelovali
   na vaji gašenja vozila v Trdkovi.
-gallery-slug: pgdgornjislaveci/zgodovina/2018
+gallery-slug: galerije/pgdgornjislaveci/zgodovina/2018
 ---

@@ -7,5 +7,5 @@ description: >-
   pisarno. Deset članov je opravilo tečaj za operativnega gasilca, Aleks Škodnik in Goran Šebjanič pa
   sta se usposobila za prva posredovalca. Društvo je nadaljevalo delo osrednje gasilske enote v občini
   in povezovanje članov vseh generacij.
-gallery-slug: pgdgornjislaveci/zgodovina/2024
+gallery-slug: galerije/pgdgornjislaveci/zgodovina/2024
 ---

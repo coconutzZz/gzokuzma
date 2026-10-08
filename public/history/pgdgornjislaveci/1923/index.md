@@ -8,5 +8,5 @@ description: >-
   leta 1924, ki ga šteje za leto svoje ustanovitve. Ob začetku je razpolagalo z enoosno ročno
   brizgalno in nekaj metri tlačnih cevi, opremo pa so shranjevali v leseni orodjarni sredi kraja.
   Konec leta 1924 je društvo sprejelo skupna gasilska pravila.
-gallery-slug: pgdgornjislaveci/zgodovina/1923
+gallery-slug: galerije/pgdgornjislaveci/zgodovina/1923
 ---

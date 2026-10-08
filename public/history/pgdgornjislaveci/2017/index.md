@@ -6,5 +6,5 @@ description: >-
   jaškov in cest zaradi meteornih vod ter pri požarih v Doliču. Na področju usposabljanja so
   sodelovali pri vaji požarov v naravi na nekdanjem mejnem prehodu Matjaševci in pri vaji meseca
   požarne varnosti 27. oktobra v Gornjih Slavečih.
-gallery-slug: pgdgornjislaveci/zgodovina/2017
+gallery-slug: galerije/pgdgornjislaveci/zgodovina/2017
 ---

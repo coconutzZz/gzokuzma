@@ -8,5 +8,5 @@ description: >-
   občinskega tekmovanja, oktobra je potekala vaja požara na kmetiji, decembra pa so gasilci pomagali
   pri požaru stanovanjske stavbe v Kuzmi. Tečajniki so 18. decembra opravili zaključno preverjanje za
   gasilca pripravnika.
-gallery-slug: pgdgornjislaveci/zgodovina/2022
+gallery-slug: galerije/pgdgornjislaveci/zgodovina/2022
 ---

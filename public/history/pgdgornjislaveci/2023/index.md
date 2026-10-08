@@ -10,5 +10,5 @@ description: >-
   poplavah ter pri odpravljanju posledic poplav na Koroškem in Gorenjskem. Sodelovali so na junijskem
   občinskem tekmovanju in novembrski vaji gašenja, tehničnega reševanja ter oživljanja. Krajane so
   povezovali tudi s postavitvijo mlaja in okrasitvijo jelke.
-gallery-slug: pgdgornjislaveci/zgodovina/2023
+gallery-slug: galerije/pgdgornjislaveci/zgodovina/2023
 ---

@@ -7,5 +7,5 @@ description: >-
   sodelovalo 14 ekip. Gasilci so junija posredovali pri požaru kotlovnice v Kuzmi in električnega
   droga v Gornjih Slavečih. Oktobra so pomagali pri požarni vaji v OŠ Kuzma in sodelovali pri skupni
   vaji Požar s približno 45 gasilci iz petih društev zveze.
-gallery-slug: pgdgornjislaveci/zgodovina/2019
+gallery-slug: galerije/pgdgornjislaveci/zgodovina/2019
 ---
