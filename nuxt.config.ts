@@ -48,14 +48,18 @@ export default defineNuxtConfig({
     { path: '~/components', pathPrefix: false }
   ],
   ssr: true,
+  experimental: {
+    sharedPrerenderData: true
+  },
   watch: ['public/history/**/index.md'],
   nitro: {
-    preset: 'netlify'
-  },
-  generate: {
-    routes: [
-      '/',
-    ]
+    preset: 'netlify',
+    prerender: {
+      routes: ['/', '/novice'],
+      crawlLinks: true,
+      failOnError: true,
+      ignore: ['/api/**', '/config', '/galerije/**', '/dogodki/**']
+    }
   },
   hooks: {
     async 'builder:watch'(_event, path) {
@@ -72,28 +76,27 @@ export default defineNuxtConfig({
         return
       }
 
-      const version = import.meta.env.DEV ? 'draft' : 'published'
       const storyblokApi = new StoryblokClient({ accessToken: process.env.STORYBLOK_ACCESS_TOKEN })
-      const { data } = await storyblokApi.get("cdn/links", {
-        version,
-      });
-      
-        // Safe conversion to array
-      const allLinks = Object.values(data.links ?? {})
+      // Discover every published page, including articles outside the main menu.
+      const stories = await storyblokApi.getAll('cdn/stories', {
+        version: 'published',
+        per_page: 100,
+        filter_query: {
+          component: { in: 'page,article,AssociationPage' }
+        }
+      })
 
-      //const departments = allLinks.filter(link => link.slug?.startsWith('drustva/'))
-      const departments = allLinks.filter(link =>
-       ['drustva/', 'zveza'].some(prefix => link.slug?.startsWith(prefix)));
-
-       // Initialize prerender routes array
       nitroConfig.prerender = nitroConfig.prerender || {}
-      nitroConfig.prerender.routes = nitroConfig.prerender.routes || []
-
-      departments.forEach(dep => {
-      nitroConfig.prerender = nitroConfig.prerender || {}
-      nitroConfig.prerender.routes = nitroConfig.prerender.routes || []
-      nitroConfig.prerender.routes.push(`/${dep.slug}`); })
-
+      const routes = new Set(nitroConfig.prerender.routes || [])
+      for (const story of stories) {
+        const route = `/${story.full_slug}`.replace(/\/+$/, '')
+        routes.add(route)
+        // Department start pages are reachable with and without the /index alias.
+        if (route.startsWith('/drustva/') && route.endsWith('/index')) {
+          routes.add(route.slice(0, -'/index'.length))
+        }
+      }
+      nitroConfig.prerender.routes = [...routes]
 
       console.log('Prerender routes:', nitroConfig.prerender.routes)
     }

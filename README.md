@@ -56,6 +56,21 @@ yarn build
 bun run build
 ```
 
+The Netlify production build prerenders `/`, `/novice`, and every published
+Storyblok `page`, `article`, and `AssociationPage`, including department start-page
+aliases. Route discovery uses all API result pages, so articles do not need to be
+linked from the navigation to be generated. Config, gallery, and event records
+are data sources rather than standalone pages.
+
+Nuxt shares keyed `useAsyncData` and `useFetch` results across prerendered pages
+within each build. This lets every page reuse the main menu and department data;
+the generated payloads also provide that data during hydration and navigation.
+This cache lasts for the build and is not a persistent 24-hour runtime cache.
+
+Rebuild and deploy manually to update prerendered content. Use `npm run build`
+with Netlify's `dist` publish directory to retain the server API routes. Existing
+client-side news pagination, event loading, and lazy gallery requests remain live.
+
 Locally preview production build:
 
 ```bash
