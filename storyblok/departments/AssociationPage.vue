@@ -150,27 +150,19 @@ registerAction({
 const hasFeaturedContent = computed(() => props.isLoading || (props.blok?.featured_image?.filename || props.blok?.featured_text));
 
 const deptSlug = route.params.slug[0];
-let { data: department } = await useFetch<Department>(
+const { data: department, refresh: refreshDepartment } = await useFetch<Department>(
   `/api/departments/${deptSlug}`,
   { 
     key: `dept-${deptSlug}`,
-    getCachedData(key) {
-      return useNuxtApp().payload.data[key] || useNuxtApp().static.data[key]
+    getCachedData(key, nuxtApp, ctx) {
+      if (ctx.cause !== 'initial') return undefined
+      return nuxtApp.payload.data[key] ?? nuxtApp.static.data[key]
     }
   }
 )
 
 if (!department.value) {
-  const { data: res } = await useFetch<Department>(
-    `/api/departments/${deptSlug}`,
-    { 
-      key: `dept-${deptSlug}`,
-      getCachedData(key) {
-        return useNuxtApp().payload.data[key] || useNuxtApp().static.data[key]
-      }
-    }
-  )
-  department = res
+  await refreshDepartment()
 }
 
 const { data: firemen } = await useFetch<Fireman[]>(
@@ -178,8 +170,9 @@ const { data: firemen } = await useFetch<Fireman[]>(
   { 
     key: `firemen-${department.value?.slug}`,
     watch: [department], // Re-fetch only if department changes
-    getCachedData(key) {
-      return useNuxtApp().payload.data[key] || useNuxtApp().static.data[key]
+    getCachedData(key, nuxtApp, ctx) {
+      if (ctx.cause !== 'initial') return undefined
+      return nuxtApp.payload.data[key] ?? nuxtApp.static.data[key]
     }
   }
 )
@@ -189,13 +182,14 @@ const { data: files } = await useFetch<DownloadableAsset[]>(
   { 
     key: `files-${department.value?.slug}` ,
     watch: [department],
-    getCachedData(key) {
-      return useNuxtApp().payload.data[key] || useNuxtApp().static.data[key]
+    getCachedData(key, nuxtApp, ctx) {
+      if (ctx.cause !== 'initial') return undefined
+      return nuxtApp.payload.data[key] ?? nuxtApp.static.data[key]
     }
   },
 );
 
-const sortedFiremen = computed(() => firemen.value?.sort(
+const sortedFiremen = computed(() => [...(firemen.value ?? [])].sort(
   (a, b) => roleOrder[a.department_role] - roleOrder[b.department_role]) 
 );
 

@@ -2,19 +2,23 @@
   "name": "nuxt-app",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": "^22.22.3 || ^24.15.0 || >=26.0.0"
+  },
   "scripts": {
-    "build": "nuxt build",
-    "dev": "set NODE_TLS_REJECT_UNAUTHORIZED=0 && nuxt dev --https --ssl-cert server.crt --ssl-key server.key",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "build": "node --use-system-ca node_modules/nuxt/bin/nuxt.mjs build",
+    "dev": "node --use-system-ca node_modules/nuxt/bin/nuxt.mjs dev --https --https.cert server.crt --https.key server.key",
+    "generate": "node --use-system-ca node_modules/nuxt/bin/nuxt.mjs generate",
+    "preview": "node --use-system-ca node_modules/nuxt/bin/nuxt.mjs preview",
     "test:history": "node --test tests/history.test.mjs",
     "test:seo": "node --test tests/seo.test.mjs",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxt/image": "^2.0.0",
-    "@nuxtjs/tailwindcss": "^6.11.4",
-    "@storyblok/nuxt": "^6.0.6",
+    "@nuxt/image": "2.0.0",
+    "@nuxtjs/tailwindcss": "^6.14.0",
+    "@storyblok/nuxt": "^11.2.1",
+    "@storyblok/vue": "^11.3.3",
     "@supabase/supabase-js": "^2.91.0",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-vue": "^8.6.0",
@@ -22,10 +26,11 @@
     "glightbox": "^3.3.1",
     "iframe-resizer": "^5.5.9",
     "luxon": "^3.6.1",
-    "nuxt": "^3.10.3",
+    "nuxt": "^4.6.0",
+    "storyblok-js-client": "^7.7.7",
     "swiper": "^11.2.6",
-    "vue": "^3.4.19",
-    "vue-router": "^4.3.0",
+    "vue": "^3.5.43",
+    "vue-router": "^5.3.1",
     "yaml": "^2.7.1"
   },
   "devDependencies": {

@@ -8,6 +8,7 @@ const historyOutputDir = fileURLToPath(new URL('./.cache/history', import.meta.u
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  srcDir: '.',
   devtools: { enabled: true },
   app: {
     head: {
@@ -21,7 +22,10 @@ export default defineNuxtConfig({
     }
   },
   modules: [
-    ['@storyblok/nuxt', { accessToken: process.env.STORYBLOK_ACCESS_TOKEN }],  
+    ['@storyblok/nuxt', {
+      accessToken: process.env.STORYBLOK_ACCESS_TOKEN,
+      componentsDir: '~~/storyblok'
+    }],
     '@nuxtjs/tailwindcss',
     '@nuxt/image'
   ],
@@ -38,6 +42,12 @@ export default defineNuxtConfig({
     '@/assets/css/swiper.css',
     '@/assets/css/main.css'
   ],
+  postcss: {
+    plugins: {
+      'tailwindcss/nesting': false,
+      'tailwindcss/nesting/index.js': {}
+    }
+  },
   vue: {
     compilerOptions: {
       isCustomElement: (tag) => ['swiper-container', 'swiper-slide'].includes(tag)
@@ -54,6 +64,10 @@ export default defineNuxtConfig({
   watch: ['public/history/**/index.md'],
   nitro: {
     preset: 'netlify',
+    // Bundle Nuxt's renderer so Windows prerender builds use the generated runtime modules.
+    externals: {
+      inline: ['nuxt']
+    },
     prerender: {
       routes: ['/', '/novice'],
       crawlLinks: true,

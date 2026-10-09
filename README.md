@@ -1,8 +1,18 @@
-# Nuxt 3 Minimal Starter
+# Gasilska zveza Občine Kuzma
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Built with [Nuxt 4](https://nuxt.com/docs/4.x/getting-started/introduction), Storyblok,
+Supabase, and Tailwind CSS 3.
 
 ## Setup
+
+Use Node.js 24.19.0 or a version matching `engines.node` in `package.json`.
+Netlify reads `.nvmrc` to select Node.js 24.19.0 for builds; its default function
+runtime follows the supported build version. The application keeps its source
+folders at the project root with `srcDir: '.'`.
+
+Nuxt Image is pinned to 2.0.0 because the 2.1.0 IPX adapter leaves image requests
+pending during local Windows prerender builds with Nitro 2. Recheck a complete
+Netlify build before updating that module.
 
 Make sure to install the dependencies:
 
@@ -22,7 +32,9 @@ bun install
 
 ## Development Server
 
-Start the development server on `http://localhost:3000`:
+Start the development server on `https://localhost:3000` using `server.crt` and
+`server.key`. The Nuxt commands trust the operating system's certificate
+authorities for outgoing requests.
 
 ```bash
 # npm

@@ -32,7 +32,7 @@
             provider="storyblok" :modifiers="{ filters: { format: 'webp', quality: 80 }}" />
   
           <div id="article-content" class="px-2 lg:px-0">
-            <StoryblokRichText :doc="props.blok.content" :resolvers="resolvers" />
+            <StoryblokRichText :document="props.blok.content" :components="richTextComponents" />
 
             <template v-if="props.blok?.gallery.length > 0 && isGalleryLoaded">
               <Gallery v-for="gallery in galleryList" :key="gallery.title" :images="gallery.images" />
@@ -58,7 +58,7 @@
 import { DateTime } from "luxon";
 import SectionTitle from '~/components/ui/SectionTitle.vue';
 import { StoryblokRichText } from "@storyblok/vue";
-import { useStoryblokRichTextResolvers } from '~/composables/useStoryblokRichTextResolvers';
+import { useStoryblokRichTextComponents } from '~/composables/useStoryblokRichTextComponents';
 import Gallery from "~/components/content/Gallery.vue";
 const version = import.meta.env.DEV ? 'draft' : 'published';
 
@@ -67,7 +67,7 @@ const storyblokApi = useStoryblokApi()
 const isGalleryLoaded = ref(false);
 
 const props = defineProps({ blok: Object, postedOn: String, tagList: Array });
-const resolvers = useStoryblokRichTextResolvers();
+const richTextComponents = useStoryblokRichTextComponents();
  
 const hasFeaturedImage = computed(() => props.blok?.image && props.blok.image.filename);
 

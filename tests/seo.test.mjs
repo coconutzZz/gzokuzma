@@ -7,6 +7,7 @@ import { renderToString } from 'vue/server-renderer'
 import { useHead, useSeoMeta } from '@unhead/vue'
 import { createHead, renderSSRHead } from '@unhead/vue/server'
 import { createHead as createClientHead } from '@unhead/vue/client'
+import { resolveTags } from 'unhead/utils'
 
 const jiti = createJiti(import.meta.url, { alias: { '~': fileURLToPath(new URL('../', import.meta.url)) } })
 const { getStorySeo, resolvePageSeo, SITE_NAME, SITE_DESCRIPTION } = await jiti.import('../utils/seo.ts')
@@ -116,7 +117,7 @@ test('server HTML contains one page-specific set of social tags and canonical li
 })
 
 test('client metadata follows story changes and restores defaults after page disposal', async (t) => {
-  const head = createClientHead({ document: { head: { querySelector: () => null } }, domOptions: { render: () => {} } })
+  const head = createClientHead({ render: () => {} })
   const route = reactive({ path: '/novice/vaja' })
   const entries = installNuxtContext(t, head, route)
   const defaults = effectScope()
@@ -125,7 +126,7 @@ test('client metadata follows story changes and restores defaults after page dis
   defaults.run(() => usePageSeo())
   const story = ref({ content: { title: 'Vaja', component: 'Article', image: { filename: '/vaja.jpg' } } })
   page.run(() => usePageSeo(() => getStorySeo(story.value)))
-  const content = async property => (await head.resolveTags()).find(tag => tag.props.property === property)?.props.content
+  const content = async property => resolveTags(head).find(tag => tag.props.property === property)?.props.content
   assert.equal(await content('og:image'), `${siteUrl}/vaja.jpg`)
   story.value = { name: 'Zgodovina', content: {} }
   route.path = '/drustva/pgdkuzma/zgodovina'
