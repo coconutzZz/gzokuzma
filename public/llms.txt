@@ -1,0 +1,20 @@
+# Gasilska zveza Občine Kuzma
+
+> Uradna spletna stran Gasilske zveze Občine Kuzma z novicami, informacijami o zvezi in lokalnih prostovoljnih gasilskih društvih.
+
+Vsebina spletne strani je v slovenščini. PGD pomeni prostovoljno gasilsko društvo.
+
+## Glavne strani
+
+- [Domov](https://gzo-kuzma.si/): Predstavitev gasilske zveze in aktualne objave.
+- [Novice](https://gzo-kuzma.si/novice): Novice o dejavnostih zveze in gasilskih društev.
+- [Gasilska zveza Občine Kuzma](https://gzo-kuzma.si/zveza): Predstavitev zveze in kontaktni podatki.
+- [Klic v sili](https://gzo-kuzma.si/klic-v-sili): Informacije o klicu na pomoč.
+
+## Prostovoljna gasilska društva
+
+- [PGD Kuzma](https://gzo-kuzma.si/drustva/pgdkuzma): Predstavitev društva.
+- [PGD Novo Dolič](https://gzo-kuzma.si/drustva/pgdnovodolic): Predstavitev društva.
+- [PGD Gornji Slaveči](https://gzo-kuzma.si/drustva/pgdgornjislaveci): Predstavitev društva.
+- [PGD Matjaševci](https://gzo-kuzma.si/drustva/pgdmatjasevci): Predstavitev društva.
+- [PGD Trdkova](https://gzo-kuzma.si/drustva/pgdtrdkova): Predstavitev društva.

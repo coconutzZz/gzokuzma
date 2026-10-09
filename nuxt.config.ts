@@ -29,6 +29,9 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxt/image'
   ],
+  tailwindcss: {
+    cssPath: '~/assets/css/main.css'
+  },
   image: {
     providers: {
       none: {
@@ -60,6 +63,9 @@ export default defineNuxtConfig({
     { path: '~/components', pathPrefix: false }
   ],
   ssr: true,
+  features: {
+    inlineStyles: true
+  },
   experimental: {
     sharedPrerenderData: true
   },

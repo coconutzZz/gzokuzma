@@ -83,6 +83,19 @@ Rebuild and deploy manually to update prerendered content. Use `npm run build`
 with Netlify's `dist` publish directory to retain the server API routes. Existing
 client-side news pagination, event loading, and lazy gallery requests remain live.
 
+The first page of each news list is rendered on the server and reused from Nuxt's
+payload during hydration. Its cache key includes the count, tags, author, and CMS
+version. Home and news listings prioritize the first card with an image using
+`priority-image`; other card images remain lazy. Changing filters and loading
+more articles still fetch live CMS data. Run `npm run test:news` to check initial
+rendering, payload reuse, pagination, filters, and retries.
+
+Production builds use `features.inlineStyles: true` to include global and
+component CSS in the rendered HTML, removing the entry stylesheet request from
+the initial render path. Tailwind uses `assets/css/main.css` as its only entry,
+and shared fade transitions live in that stylesheet. Verify the generated HTML
+after changes to global CSS or client-only plugin styles.
+
 Locally preview production build:
 
 ```bash

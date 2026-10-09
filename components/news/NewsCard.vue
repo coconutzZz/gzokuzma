@@ -5,8 +5,9 @@
         :class="{ 'w-1/2': isLoading || hasImage }"  
         class="sm:w-full relative overflow-hidden rounded-l-lg sm:rounded-l-none sm:rounded-t-lg group">
           <div v-if="isLoading" class="w-full h-40 object-cover sm:rounded-t-lg animate-pulse bg-gray-300"></div>
-          <NuxtLink v-else-if="hasImage" :to="`/novice/${article.slug}`">
+          <NuxtLink v-else-if="hasImage" :to="`/novice/${article.slug}`" :aria-label="article.content.title">
               <AppImage :src="article.content.image.filename" :alt="article.content.title" sizes="50vw sm:50vw lg:400px"
+              :loading="priority ? 'eager' : 'lazy'" :fetchpriority="priority ? 'high' : undefined"
               class="w-full h-40 object-cover transform transition-transform duration-300 ease-out group-hover:scale-110" />
           </NuxtLink>
       </div>
@@ -54,6 +55,10 @@ const props = defineProps({
   paging: {
     type: Boolean,
     default: true
+  },
+  priority: {
+    type: Boolean,
+    default: false
   }
 });
 

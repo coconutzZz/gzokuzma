@@ -20,7 +20,7 @@
             :class="{'embla-thumbs__slide--selected': index === selectedIndex }">
             <button type="button" class="w-full" :aria-label="image.alt || image.title || `Fotografija ${index + 1}`" :aria-current="index === selectedIndex ? 'true' : undefined" @click="onThumbClick(index)">
               <AppImage class="rounded-lg w-full object-cover" :src="image.filename" :alt="image.alt || ''"
-                  aspect-ratio="4 / 3" sizes="22vw sm:15vw lg:120px" />
+                  aspect-ratio="4 / 3" sizes="320:22vw sm:15vw lg:120px" />
             </button>
           </div>
         </div>

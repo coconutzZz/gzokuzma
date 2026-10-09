@@ -27,12 +27,22 @@ let resizedIframe: ReturnType<typeof iframeResize>[number] | undefined;
 onMounted(() => {
   if (!iframe.value) return;
 
+  const iframeUrl = new URL(iframe.value.src, window.location.href);
+  const isLegacyCnvosEmbed =
+    ['cnvos.si', 'www.cnvos.si'].includes(iframeUrl.hostname) &&
+    iframeUrl.pathname.startsWith('/enprocent/embed/');
+
   [resizedIframe] = iframeResize(
     {
       license: 'GPLv3',
       log: false,
       checkOrigin: false,
       direction: 'vertical',
+      // CNVOS uses a v4 child; remove these overrides when it upgrades to v5.
+      ...(isLegacyCnvosEmbed ? {
+        heightCalculationMethod: 'bodyOffset',
+        widthCalculationMethod: 'scroll',
+      } : {}),
     },
     iframe.value,
   );

@@ -3,6 +3,7 @@ import test from 'node:test'
 import { readFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { createJiti } from 'jiti'
+import { createImage } from '../node_modules/@nuxt/image/dist/runtime/image.js'
 
 const { Window } = await import('happy-dom')
 const window = new Window({ url: 'http://localhost' })
@@ -17,6 +18,14 @@ const { canTransformStoryblokImage, getStoryblokImageUrl, getImageDimensions } =
 const { default: setupProvider } = await jiti.import('../providers/storyblok.ts')
 const provider = setupProvider()
 const storyblokSrc = 'https://a.storyblok.com/f/123/1200x900/hash/photo.jpg'
+const imageService = createImage({
+  provider: 'none', presets: {}, alias: {}, domains: [], densities: [1, 2],
+  screens: { sm: 640, md: 768, lg: 1024, xl: 1280, '2xl': 1536 },
+  providers: {
+    storyblok: { setup: setupProvider },
+    none: { setup: () => ({ getImage: src => ({ url: src }) }) }
+  }
+})
 
 function resolveImage(src, modifiers = {}, options = {}) {
   return options.provider === 'storyblok' ? provider.getImage(src, { modifiers }, {}).url : src
@@ -60,20 +69,28 @@ const NuxtImg = defineComponent({
         imgEl.value.decode = async () => {}
       }
     })
-    return () => h('img', {
-      ...attrs,
-      ref: imgEl,
-      src: resolveImage(props.src, {
+    return () => {
+      const modifiers = {
         ...props.modifiers, width: props.width, height: props.height,
-        format: props.format, quality: props.quality
-      }, { provider: props.provider }),
-      alt: props.alt,
-      width: props.width,
-      height: props.height,
-      'data-provider': props.provider,
-      onLoad: event => emit('load', event),
-      onError: event => emit('error', event)
-    })
+        format: props.format, quality: props.quality, fit: props.fit
+      }
+      const responsive = imageService.getSizes(props.src, {
+        provider: props.provider, sizes: props.sizes, densities: props.densities, modifiers
+      })
+      return h('img', {
+        ...attrs,
+        ref: imgEl,
+        src: props.sizes ? responsive.src : resolveImage(props.src, modifiers, { provider: props.provider }),
+        sizes: responsive.sizes,
+        srcset: responsive.srcset,
+        alt: props.alt,
+        width: props.width,
+        height: props.height,
+        'data-provider': props.provider,
+        onLoad: event => emit('load', event),
+        onError: event => emit('error', event)
+      })
+    }
   }
 })
 
@@ -184,6 +201,29 @@ test('external images use a neutral placeholder and keep their original URL even
   assert.ok(fixture.target.querySelector('.app-image__error'))
 })
 
+test('gallery image srcsets contain positive widths matching the Storyblok resize URLs', async (t) => {
+  const gallery = await readFile(new URL('../components/content/Gallery.vue', import.meta.url), 'utf8')
+  const sizes = [...gallery.matchAll(/<AppImage\b[^>]*\bsizes="([^"]+)"/g)].map(match => match[1])
+  assert.ok(sizes.length > 0)
+  const src = 'https://a.storyblok.com/f/220957/2048x1366/57abc2b74f/515226761_1044212241152041_2489503435359486643_n.jpg'
+  for (const size of sizes) {
+    const fixture = await mountImage(t, { src, sizes: size })
+    fixture.observer.intersect()
+    await flush()
+    const candidates = fixture.image().getAttribute('srcset').split(', ')
+    for (const candidate of candidates) {
+      const match = candidate.match(/\/m\/(\d+)x\d+\/\S+ (\d+)w$/)
+      assert.ok(match, candidate)
+      assert.ok(Number(match[2]) > 0, candidate)
+      assert.equal(Number(match[1]), Number(match[2]), candidate)
+    }
+    if (size.includes('22vw')) {
+      assert.equal(fixture.image().getAttribute('sizes'), '(max-width: 640px) 22vw, (max-width: 1024px) 15vw, 120px')
+      assert.ok(candidates.every(candidate => Number(candidate.match(/ (\d+)w$/)[1]) <= 240))
+    }
+  }
+})
+
 test('eager images start immediately', async (t) => {
   const fixture = await mountImage(t, { src: '/img/logo.png', width: 100, height: 100, loading: 'eager' })
   assert.equal(fixture.observer, undefined)
@@ -209,6 +249,20 @@ test('SSR reserves space and provides an image fallback when JavaScript is disab
   assert.ok(!html.includes('class="app-image__image"'))
   assert.ok(html.includes(`<noscript><img src="${storyblokSrc}" alt="Photograph"`))
   assert.match(html, /aspect-ratio:1200 \/ 900/)
+})
+
+test('eager SSR images are discoverable, high priority, and visible before hydration', async () => {
+  const app = createSSRApp({ render: () => h(AppImage, {
+    src: storyblokSrc, alt: 'LCP photograph', loading: 'eager', fetchpriority: 'high'
+  }) })
+  app.component('NuxtImg', NuxtImg)
+  const html = await renderToString(app)
+  const visibleHtml = html.replace(/<noscript>[\s\S]*?<\/noscript>/g, '')
+  assert.match(visibleHtml, /<img[^>]*fetchpriority="high"/)
+  assert.match(visibleHtml, /app-image__image--loaded/)
+  assert.match(visibleHtml, /loading="eager"/)
+  assert.ok(visibleHtml.includes(storyblokSrc))
+  assert.match(html, /<noscript><img[^>]*loading="eager"[^>]*fetchpriority="high"/)
 })
 
 test('noscript fallback escapes source URLs and alt text as HTML attributes', async () => {

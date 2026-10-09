@@ -33,7 +33,7 @@
       loading="eager"
       decoding="async"
       class="app-image__image"
-      :class="{ 'app-image__image--loaded': isLoaded }"
+      :class="{ 'app-image__image--loaded': isLoaded || loading === 'eager' }"
       @load="onLoad"
       @error="onError"
     />
@@ -91,7 +91,9 @@ const fallbackHtml = computed(() => {
     src: props.src,
     alt: props.alt,
     width: dimensions.value?.width || props.width,
-    height: dimensions.value?.height || props.height
+    height: dimensions.value?.height || props.height,
+    loading: props.loading,
+    fetchpriority: attrs.fetchpriority
   }
   const escape = (value: string | number) => String(value)
     .replace(/&/g, '&amp;').replace(/"/g, '&quot;')
@@ -99,7 +101,7 @@ const fallbackHtml = computed(() => {
   const htmlAttributes = Object.entries(attributes)
     .filter(([, value]) => value !== undefined)
     .map(([name, value]) => `${name}="${escape(value!)}"`).join(' ')
-  return `<img ${htmlAttributes} class="app-image__fallback" loading="lazy">`
+  return `<img ${htmlAttributes} class="app-image__fallback">`
 })
 const preview = computed(() => {
   if (props.placeholder === false) return
