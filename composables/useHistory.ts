@@ -16,7 +16,8 @@ export function useHistory(
     },
     {
       watch: [() => toValue(department), () => toValue(enabled)],
-      getCachedData(key, nuxtApp) {
+      getCachedData(key, nuxtApp, ctx) {
+        if (ctx.cause !== 'initial') return undefined
         const cached = nuxtApp.isHydrating ? nuxtApp.payload.data[key] : nuxtApp.static.data[key]
         return toValue(enabled) && cached?.department === toValue(department) ? cached : undefined
       }

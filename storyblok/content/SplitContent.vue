@@ -13,7 +13,7 @@
       <h2 v-if="title" class="order-1 mb-0">{{ title }}</h2>
 
       <div v-if="hasText" class="split-content__text order-2 min-w-0">
-        <StoryblokRichText :doc="blok.text" :resolvers="resolvers" />
+        <StoryblokRichText :document="blok.text" :components="richTextComponents" />
       </div>
 
       <div v-if="buttonUrl" class="order-4">
@@ -48,7 +48,7 @@
 import { computed } from 'vue';
 import { StoryblokRichText } from '@storyblok/vue';
 import Button from '~/components/ui/Button.vue';
-import { useStoryblokRichTextResolvers } from '~/composables/useStoryblokRichTextResolvers';
+import { useStoryblokRichTextComponents } from '~/composables/useStoryblokRichTextComponents';
 import { useStoryblokButtonUrlResolver } from '~/composables/useStoryblokButtonUrlResolver';
 
 const props = defineProps({
@@ -58,7 +58,7 @@ const props = defineProps({
   }
 });
 
-const resolvers = useStoryblokRichTextResolvers();
+const richTextComponents = useStoryblokRichTextComponents();
 
 const title = computed(() => props.blok?.title?.trim() || '');
 const hasImage = computed(() => Boolean(props.blok?.image?.filename));

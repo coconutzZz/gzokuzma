@@ -1,17 +1,17 @@
 import { h } from 'vue'
-import { BlockTypes, type StoryblokRichTextNode } from '@storyblok/vue'
+import type { StoryblokVueRichTextComponentMap, StoryblokVueRichTextProps } from '@storyblok/vue'
 import FacebookPost from '~/components/content/FacebookPost.vue'
 import RichtextIframe from '~/storyblok/content/RichtextIframe.vue'
 import SplitContent from '~/storyblok/content/SplitContent.vue'
 import CallToAction from '~/storyblok/content/CallToAction.vue'
 
-export function useStoryblokRichTextResolvers() {
+export function useStoryblokRichTextComponents(): StoryblokVueRichTextComponentMap {
   return {
-    [BlockTypes.COMPONENT]: (node: StoryblokRichTextNode) => {
+    blok: (node: StoryblokVueRichTextProps['blok']) => {
       const nodeBody = node.attrs?.body?.[0]
 
       if (nodeBody?.component === 'FacebookPost' && nodeBody.url) {
-        return h(FacebookPost, { url: nodeBody.url })
+        return h(FacebookPost, { url: String(nodeBody.url) })
       }
       if (nodeBody?.component === 'RichtextIframe' && nodeBody.url) {
         return h(RichtextIframe, { blok: nodeBody })

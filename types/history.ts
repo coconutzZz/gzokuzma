@@ -1,4 +1,6 @@
-import type { StoryblokRichTextDocumentNode } from '@storyblok/vue'
+import type { StoryblokRichTextInput } from '@storyblok/vue'
+
+type HistoryRichTextDocument = Extract<StoryblokRichTextInput, { type: 'doc' }>
 
 export interface HistoryImage {
   filename: string
@@ -13,7 +15,7 @@ export interface HistoryEntryData {
   title: string
   description:
     | { type: 'text'; value: string }
-    | { type: 'richtext'; value: StoryblokRichTextDocumentNode }
+    | { type: 'richtext'; value: HistoryRichTextDocument }
   gallerySlug?: string
   images?: HistoryImage[]
 }
@@ -30,7 +32,7 @@ export interface StoryblokHistoryEntry {
   oid?: string
   year?: string | number
   title?: string
-  description?: string | StoryblokRichTextDocumentNode
+  description?: string | HistoryRichTextDocument
   images?: HistoryImage[]
 }
 
