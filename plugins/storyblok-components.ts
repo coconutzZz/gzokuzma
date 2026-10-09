@@ -7,6 +7,7 @@ import CallToAction from '~/storyblok/content/CallToAction.vue'
 import Features from '~/storyblok/content/Features.vue'
 import Feature from '~/storyblok/content/Feature.vue'
 import RichtextIframe from '~/storyblok/content/RichtextIframe.vue'
+import YouTubeVideo from '~/storyblok/content/YouTubeVideo.vue'
 
 export default defineNuxtPlugin(nuxtApp => {
   nuxtApp.vueApp.component('history', History);
@@ -17,4 +18,5 @@ export default defineNuxtPlugin(nuxtApp => {
   nuxtApp.vueApp.component('features', Features);
   nuxtApp.vueApp.component('feature', Feature);
   nuxtApp.vueApp.component('richtextiframe', RichtextIframe);
+  nuxtApp.vueApp.component('youtubevideo', YouTubeVideo);
 })
