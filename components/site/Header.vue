@@ -3,7 +3,7 @@
     <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2 max-w-screen-2xl md:max-w-screen-xl xl:max-w-screen-2xl">
       <div class="pl-4 flex items-center">
         <NuxtLink to="/" class="text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" aria-label="Domov">
-          <NuxtImg src="/img/gzo-znak.png" class="h-24" alt="Logotip GZO Kuzma"/>
+          <NuxtImg src="/img/gzo-znak.png" width="109" height="138" class="h-24 w-auto" alt="Logotip GZO Kuzma"/>
         </NuxtLink>
       </div>
       <div class="block lg:hidden pr-4">

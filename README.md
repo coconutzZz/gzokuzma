@@ -3,6 +3,27 @@
 Built with [Nuxt 4](https://nuxt.com/docs/4.x/getting-started/introduction), Storyblok,
 Supabase, and Tailwind CSS 3.
 
+## License and attribution
+
+Copyright (C) 2026 gzokuzma contributors.
+
+This website's original source code is licensed under the GNU General Public
+License, version 3 or (at your option) any later version (`GPL-3.0-or-later`).
+You may redistribute and modify it under those terms. It is provided without
+any warranty; see [LICENSE](./LICENSE) for the complete terms.
+
+Third-party dependencies retain their own copyright notices and license terms.
+This source-code license does not grant rights to photographs, logos, insignia,
+or externally managed editorial content.
+
+This website uses [iframe-resizer](https://iframe-resizer.com/),
+Copyright (C) 2013-2026 David J. Bradshaw, under its
+[GPL v3 license](https://iframe-resizer.com/gpl/). The shared site footer provides
+visible attribution, and `storyblok/content/RichtextIframe.vue` selects the
+open-source license with `license: 'GPLv3'`. Preserve iframe-resizer's copyright
+and license comments in production JavaScript, including minified bundles.
+`nuxt.config.ts` keeps legal comments through Vite's production bundling.
+
 ## Setup
 
 Use Node.js 24.19.0 or a version matching `engines.node` in `package.json`.

@@ -1,3 +1,4 @@
+<!-- Copyright (C) 2026 gzokuzma contributors. SPDX-License-Identifier: GPL-3.0-or-later -->
 <template>
   <div class="my-6 m-auto">
     <iframe

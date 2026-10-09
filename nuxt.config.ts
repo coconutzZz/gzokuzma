@@ -1,3 +1,4 @@
+// Copyright (C) 2026 gzokuzma contributors. SPDX-License-Identifier: GPL-3.0-or-later
 import StoryblokClient from 'storyblok-js-client'
 import { fileURLToPath } from 'node:url'
 import { generateHistoryManifest } from './scripts/history'
@@ -66,6 +67,16 @@ export default defineNuxtConfig({
   features: {
     inlineStyles: true
   },
+  vite: {
+    build: {
+      rolldownOptions: {
+        output: {
+          // Keep dependency copyright and license notices in minified JavaScript.
+          comments: { legal: true }
+        }
+      }
+    }
+  },
   experimental: {
     sharedPrerenderData: true
   },
@@ -84,6 +95,16 @@ export default defineNuxtConfig({
     }
   },
   hooks: {
+    'build:manifest'(manifest) {
+      for (const [id, chunk] of Object.entries(manifest)) {
+        if (!/(?:^|\/)utils\/(?:events-swiper|glightbox)\.ts(?:\?|$)/.test(id.replace(/\\/g, '/'))) continue
+        // These libraries load on demand; don't download them through SSR prefetch hints.
+        chunk.prefetch = false
+        for (const css of chunk.css || []) {
+          if (manifest[css]) manifest[css].prefetch = false
+        }
+      }
+    },
     async 'builder:watch'(_event, path) {
       if (path.replace(/\\/g, '/').includes('public/history/')) {
         await generateHistoryManifest(historySourceDir, historyOutputDir)

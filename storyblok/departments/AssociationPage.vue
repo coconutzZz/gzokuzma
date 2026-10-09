@@ -8,10 +8,15 @@
     }">
     <div v-if="hasFeaturedContent" class="mt-4 sm:mt-8">
       <div v-if="isLoading" class="w-full h-72 object-cover sm:rounded-xl animate-pulse bg-gray-300"></div>
-      <AppImage v-else-if="blok?.featured_image?.filename" :src="blok?.featured_image?.filename"
-        :alt="blok.featured_image.alt || department?.name || ''"
-        class="sm:rounded-xl w-full h-72 object-cover"
-        sizes="100vw md:50vw lg:640px" loading="eager" fetchpriority="high" />
+      <a v-else-if="blok?.featured_image?.filename" :href="blok.featured_image.filename"
+        class="block sm:rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+        :aria-label="`Odpri fotografijo: ${blok.featured_image.alt || department?.name || 'Društvo'}`"
+        aria-haspopup="dialog" @click="openFeaturedImage">
+        <AppImage :src="blok.featured_image.filename"
+          :alt="blok.featured_image.alt || department?.name || ''"
+          class="sm:rounded-xl w-full h-72 object-cover"
+          sizes="100vw md:50vw lg:640px" loading="eager" fetchpriority="high" />
+      </a>
       <!-- <p v-if="blok.featured_text" class="mt-4">
         {{ blok.featured_text }}
       </p> -->
@@ -150,6 +155,9 @@ registerAction({
 })
 
 const hasFeaturedContent = computed(() => props.isLoading || (props.blok?.featured_image?.filename || props.blok?.featured_text));
+const { openLightbox: openFeaturedImage } = useImageLightbox(() =>
+  props.blok?.featured_image?.filename ? [props.blok.featured_image] : []
+)
 
 const deptSlug = route.params.slug[0];
 const { data: department, refresh: refreshDepartment } = await useFetch<Department>(

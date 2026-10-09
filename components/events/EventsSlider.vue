@@ -1,11 +1,11 @@
 <template>
   <div class="custom-nav">
-    <button class="custom-btn-prev" aria-label="Prejšnji dogodek">
+    <button ref="prevButtonRef" class="custom-btn-prev" aria-label="Prejšnji dogodek">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M16 4L8 12L16 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>      
-    <button class="custom-btn-next" aria-label="Naslednji dogodek">
+    <button ref="nextButtonRef" class="custom-btn-next" aria-label="Naslednji dogodek">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M8 4L16 12L8 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -28,7 +28,7 @@
     </div>
   </div>
   <swiper-container ref="swiperRef" :init="false" space-between="0" free-mode="true">
-    <swiper-slide class="pt-5 md:pb-6" v-for="(event, index) in events" :class="index === 0 ? 'ml-5' : ''">
+    <swiper-slide class="pt-5 md:pb-6" v-for="(event, index) in events" :key="event.uuid" :class="index === 0 ? 'ml-5' : ''">
       <div class="flex items-center">
           <div :class="index === 0 ? 'bg-accent ring-accent' : 'bg-neutral ring-neutral'" class="mx-5 z-10 flex items-center justify-center w-6 h-6 rounded-full ring-8 shrink-0">
               <svg class="text-primary-500 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -63,12 +63,16 @@ import { DateTime } from "luxon";
 const version = import.meta.env.DEV ? 'draft' : 'published'
 
 const swiperRef = ref(null);
+const prevButtonRef = ref(null);
+const nextButtonRef = ref(null);
 const events = ref([])
 const isLoading = ref(true);
+let mounted = false;
 
 const storyblokApi = useStoryblokApi()
 
-onBeforeMount(async () => {
+onMounted(async () => {
+  mounted = true;
   const today = new Date();
 
   const year = today.getFullYear();
@@ -86,11 +90,21 @@ onBeforeMount(async () => {
     page: 1
   });
 
-  if (data.stories.length > 0) {
-    events.value = data.stories;
-  }
+  if (!mounted) return;
+  events.value = data.stories;
+  isLoading.value = false;
+
+  // Keep Swiper off routes without events, and render slides before upgrading
+  // the custom elements or measuring their layout.
+  if (!events.value.length) return;
+  await nextTick();
+  const { register, Navigation, FreeMode, freeModeStyles } = await import('~/utils/events-swiper');
+  if (!mounted || !swiperRef.value) return;
+  register();
 
   const swiperParams = {
+    modules: [Navigation, FreeMode],
+    injectStyles: [freeModeStyles],
     breakpoints: {
       320: {
         slidesPerView: 2,
@@ -103,15 +117,17 @@ onBeforeMount(async () => {
       }
     },
     navigation: {
-      prevEl: '.custom-btn-prev',
-      nextEl: '.custom-btn-next',
+      prevEl: prevButtonRef.value,
+      nextEl: nextButtonRef.value,
     }
   }
   
   Object.assign(swiperRef.value, swiperParams);
   swiperRef.value.initialize();
-  
-  isLoading.value = false;
+});
+
+onBeforeUnmount(() => {
+  mounted = false;
 });
 
 const formatEventDate = (eventDate) => {

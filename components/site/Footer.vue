@@ -1,10 +1,11 @@
+<!-- Copyright (C) 2026 gzokuzma contributors. SPDX-License-Identifier: GPL-3.0-or-later -->
 <template>
   <footer role="contentinfo" class="bg-white">
     <slot name="above-footer"></slot>
     <section aria-label="Kontakt in povezave" class="bg-secondary/10 py-10">
       <div class="container mx-auto grid grid-cols-1 gap-y-8 px-4 sm:grid-cols-2 sm:px-5 md:max-w-screen-xl xl:max-w-screen-2xl">
         <div class="flex min-w-0 items-center justify-center gap-4 text-left sm:justify-end sm:pr-8 sm:text-right">
-          <NuxtImg src="/img/gzo-znak.png" alt="Logotip GZO Kuzma" class="h-24 w-auto shrink-0" />
+          <NuxtImg src="/img/gzo-znak.png" width="109" height="138" alt="Logotip GZO Kuzma" class="h-24 w-auto shrink-0" />
           <address v-if="association" class="min-w-0 not-italic">
             {{ association.name }}<br>
             {{ association.street }}<br>
@@ -42,7 +43,13 @@
       </nav>
     </section>
     <div class="bg-secondary/15 text-center p-4 text-sm text-secondary/80 mt-auto">
-      &copy; {{ copyrightYear }}, Gasilska zveza Občine Kuzma
+      <p>&copy; {{ copyrightYear }}, Gasilska zveza Občine Kuzma</p>
+      <p class="text-xs mb-0 mt-0">
+        Spletna stran uporablja
+        <a href="https://iframe-resizer.com/" target="_blank" rel="noopener noreferrer" class="underline hover:no-underline">iframe-resizer</a>
+        avtorja Davida J. Bradshawa
+        (<a href="https://iframe-resizer.com/gpl/" target="_blank" rel="noopener noreferrer" class="underline hover:no-underline">GPL v3</a>).
+      </p>
     </div>
   </footer>
 </template>

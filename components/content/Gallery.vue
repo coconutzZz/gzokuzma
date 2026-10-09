@@ -4,7 +4,8 @@
       <div class="embla__container">
         <div class="embla__slide md:flex md:items-center md:justify-center" v-for="(image, index) in images" :key="image.filename">
           <div class="embla__slide__wrapper select-none ">
-            <a :href="image.filename" class="glightbox" :data-gallery="galleryId" :aria-label="image.alt || image.title || `Fotografija ${index + 1}`">
+            <a :href="image.filename" class="glightbox cursor-zoom-in" :aria-label="image.alt || image.title || `Fotografija ${index + 1}`"
+              aria-haspopup="dialog" @click="openLightbox($event, index)">
               <AppImage :src="image.filename" class="rounded-xl w-full max-h-[30em] object-contain" :alt="image.alt || ''"
                   sizes="100vw lg:800px" />
               <div class="embla_slide__title" v-if="image.title">{{ image.title }}</div>
@@ -31,11 +32,6 @@
 
 <script setup>
 import emblaCarouselVue from 'embla-carousel-vue'
-import { useId } from 'vue'
-
-const { $glightbox } = useNuxtApp()
-const galleryId = `gallery-${useId()}`
-let lightbox
 const selectedIndex = ref(0);
 
 const props = defineProps({
@@ -44,6 +40,8 @@ const props = defineProps({
     default: () => []
   }
 });
+
+const { openLightbox } = useImageLightbox(() => props.images)
 
 const [emblaRef /* used in template */, emblaApi] = emblaCarouselVue({
     loop: props.images.length > 1,
@@ -71,14 +69,10 @@ const onSelect = () => {
 onMounted(() => {
   emblaApi.value?.on('select', onSelect)
   onSelect()
-  lightbox = $glightbox({
-    selector: `.glightbox[data-gallery="${galleryId}"]`,
-  })
 })
 
 onBeforeUnmount(() => {
   emblaApi.value?.off('select', onSelect)
-  lightbox?.destroy()
 })
 </script>
 <style lang="scss" scoped>
