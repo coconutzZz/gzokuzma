@@ -4,10 +4,12 @@
 >
   <!-- Avatar -->
   <div class="flex-shrink-0 mr-4">
-    <NuxtImg
+    <AppImage
       src="/img/person.svg"
       alt="Person Avatar"
       class="h-16 w-16 rounded-full object-cover object-center"
+      :width="64"
+      :height="64"
     />
   </div>
 

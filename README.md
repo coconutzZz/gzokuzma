@@ -165,3 +165,27 @@ parameters. Metadata is reactive so it updates when navigating between pages.
 For new static pages, call `usePageSeo({ title, description, image })` in
 `<script setup>`. Verify a deployed page's HTML source contains the expected
 tags, then refresh its cached preview with the social platform's sharing debugger.
+
+## Content images
+
+Use `AppImage` for content photos, gallery images, and association images. It wraps
+`NuxtImg`, reserves an aspect ratio, starts the full image request within 200 pixels
+of the viewport, and fades the image in after decoding. Set `loading="eager"` for
+images visible on initial page load; main page images also use `fetchpriority="high"`.
+
+Storyblok raster assets get a small blurred preview and responsive image URLs.
+The provider checks the exact asset CDN hostname and preserves regional hosts.
+Other sources use the original URL and a neutral placeholder, without any
+Storyblok transformations. Signed assets, SVGs, GIFs, and already transformed
+Storyblok URLs are also preserved. An explicit `placeholder` URL can supply a
+preview for another source; `:placeholder="false"` disables image previews.
+Use `placeholder-background="transparent"` for PNG logos with transparent areas.
+
+Classes and styles apply to the wrapper, including sizing, rounded corners, and
+`object-cover` or `object-contain`. Use `class="w-full"` for responsive images.
+Storyblok URLs supply the default aspect ratio; for other sources, supply numeric
+`width` and `height` or `aspect-ratio` when known (the fallback is 4:3).
+Additional image attributes and load/error events pass through the wrapper.
+
+Run `npm run test:images` to verify source handling, deferred loading, decoding,
+cached images, source changes, and the fallback for browsers without JavaScript.

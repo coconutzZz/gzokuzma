@@ -1,8 +1,11 @@
 <template>
-  <NuxtImg
+  <AppImage
     :src="getDepartmentImage(departmentSlug)"
-    :class="height"
+    :class="[height, 'object-contain']"
+    aspect-ratio="1"
+    loading="eager"
     placeholder="/img/pgddefault.png"
+    placeholder-background="transparent"
     :alt="departmentName ? `Logotip ${departmentName}` : 'Logotip društva'"
   />
 </template>

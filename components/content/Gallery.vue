@@ -5,8 +5,8 @@
         <div class="embla__slide md:flex md:items-center md:justify-center" v-for="(image, index) in images" :key="image.filename">
           <div class="embla__slide__wrapper select-none ">
             <a :href="image.filename" class="glightbox" :data-gallery="galleryId" :aria-label="image.alt || image.title || `Fotografija ${index + 1}`">
-              <NuxtImg :src="image.filename" class="rounded-xl" :alt="image.alt || ''" 
-                  provider="storyblok" :modifiers="{ filters: { format: 'webp', quality: 80 }}"/>
+              <AppImage :src="image.filename" class="rounded-xl w-full max-h-[30em] object-contain" :alt="image.alt || ''"
+                  sizes="100vw lg:800px" />
               <div class="embla_slide__title" v-if="image.title">{{ image.title }}</div>
             </a>
           </div>
@@ -18,9 +18,9 @@
         <div class="embla-thumbs__container flex flex-row">
           <div v-for="(image, index) in images" :key="image.filename" class="embla-thumbs__slide"
             :class="{'embla-thumbs__slide--selected': index === selectedIndex }">
-            <button type="button" :aria-label="image.alt || image.title || `Fotografija ${index + 1}`" :aria-current="index === selectedIndex ? 'true' : undefined" @click="onThumbClick(index)">
-              <NuxtImg class="rounded-lg" :src="image.filename" :alt="image.alt || ''" 
-                  provider="storyblok" :modifiers="{ filters: { format: 'webp', quality: 80 }}" />
+            <button type="button" class="w-full" :aria-label="image.alt || image.title || `Fotografija ${index + 1}`" :aria-current="index === selectedIndex ? 'true' : undefined" @click="onThumbClick(index)">
+              <AppImage class="rounded-lg w-full object-cover" :src="image.filename" :alt="image.alt || ''"
+                  aspect-ratio="4 / 3" sizes="22vw sm:15vw lg:120px" />
             </button>
           </div>
         </div>

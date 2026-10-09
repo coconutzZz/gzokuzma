@@ -31,9 +31,11 @@ export default defineNuxtConfig({
   ],
   image: {
     providers: {
+      none: {
+        provider: 'none'
+      },
       storyblok: {
-        provider: 'storyblok',
-        baseURL: 'https://a.storyblok.com'        
+        provider: '~/providers/storyblok.ts'
       }
     },
   },

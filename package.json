@@ -12,6 +12,7 @@
     "preview": "node --use-system-ca node_modules/nuxt/bin/nuxt.mjs preview",
     "test:history": "node --test tests/history.test.mjs",
     "test:seo": "node --test tests/seo.test.mjs",
+    "test:images": "node --test tests/images.test.mjs",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {

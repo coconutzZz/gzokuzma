@@ -29,15 +29,13 @@
       </div>
     </div>
 
-    <NuxtImg
+    <AppImage
       v-if="hasImage"
       :src="blok.image.filename"
       :alt="blok.image.alt || ''"
-      class="order-3 min-w-0 self-center rounded-xl"
+      class="order-3 min-w-0 w-full self-center rounded-xl"
       :class="imageOnRight ? 'sm:order-2' : 'sm:order-1'"
       :style="imageStyle"
-      provider="storyblok"
-      :modifiers="{ filters: { format: 'webp', quality: 80 } }"
       sizes="100vw sm:50vw"
       loading="lazy"
     />

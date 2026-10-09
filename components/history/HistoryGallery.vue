@@ -102,14 +102,14 @@ onBeforeUnmount(() => {
   height: 100%;
 }
 
-.history-gallery :deep(.glightbox img) {
+.history-gallery :deep(.glightbox .app-image) {
   flex: 1;
   min-height: 0;
   width: 100%;
   object-fit: contain;
 }
 
-.history-gallery :deep(.embla-thumbs img) {
+.history-gallery :deep(.embla-thumbs .app-image) {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;

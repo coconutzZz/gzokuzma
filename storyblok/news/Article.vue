@@ -24,12 +24,12 @@
             </div>
           </div>
   
-          <NuxtImg
+          <AppImage
             v-if="hasFeaturedImage"
-            :src="blok.image.filename "
+            :src="blok.image.filename"
             :alt="blok.title"
             class="w-full h-auto md:max-h-72 md:h-68 object-cover sm:rounded-xl mb-2 lg:my-6"
-            provider="storyblok" :modifiers="{ filters: { format: 'webp', quality: 80 }}" />
+            sizes="100vw lg:800px" loading="eager" fetchpriority="high" />
   
           <div id="article-content" class="px-2 lg:px-0">
             <StoryblokRichText :document="props.blok.content" :components="richTextComponents" />

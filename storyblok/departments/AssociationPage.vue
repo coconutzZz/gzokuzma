@@ -8,9 +8,10 @@
     }">
     <div v-if="hasFeaturedContent" class="mt-4 sm:mt-8">
       <div v-if="isLoading" class="w-full h-72 object-cover sm:rounded-xl animate-pulse bg-gray-300"></div>
-      <NuxtImg v-else-if="blok?.featured_image?.filename" :src="blok?.featured_image?.filename" 
+      <AppImage v-else-if="blok?.featured_image?.filename" :src="blok?.featured_image?.filename"
+        :alt="blok.featured_image.alt || department?.name || ''"
         class="sm:rounded-xl w-full h-72 object-cover"
-        provider="storyblok" :modifiers="{ filters: { format: 'webp'}}" />
+        sizes="100vw md:50vw lg:640px" loading="eager" fetchpriority="high" />
       <!-- <p v-if="blok.featured_text" class="mt-4">
         {{ blok.featured_text }}
       </p> -->
@@ -113,7 +114,8 @@
   <div class="flex flex-col justify-center h-full -mt-10">
     <div class="sm:mt-20 text-center" v-if="blok?.qr_code_bank_transfer && blok?.qr_code_bank_transfer.filename">
       <p>Za nakazilo prostovoljnih prispevkov, z vašo bančno aplikacijo skenirajte QR kodo. Podatki za UPN se bodo samodejno izpolnili.</p>
-      <NuxtImg :src="blok.qr_code_bank_transfer.filename" class="h-50 mx-auto" provider="storyblok" />
+      <AppImage :src="blok.qr_code_bank_transfer.filename" :alt="blok.qr_code_bank_transfer.alt || 'QR koda za nakazilo'"
+        class="w-full max-w-xs mx-auto object-contain" sizes="320px" loading="eager" />
     </div>
   </div>
 </BaseModal>
