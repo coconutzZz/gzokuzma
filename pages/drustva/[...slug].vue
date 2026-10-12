@@ -1,5 +1,6 @@
 <template>
   <StoryblokComponent
+    v-if="story?.data?.story?.content"
     :blok="story?.data?.story?.content"
     :posted-on="story?.data?.story?.created_at"
     :tag-list="story?.data?.story?.tag_list"
@@ -12,13 +13,10 @@ const route = useRoute();
 const storyblokApi = useStoryblokApi();
 const version = import.meta.env.DEV ? 'draft' : 'published'
 
-let slug = Array.isArray(route.params.slug) ? route.params.slug : [route.params.slug]
-
-const normalizeStoryblokSlug = (slugArray: string[]) => {
-  return (slug.length === 1 ? ['drustva', ...slugArray, 'index'] : ['drustva', ...slugArray]).join('/')
-}
-
-let sbSlug = normalizeStoryblokSlug(slug);
+// Catch-all params include an empty final segment for URLs ending in a slash.
+// Use the same CMS path and payload key as the prerendered URL without it.
+const slug = (Array.isArray(route.params.slug) ? route.params.slug : [route.params.slug]).filter(Boolean)
+const sbSlug = ['drustva', ...slug, ...(slug.length === 1 ? ['index'] : [])].join('/')
 
 
 const { data: story, error } = await useAsyncData(

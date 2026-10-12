@@ -1,5 +1,6 @@
 <template>
   <StoryblokComponent
+    v-if="story?.data?.story?.content"
     :blok="story?.data?.story?.content"
     :posted-on="story?.data?.story?.created_at"
     :tag-list="story?.data?.story?.tag_list"
@@ -13,7 +14,8 @@ const storyblokApi = useStoryblokApi();
 const version = import.meta.env.DEV ? 'draft' : 'published'
 const isLoading = ref(true)
 
-let slug = Array.isArray(route.params.slug) ? route.params.slug : [route.params.slug]
+// Remove the empty trailing-slash segment before resolving the /index alias.
+const slug = (Array.isArray(route.params.slug) ? route.params.slug : [route.params.slug]).filter(Boolean)
 
 if (slug[slug.length - 1] === 'index') slug.pop()
 

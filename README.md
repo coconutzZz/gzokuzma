@@ -95,6 +95,10 @@ aliases. Route discovery uses all API result pages, so articles do not need to b
 linked from the navigation to be generated. Config, gallery, and event records
 are data sources rather than standalone pages.
 
+CMS routes normalize trailing slashes before selecting the story and its payload
+key, so refreshing a department URL reuses its prerendered `/index` story.
+Run `npm run test:routes` to check route aliases, hydration, and missing stories.
+
 Nuxt shares keyed `useAsyncData` and `useFetch` results across prerendered pages
 within each build. This lets every page reuse the main menu and department data;
 the generated payloads also provide that data during hydration and navigation.
