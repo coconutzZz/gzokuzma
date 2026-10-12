@@ -1,5 +1,5 @@
 <template>
-  <div class="custom-nav">
+  <div v-if="events.length" class="custom-nav">
     <button ref="prevButtonRef" class="custom-btn-prev" aria-label="Prejšnji dogodek">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M16 4L8 12L16 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -27,7 +27,7 @@
       </div>
     </div>
   </div>
-  <swiper-container ref="swiperRef" :init="false" space-between="0" free-mode="true">
+  <swiper-container v-if="events.length" ref="swiperRef" :init="false" space-between="0" free-mode="true">
     <swiper-slide class="pt-5 md:pb-6" v-for="(event, index) in events" :key="event.uuid" :class="index === 0 ? 'ml-5' : ''">
       <div class="flex items-center">
           <div :class="index === 0 ? 'bg-accent ring-accent' : 'bg-neutral ring-neutral'" class="mx-5 z-10 flex items-center justify-center w-6 h-6 rounded-full ring-8 shrink-0">
