@@ -11,23 +11,28 @@
       </svg>
     </button>      
   </div>
-  <div v-if="isLoading" class="flex items-center w-full">
+  <div v-if="isLoading || !events.length" class="events-slider-content flex items-start w-full" :aria-busy="isLoading">
     <div class="w-full pt-5 pb-6 ml-5">
-      <div class="flex items-center">
-          <div class="animate-pulse bg-gray-300 ring-gray-300 mx-5 z-10 flex items-center justify-center w-6 h-6 rounded-full ring-8 shrink-0">                
+      <div class="flex items-center" aria-hidden="true">
+          <div :class="isLoading ? 'animate-pulse bg-gray-300 ring-gray-300' : 'bg-gray-200 ring-gray-200'" class="mx-5 z-10 flex items-center justify-center w-6 h-6 rounded-full ring-8 shrink-0">
+            <svg v-if="!isLoading" class="text-gray-500 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+            </svg>
           </div>
           <div class="-mx-5 flex w-full bg-gray-200 h-1"></div>
       </div>
-      <div class="mt-5">
+      <div v-if="isLoading" class="mt-5">
         <div class="w-[80%]">
           <div class="w-[10%] h-5 animate-pulse bg-gray-300 mt-5"></div>        
-          <div class="w-[20%] h-5 animate-pulse bg-gray-300 mt-4"></div>        
-          <div class="w-[5%] h-3 animate-pulse bg-gray-300 mt-2"></div>        
+          <div class="w-[20%] h-5 animate-pulse bg-gray-300 mt-4"></div>
         </div>
       </div>
+      <p v-else role="status" class="mt-5 mb-0 text-sm sm:text-base text-gray-500">
+        Trenutno ni napovedanih dogodkov.
+      </p>
     </div>
   </div>
-  <swiper-container v-if="events.length" ref="swiperRef" :init="false" space-between="0" free-mode="true">
+  <swiper-container v-if="events.length" class="events-slider-content" ref="swiperRef" :init="false" space-between="0" free-mode="true">
     <swiper-slide class="pt-5 md:pb-6" v-for="(event, index) in events" :key="event.uuid" :class="index === 0 ? 'ml-5' : ''">
       <div class="flex items-center">
           <div :class="index === 0 ? 'bg-accent ring-accent' : 'bg-neutral ring-neutral'" class="mx-5 z-10 flex items-center justify-center w-6 h-6 rounded-full ring-8 shrink-0">
@@ -142,6 +147,7 @@ const formatEventDate = (eventDate) => {
 
 </script>
 <style lang="scss">
+
 /* Nav container */
 .custom-nav {
   position: relative;
