@@ -95,9 +95,19 @@ aliases. Route discovery uses all API result pages, so articles do not need to b
 linked from the navigation to be generated. Config, gallery, and event records
 are data sources rather than standalone pages.
 
+All page URLs omit trailing slashes, except the homepage `/`. NuxtLink uses the
+same policy, and route middleware redirects slash-ended URLs while preserving
+query parameters and fragments. Run `npm run test:navigation` to check refresh,
+hydration, and active-menu updates when switching pages.
+
+Prerendering uses `autoSubfolderIndex: false` to write `/page.html` instead of
+`/page/index.html`. Netlify serves these at `/page` and redirects `/page/` to the
+URL without a slash. `netlify.toml` enables Pretty URLs so `.html` URLs also
+redirect to the clean page URL. Keep this file layout when changing deployment
+settings; Netlify redirect rules cannot add or remove trailing slashes.
+
 CMS routes normalize trailing slashes before selecting the story and its payload
 key, so refreshing a department URL reuses its prerendered `/index` story.
-Run `npm run test:routes` to check route aliases, hydration, and missing stories.
 
 Nuxt shares keyed `useAsyncData` and `useFetch` results across prerendered pages
 within each build. This lets every page reuse the main menu and department data;

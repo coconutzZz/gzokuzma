@@ -78,7 +78,10 @@ export default defineNuxtConfig({
     }
   },
   experimental: {
-    sharedPrerenderData: true
+    sharedPrerenderData: true,
+    defaults: {
+      nuxtLink: { trailingSlash: 'remove' }
+    }
   },
   watch: ['public/history/**/index.md'],
   nitro: {
@@ -88,6 +91,8 @@ export default defineNuxtConfig({
       inline: ['nuxt']
     },
     prerender: {
+      // Netlify serves page.html at /page; folder/index.html adds a trailing slash.
+      autoSubfolderIndex: false,
       routes: ['/', '/novice'],
       crawlLinks: true,
       failOnError: true,
