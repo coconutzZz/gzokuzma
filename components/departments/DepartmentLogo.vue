@@ -1,7 +1,7 @@
 <template>
   <AppImage
     :src="getDepartmentImage(departmentSlug)"
-    :class="[height, 'object-contain']"
+    :class="[height, 'department-logo object-contain']"
     aspect-ratio="1"
     loading="eager"
     placeholder="/img/pgddefault.png"
@@ -29,3 +29,25 @@ defineProps({
 
 const getDepartmentImage = useDepartmentImage()
 </script>
+
+<style scoped>
+.department-logo :deep(.app-image__preview) {
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: blur(4px);
+}
+
+/* Swap both layers after decoding so transparent logos never overlap the preview. */
+.department-logo :deep(.app-image__preview),
+.department-logo :deep(.app-image__image) {
+  transition: none;
+}
+
+.department-logo:not([data-image-state='loaded']) :deep(.app-image__image) {
+  opacity: 0;
+}
+
+.department-logo:not([data-image-state='loading']) :deep(.app-image__preview) {
+  display: none;
+}
+</style>
