@@ -28,15 +28,15 @@
         </div>
       </div>
       <p v-else role="status" class="mt-5 mb-0 text-sm sm:text-base text-gray-500">
-        Trenutno ni napovedanih dogodkov.
+        Trenutno ni objavljenih dogodkov.
       </p>
     </div>
   </div>
   <swiper-container v-if="events.length" class="events-slider-content" ref="swiperRef" :init="false" space-between="0" free-mode="true">
     <swiper-slide class="pt-5 md:pb-6" v-for="(event, index) in events" :key="event.uuid" :class="index === 0 ? 'ml-5' : ''">
       <div class="flex items-center">
-          <div :class="index === 0 ? 'bg-accent ring-accent' : 'bg-neutral ring-neutral'" class="mx-5 z-10 flex items-center justify-center w-6 h-6 rounded-full ring-8 shrink-0">
-              <svg class="text-primary-500 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+          <div :class="event.isPast ? 'bg-gray-200 ring-gray-200' : index === events.length - 1 ? 'bg-accent ring-accent' : 'bg-neutral ring-neutral'" class="mx-5 z-10 flex items-center justify-center w-6 h-6 rounded-full ring-8 shrink-0">
+              <svg :class="event.isPast ? 'text-gray-500' : 'text-primary-500'" class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
               </svg>
           </div>
@@ -44,9 +44,9 @@
       </div>
       <div v-if="!isLoading" class="mt-5">
         <div class="w-[80%]">
-          <time class="block mb-2 text-xs sm:text-sm leading-none text-gray-400 dark:text-gray-500">{{ formatEventDate(event.content.date) }}</time>
-          <h3 class="text-sm  sm:text-lg font-semibold text-gray-900">{{ event.content.title}}</h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400">{{ `Kraj: ${event.content.location}` }}</p>
+          <time :class="event.isPast ? 'text-gray-500' : 'text-gray-400 dark:text-gray-500'" class="block mb-2 text-xs sm:text-sm leading-none">{{ formatEventDate(event.content.date) }}</time>
+          <h3 :class="event.isPast ? 'text-gray-500' : 'text-gray-900'" class="text-sm sm:text-lg font-semibold">{{ event.content.title}}</h3>
+          <p :class="event.isPast ? 'text-gray-500' : 'text-gray-500 dark:text-gray-400'" class="text-sm">{{ `Kraj: ${event.content.location}` }}</p>
         </div>
       </div>
     </swiper-slide>
@@ -78,44 +78,46 @@ const storyblokApi = useStoryblokApi()
 
 onMounted(async () => {
   mounted = true;
-  const today = new Date();
-
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0'); 
-  const day = String(today.getDate()).padStart(2, '0');
-
   const { data } = await storyblokApi.get("cdn/stories", {
     version,
-    starts_with: `dogodki/${year}`,
-    sort_by: "created_at:asc",
-    filter_query: {
-      "date": { gt_date: `${year}-${month}-${day} 00:00:00`}
-    },
+    starts_with: 'dogodki/',
+    sort_by: 'content.date:desc',
     per_page: 5,
     page: 1
   });
 
   if (!mounted) return;
-  events.value = data.stories;
-  isLoading.value = false;
-
-  // Keep Swiper off routes without events, and render slides before upgrading
-  // the custom elements or measuring their layout.
-  if (!events.value.length) return;
-  await nextTick();
+  const now = DateTime.now().toMillis();
+  // Fetch the latest dates first, then display a timeline from oldest to newest.
+  const loadedEvents = (data.stories || []).slice().reverse().map(event => ({
+    ...event,
+    isPast: getEventDate(event.content.date).toMillis() < now
+  }));
+  // Keep the skeleton until Swiper is registered, so raw elements never stack vertically.
+  // Empty timelines do not need the Swiper bundle.
+  if (!loadedEvents.length) {
+    isLoading.value = false;
+    return;
+  }
   const { register, Navigation, FreeMode, freeModeStyles } = await import('~/utils/events-swiper');
-  if (!mounted || !swiperRef.value) return;
+  if (!mounted) return;
   register();
+
+  events.value = loadedEvents;
+  isLoading.value = false;
+  await nextTick();
+  if (!mounted || !swiperRef.value) return;
 
   const swiperParams = {
     modules: [Navigation, FreeMode],
     injectStyles: [freeModeStyles],
+    initialSlide: events.value.length - 1,
     breakpoints: {
       320: {
-        slidesPerView: 2,
+        slidesPerView: Math.min(2, events.value.length),
       },
       520: {
-        slidesPerView: 2,
+        slidesPerView: Math.min(2, events.value.length),
       },
       768: {
         slidesPerView: events.value.length
@@ -124,6 +126,12 @@ onMounted(async () => {
     navigation: {
       prevEl: prevButtonRef.value,
       nextEl: nextButtonRef.value,
+    },
+    on: {
+      // When resizing makes the timeline scrollable, open its newest end again.
+      unlock(swiper) {
+        if (swiper.initialized) swiper.slideTo(events.value.length - 1, 0);
+      }
     }
   }
   
@@ -135,10 +143,12 @@ onBeforeUnmount(() => {
   mounted = false;
 });
 
+// Storyblok event times refer to Slovenia, regardless of the visitor's timezone.
+const getEventDate = (eventDate) => DateTime.fromFormat(eventDate || '', 'yyyy-MM-dd HH:mm', { zone: 'Europe/Ljubljana' });
+
 const formatEventDate = (eventDate) => {
   if (eventDate) {
-    const date = DateTime.fromFormat(eventDate, 'yyyy-MM-dd HH:mm', { zone: 'local' })
-      .setLocale('sl-si');
+    const date = getEventDate(eventDate).setLocale('sl-si');
 
     const formatted = date.toLocaleString(DateTime.DATE_MED);
     return formatted;

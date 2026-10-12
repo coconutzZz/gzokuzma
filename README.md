@@ -118,6 +118,12 @@ Rebuild and deploy manually to update prerendered content. Use `npm run build`
 with Netlify's `dist` publish directory to retain the server API routes. Existing
 client-side news pagination, event loading, and lazy gallery requests remain live.
 
+The event timeline loads the latest five event dates from every year in the
+Storyblok `dogodki/` folder, including past events. It displays them oldest to
+newest, marks past event times in gray using Slovenia's timezone, and starts at
+the newest end on screens where the timeline scrolls. Run `npm run test:events`
+to check selection, ordering, past-event styling, and slider initialization.
+
 The first page of each news list is rendered on the server and reused from Nuxt's
 payload during hydration. Its cache key includes the count, tags, author, and CMS
 version. Home and news listings prioritize the first card with an image using
