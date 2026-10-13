@@ -6,4 +6,5 @@ description: >-
   povezuje ustanovitelje in vse poznejše generacije članov, ki so skrbeli za opremo, društvene
   prostore in pripravljenost za pomoč. Obletnica je poudarila vrednost prostovoljnega dela ter
   nadaljevanja gasilske tradicije v Trdkovi.
+gallery-slug: galerije/pgdtrdkova/zgodovina/2023
 ---

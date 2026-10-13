@@ -8,4 +8,5 @@ description: >-
   predsednik Jakob Meško, poveljnik Štefan Čerpnjak, podpoveljnik Karel Kolman, tajnik Henrik
   Mehlmaurer, blagajnik Jakob Emeršič in orodjar Štefan Lang. Četa je pripadala gasilski župi sreza
   Murska Sobota v Dravski banovini.
+gallery-slug: galerije/pgdtrdkova/zgodovina/1933
 ---
