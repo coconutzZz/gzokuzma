@@ -187,6 +187,13 @@ The history timeline's Storyblok block is `storyblok/history/History.vue`; its
 entry and gallery components live in `components/history/` and receive application
 data.
 
+Facebook post URLs from `facebook.com/plugins/post.php` in `RichtextIframe`
+are rendered by the Facebook JavaScript SDK, which sizes the post's height.
+Existing CMS blocks need no changes. The embed URL's `href` and `show_text`
+options are preserved; the CMS width takes precedence over the URL's width.
+Other embeds still use iframe-resizer, including the legacy CNVOS integration.
+Run `npm run test:embeds` to verify routing, SDK loading, resizing, and cleanup.
+
 ## Page metadata and social sharing
 
 `usePageSeo()` sets the page title, description, Open Graph and Twitter tags, and
