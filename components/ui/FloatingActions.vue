@@ -13,17 +13,21 @@
       :class="{ 'mb-10': isDev }"
       style="bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px))"
     >
-      <Button
-        v-for="action in availableActions"
-        :key="action.id"
-        type="button"
-        class="!mt-0 flex items-center pointer-events-auto"
-        :class="{ 'md:hidden': action.mobileOnly }"
-        @click="action.onClick"
-      >
-        <NuxtImg v-if="action.icon" :src="action.icon" alt="" class="w-6 h-6 mr-2" />
-        {{ action.label }}
-      </Button>
+      <div class="inline-flex flex-wrap justify-end gap-3 pointer-events-auto">
+        <Button
+          v-for="action in availableActions"
+          :key="action.id"
+          type="button"
+          class="!mt-0 inline-flex items-center"
+          :class="{ 'md:hidden': action.mobileOnly }"
+          rounded
+          :primary="action.primary"
+          @click="action.onClick"
+        >
+          <NuxtImg v-if="action.icon" :src="action.icon" alt="" class="w-6 h-6"  :class="{ 'mr-2' : action.label != '' }"/>
+          {{ action.label }}
+        </Button>
+      </div>
       <ScrollToTop class="pointer-events-auto" />
     </div>
   </Transition>

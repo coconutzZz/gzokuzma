@@ -6,6 +6,7 @@ export interface FloatingAction {
   label: string
   icon?: string
   mobileOnly?: boolean
+  primary?: boolean
   isAvailable?: () => boolean
   onClick: () => void
 }

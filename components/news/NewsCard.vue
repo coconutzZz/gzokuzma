@@ -12,7 +12,7 @@
           </NuxtLink>
       </div>
       <div :class="isLoading || hasImage ? 'w-1/2' : 'w-full'" class="sm:w-full">
-        <div :class="{ 'px-4' : !hasImage }" class="max-h-[160px] px-2 py-4 sm:py-2 lg:px-6 lg:py-4 mb-auto">
+        <div :class="{ 'px-4' : !hasImage }" class="px-2 py-4 sm:py-2 lg:px-6 lg:py-4 mb-auto">
             <template v-if="isLoading">
               <div class="w-[50%] h-5 animate-pulse bg-gray-300"></div>
             </template>

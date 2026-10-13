@@ -2,7 +2,7 @@
   <div class="min-h-screen flex flex-col leading-normal tracking-normal gradient2 overflow-hidden">
     <header>
       <Header :is-background-visible="true" :is-fixed="isFixed">
-        <div class="container max-w-2xl md:mx-auto">
+        <div class="md:mx-auto">
           <div class="flex-row justify-center uppercase hidden md:flex">
             <DepartmentLinksShort :show-active-only="false" />
           </div>

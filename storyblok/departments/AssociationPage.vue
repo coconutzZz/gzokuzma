@@ -86,6 +86,7 @@
         <Button
           v-if="blok?.qr_code_bank_transfer && blok?.qr_code_bank_transfer.filename"
           class="flex"
+          rounded
           @click="open = true"
         >
           <NuxtImg src="/img/donate.svg" alt="" class="w-6 h-6 mr-2" />
@@ -145,21 +146,13 @@ const props = defineProps(
 });
 
 const { registerAction } = useFloatingActions()
-registerAction({
-  id: 'association-donation',
-  label: 'DONIRAJ DRUŠTVU',
-  icon: '/img/donate.svg',
-  mobileOnly: true,
-  isAvailable: () => Boolean(props.blok?.qr_code_bank_transfer?.filename),
-  onClick: () => { open.value = true }
-})
 
 const hasFeaturedContent = computed(() => props.isLoading || (props.blok?.featured_image?.filename || props.blok?.featured_text));
 const { openLightbox: openFeaturedImage } = useImageLightbox(() =>
   props.blok?.featured_image?.filename ? [props.blok.featured_image] : []
 )
 
-const deptSlug = route.params.slug[0];
+const deptSlug = route.params.slug?.[0] ?? '';
 const { data: department, refresh: refreshDepartment } = await useFetch<Department>(
   `/api/departments/${deptSlug}`,
   { 
@@ -203,5 +196,24 @@ const sortedFiremen = computed(() => [...(firemen.value ?? [])].sort(
   (a, b) => roleOrder[a.department_role] - roleOrder[b.department_role]) 
 );
 
+registerAction({
+  id: 'association-facebook',
+  label: '',
+  icon: '/img/facebook.svg',
+  mobileOnly: true,
+  primary: true,
+  isAvailable: () => Boolean(department.value?.facebook_url && department.value.facebook_url.length > 0),
+  onClick: () => { 
+    window.open(department.value?.facebook_url, '_blank')
+  }
+})
 
+registerAction({
+  id: 'association-donation',
+  label: 'DONIRAJ DRUŠTVU',
+  icon: '/img/donate.svg',
+  mobileOnly: true,  
+  isAvailable: () => Boolean(props.blok?.qr_code_bank_transfer?.filename),
+  onClick: () => { open.value = true }
+})
 </script>

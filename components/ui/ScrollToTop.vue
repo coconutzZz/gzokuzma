@@ -1,9 +1,11 @@
 <template>
-  <button
+  <Button
+    primary
+    rounded
     type="button"
     aria-label="Na vrh strani"
     title="Na vrh strani"
-    class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary-500 text-white shadow-lg hover:bg-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+    class="!mt-0 !flex h-12 w-12 shrink-0 items-center justify-center !p-0 !opacity-100 !shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
     @click="scrollToTop"
   >
     <svg
@@ -18,10 +20,11 @@
     >
       <path d="m5 12 7-7 7 7M12 5v14" />
     </svg>
-  </button>
+  </Button>
 </template>
 
 <script setup lang="ts">
+import Button from '~/components/ui/Button.vue'
 import { usePageScroll } from '~/composables/usePageScroll'
 
 const { scrollToTop } = usePageScroll()
