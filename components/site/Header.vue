@@ -45,8 +45,9 @@
             <NuxtLink
               v-for="item in subMenu"
               :key="item.id"
-              :to="`/${item.full_slug}`"
-              active-class="is-active"
+              :to="item.path"
+              :class="{ 'is-active': item.isActive }"
+              :aria-current="item.isActive ? 'page' : undefined"
               class="rounded-full md:mx-2 text-sm md:text-md font-semibold text-white/80 px-2 py-1 mb-4 mx-1 border-white/50 border-2 md:border-secondary md:text-white
             md:hover:border-2
           md:hover:border-white/50
@@ -119,6 +120,10 @@ watch(() => route.path, (newPath) => {
   }
 }, { immediate: true })
 
+const normalizeSubMenuPath = (path) => {
+  return path.replace(/\/index\/?$/, '').replace(/\/+$/, '') || '/'
+}
+
 const subMenu = computed(() => {
   const stories = menuStories.value
   if (!stories || !Array.isArray(stories)) return [];
@@ -126,8 +131,12 @@ const subMenu = computed(() => {
   const currentSlugPart = route.params.slug?.[0] || route.params.slug;
   if (!currentSlugPart) return [];
 
+  const currentPath = normalizeSubMenuPath(route.path)
   return stories.filter(story => {
     return story.full_slug.includes(currentSlugPart + '/')
+  }).map(story => {
+    const path = normalizeSubMenuPath(`/${story.full_slug}`)
+    return { ...story, path, isActive: path === currentPath }
   })
 });
 
