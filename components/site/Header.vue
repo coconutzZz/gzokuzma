@@ -15,9 +15,9 @@
           :aria-expanded="isDrawerOpen"
           :aria-controls="drawerId"
           @click="openDrawer"
-          class="flex items-center p-2.5 text-white hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent transform transition hover:scale-105 duration-300 ease-in-out motion-reduce:transition-none motion-reduce:transform-none"
+          class="flex items-center p-2.5 text-white rounded-full focus:outline-none focus:shadow-outline transform transition hover:scale-110 hover:brightness-110 duration-300 ease-in-out"
         >
-          <svg aria-hidden="true" class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <svg aria-hidden="true" class="fill-current h-8 w-8" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
           </svg>
         </button>
