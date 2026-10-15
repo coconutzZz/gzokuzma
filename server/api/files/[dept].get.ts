@@ -1,55 +1,23 @@
 import type { DownloadableAsset } from '../../types/supabase'
-import { createClient } from '@supabase/supabase-js'
+import { getDepartmentFileStorage } from '../../utils/department-files'
 
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig()
-  const deptSlug = event.context.params?.dept
-
-  if (!deptSlug) {
-    throw createError({ statusCode: 400, statusMessage: 'Department slug missing' })
-  }
-
-  const supabase = createClient(config.public.supabaseUrl, config.public.supabasePublishableKey)
-
-  const { data, error } = await supabase.storage
-    .from(deptSlug)
-    .list('public', { limit: 100, offset: 0 });
+  const department = event.context.params?.dept
+  const storage = getDepartmentFileStorage(department)
+  const { data, error } = await storage.list('public', { limit: 100, offset: 0 })
 
   if (error) {
-    console.error('Error listing files:', error);
-  } 
+    throw createError({ statusCode: 502, statusMessage: 'Documents could not be loaded' })
+  }
 
-if (data == null) {
-  return [];
-}
-
- const realFiles = data.filter(
-    (file) => !file.name.endsWith('.emptyFolderPlaceholder')
-  )
-
-  console.log(realFiles)
-
-const filesWithUrls: DownloadableAsset[] = (
-  await Promise.all(
-    realFiles.map(async (file) => {
-      const { data } = await supabase.storage
-        .from(`${deptSlug}/public`)
-        .createSignedUrl(file.name, 3600)
-
-      if (!data) return null
-
-      return {
-        id: file.id,
-        name: file.name.replace('public/', ''),
-        created_at: file.created_at,
-        type: file.metadata.mimetype,
-        url: data.signedUrl,
-      }
-    })
-  )
-).filter(
-  (asset): asset is DownloadableAsset => asset !== null
-)
-
-return filesWithUrls.filter(Boolean);
+  // Prerender stable links; signed URLs are created only when a document is opened.
+  return (data ?? [])
+    .filter(file => !file.name.endsWith('.emptyFolderPlaceholder'))
+    .map((file): DownloadableAsset => ({
+      id: file.id,
+      name: file.name,
+      created_at: file.created_at,
+      type: file.metadata?.mimetype ?? 'application/octet-stream',
+      url: `/api/files/${encodeURIComponent(department!)}/download?file=${encodeURIComponent(file.name)}`,
+    }))
 })

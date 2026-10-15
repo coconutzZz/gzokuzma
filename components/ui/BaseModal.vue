@@ -1,52 +1,109 @@
-<template>
-<Teleport to="body">
-  <Transition
-    enter-active-class="transition-all duration-200"
-    leave-active-class="transition-all duration-200"
-    enter-from-class="opacity-0 translate-y-10 sm:scale-95"
-    enter-to-class="opacity-100 translate-y-0 sm:scale-100"
-    leave-from-class="opacity-100 translate-y-0 sm:scale-100"
-    leave-to-class="opacity-0 translate-y-10 sm:scale-95"
-  >
-    <div
-      v-if="modelValue"
-      class="fixed inset-0 z-50 flex sm:items-center sm:justify-center"
-    >
-      <!-- backdrop -->
-      <div
-        class="absolute inset-0 bg-black/50"
-        @click="$emit('update:modelValue', false)"
-      />
+<script setup lang="ts">
+import { onBeforeUnmount, ref, watch } from 'vue'
+import { useScrollLock } from '~/composables/useScrollLock'
 
-      <!-- modal -->
-      <div
-        class="
-          relative bg-white z-10
-          w-full h-full
-          sm:h-auto sm:max-w-lg
-          rounded-none sm:rounded-xl
-          p-6
-        "
-      >
+const model = defineModel<boolean>({ default: false })
+withDefaults(defineProps<{ label?: string }>(), { label: 'Pojavno okno' })
+const dialog = ref<HTMLDialogElement>()
+const { lock, unlock } = useScrollLock()
+let opener: HTMLElement | undefined
+let pointerStartedOnBackdrop = false
+let disposed = false
+
+function restoreFocus() {
+  if (opener?.isConnected) opener.focus()
+  opener = undefined
+}
+
+function close() {
+  model.value = false
+  dialog.value?.close()
+  unlock()
+  restoreFocus()
+}
+
+function syncClosed() {
+  // Ignore a queued close event if the dialog has already reopened.
+  if (disposed || dialog.value?.open) return
+  model.value = false
+  pointerStartedOnBackdrop = false
+  unlock()
+  restoreFocus()
+}
+
+watch([dialog, model], ([element, isOpen]) => {
+  if (!element) return
+  if (isOpen && !element.open) {
+    opener = document.activeElement instanceof HTMLElement ? document.activeElement : undefined
+    element.showModal()
+    lock()
+  } else if (!isOpen && element.open) {
+    element.close()
+    unlock()
+    restoreFocus()
+  }
+}, { flush: 'post' })
+
+function wrapFocus(event: KeyboardEvent) {
+  const controls = [...(dialog.value?.querySelectorAll<HTMLElement>(
+    'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+  ) ?? [])].filter(element => element.tabIndex >= 0 && element.getClientRects().length && !element.closest('[inert]'))
+  const first = controls[0]
+  const last = controls[controls.length - 1]
+  if (!first) {
+    event.preventDefault()
+    dialog.value?.focus()
+  } else if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault()
+    last.focus()
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault()
+    first.focus()
+  }
+}
+
+function isBackdropEvent(event: MouseEvent) {
+  if (event.target !== dialog.value) return false
+  const bounds = dialog.value.getBoundingClientRect()
+  return event.clientX < bounds.left || event.clientX > bounds.right ||
+    event.clientY < bounds.top || event.clientY > bounds.bottom
+}
+
+function onBackdropClick(event: MouseEvent) {
+  if (pointerStartedOnBackdrop && isBackdropEvent(event)) close()
+  pointerStartedOnBackdrop = false
+}
+
+onBeforeUnmount(() => {
+  disposed = true
+  dialog.value?.close()
+  unlock()
+  restoreFocus()
+})
+</script>
+
+<template>
+    <dialog
+      ref="dialog"
+      :aria-label="label"
+      aria-modal="true"
+      tabindex="-1"
+      class="base-modal fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto border-0 bg-white p-6 sm:m-auto sm:h-auto sm:max-h-[calc(100dvh-2rem)] sm:max-w-lg sm:rounded-xl"
+      @cancel.prevent="close"
+      @close="syncClosed"
+      @keydown.tab="wrapFocus"
+      @pointerdown="pointerStartedOnBackdrop = isBackdropEvent($event)"
+      @click="onBackdropClick"
+    >
+      <template v-if="model">
         <slot />
-        <ButtonClose @click="$emit('update:modelValue', false)" class="absolute top-3 right-3" />
-      </div>
-    </div>
-  </Transition>
-</Teleport>
+        <ButtonClose type="button" autofocus @click="close" class="absolute top-3 right-3" />
+      </template>
+    </dialog>
 </template>
 
-<script setup>
-const props = defineProps({
-  modelValue: Boolean
-})
-defineEmits(['update:modelValue'])
-
-watch(() => props.modelValue, (isOpen) => {
-  if (isOpen) {
-    document.body.classList.add('overflow-hidden');
-  } else {
-    document.body.classList.remove('overflow-hidden');
-  }
-});
-</script>
+<style scoped>
+.base-modal::backdrop {
+  background: rgb(0 0 0 / 0.5);
+}
+</style>

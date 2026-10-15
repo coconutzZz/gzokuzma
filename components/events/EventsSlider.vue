@@ -27,6 +27,10 @@
           <div class="w-[20%] h-5 animate-pulse bg-gray-300 mt-4"></div>
         </div>
       </div>
+      <div v-else-if="loadError" class="mt-5 text-sm sm:text-base">
+        <p role="alert" class="text-danger">{{ loadError }}</p>
+        <Button type="button" @click="loadEvents">Poskusi znova</Button>
+      </div>
       <p v-else role="status" class="mt-5 mb-0 text-sm sm:text-base text-gray-500">
         Trenutno ni objavljenih dogodkov.
       </p>
@@ -72,71 +76,90 @@ const prevButtonRef = ref(null);
 const nextButtonRef = ref(null);
 const events = ref([])
 const isLoading = ref(true);
+const loadError = ref('');
 let mounted = false;
+let pending = false;
 
 const storyblokApi = useStoryblokApi()
 
-onMounted(async () => {
-  mounted = true;
-  const { data } = await storyblokApi.get("cdn/stories", {
-    version,
-    starts_with: 'dogodki/',
-    sort_by: 'content.date:desc',
-    per_page: 5,
-    page: 1
-  });
+async function loadEvents() {
+  if (!mounted || pending) return;
+  pending = true;
+  isLoading.value = true;
+  loadError.value = '';
+  try {
+    const { data } = await storyblokApi.get("cdn/stories", {
+      version,
+      starts_with: 'dogodki/',
+      sort_by: 'content.date:desc',
+      per_page: 5,
+      page: 1
+    });
 
-  if (!mounted) return;
-  const now = DateTime.now().toMillis();
-  // Fetch the latest dates first, then display a timeline from oldest to newest.
-  const loadedEvents = (data.stories || []).slice().reverse().map(event => ({
-    ...event,
-    isPast: getEventDate(event.content.date).toMillis() < now
-  }));
-  // Keep the skeleton until Swiper is registered, so raw elements never stack vertically.
-  // Empty timelines do not need the Swiper bundle.
-  if (!loadedEvents.length) {
+    if (!mounted) return;
+    const now = DateTime.now().toMillis();
+    // Fetch the latest dates first, then display a timeline from oldest to newest.
+    const loadedEvents = (data.stories || []).slice().reverse().map(event => ({
+      ...event,
+      isPast: getEventDate(event.content.date).toMillis() < now
+    }));
+    // Keep the skeleton until Swiper is registered, so raw elements never stack vertically.
+    // Empty timelines do not need the Swiper bundle.
+    if (!loadedEvents.length) {
+      isLoading.value = false;
+      return;
+    }
+    const { register, Navigation, FreeMode, freeModeStyles } = await import('~/utils/events-swiper');
+    if (!mounted) return;
+    register();
+
+    events.value = loadedEvents;
     isLoading.value = false;
-    return;
-  }
-  const { register, Navigation, FreeMode, freeModeStyles } = await import('~/utils/events-swiper');
-  if (!mounted) return;
-  register();
+    await nextTick();
+    if (!mounted || !swiperRef.value) return;
 
-  events.value = loadedEvents;
-  isLoading.value = false;
-  await nextTick();
-  if (!mounted || !swiperRef.value) return;
-
-  const swiperParams = {
-    modules: [Navigation, FreeMode],
-    injectStyles: [freeModeStyles],
-    initialSlide: events.value.length - 1,
-    breakpoints: {
-      320: {
-        slidesPerView: Math.min(2, events.value.length),
+    const swiperParams = {
+      modules: [Navigation, FreeMode],
+      injectStyles: [freeModeStyles],
+      initialSlide: events.value.length - 1,
+      breakpoints: {
+        320: {
+          slidesPerView: Math.min(2, events.value.length),
+        },
+        520: {
+          slidesPerView: Math.min(2, events.value.length),
+        },
+        768: {
+          slidesPerView: events.value.length
+        }
       },
-      520: {
-        slidesPerView: Math.min(2, events.value.length),
+      navigation: {
+        prevEl: prevButtonRef.value,
+        nextEl: nextButtonRef.value,
       },
-      768: {
-        slidesPerView: events.value.length
-      }
-    },
-    navigation: {
-      prevEl: prevButtonRef.value,
-      nextEl: nextButtonRef.value,
-    },
-    on: {
-      // When resizing makes the timeline scrollable, open its newest end again.
-      unlock(swiper) {
-        if (swiper.initialized) swiper.slideTo(events.value.length - 1, 0);
+      on: {
+        // When resizing makes the timeline scrollable, open its newest end again.
+        unlock(swiper) {
+          if (swiper.initialized) swiper.slideTo(events.value.length - 1, 0);
+        }
       }
     }
-  }
   
-  Object.assign(swiperRef.value, swiperParams);
-  swiperRef.value.initialize();
+    Object.assign(swiperRef.value, swiperParams);
+    swiperRef.value.initialize();
+  } catch {
+    if (!mounted) return;
+    events.value = [];
+    loadError.value = 'Dogodkov trenutno ni mogoče naložiti.';
+  } finally {
+    pending = false;
+    if (mounted) isLoading.value = false;
+  }
+}
+
+onMounted(() => {
+  mounted = true;
+  void loadEvents();
 });
 
 onBeforeUnmount(() => {

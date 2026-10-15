@@ -118,11 +118,19 @@ Rebuild and deploy manually to update prerendered content. Use `npm run build`
 with Netlify's `dist` publish directory to retain the server API routes. Existing
 client-side news pagination, event loading, and lazy gallery requests remain live.
 
+Department documents use stable `/api/files/:department/download?file=...` links.
+The download route creates a fresh Supabase signed URL on each visit and sends an
+uncached redirect, so document links in prerendered pages do not expire between
+deployments. Keep the server API routes available when deploying. Run
+`npm run test:files` to check listing, redirects, expiry handling, and failures.
+
 The event timeline loads the latest five event dates from every year in the
 Storyblok `dogodki/` folder, including past events. It displays them oldest to
 newest, marks past event times in gray using Slovenia's timezone, and starts at
 the newest end on screens where the timeline scrolls. Run `npm run test:events`
-to check selection, ordering, past-event styling, and slider initialization.
+to check ordering, past-event styling, slider initialization, error recovery, and
+cleanup when navigating away during loading. Failed CMS requests or slider
+initialization show an error and a retry button.
 
 The first page of each news list is rendered on the server and reused from Nuxt's
 payload during hydration. Its cache key includes the count, tags, author, and CMS
@@ -130,6 +138,12 @@ version. Home and news listings prioritize the first card with an image using
 `priority-image`; other card images remain lazy. Changing filters and loading
 more articles still fetch live CMS data. Run `npm run test:news` to check initial
 rendering, payload reuse, pagination, filters, and retries.
+
+News tag selections are stored in the `with_tag` query parameter. Tag buttons
+update the URL while preserving other query parameters and fragments; query
+navigation and browser back/forward update the selected filters. Repeated and
+comma-separated tag values are supported. Run `npm run test:filters` for these
+navigation checks.
 
 Production builds use `features.inlineStyles: true` to include global and
 component CSS in the rendered HTML, removing the entry stylesheet request from
@@ -186,6 +200,11 @@ and embedded media, live in the matching `components/` feature folder.
 The history timeline's Storyblok block is `storyblok/history/History.vue`; its
 entry and gallery components live in `components/history/` and receive application
 data.
+
+`BaseModal` uses a native dialog for background isolation and keyboard focus.
+It restores focus and releases its scroll lock when closed or unmounted; the
+shared `useScrollLock` helper also supports overlapping dialogs and the mobile
+menu. Run `npm run test:modal` for modal behavior, or `npm test` for all suites.
 
 Facebook post URLs from `facebook.com/plugins/post.php` in `RichtextIframe`
 are rendered by the Facebook JavaScript SDK, which sizes the post's height.

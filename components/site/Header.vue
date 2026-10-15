@@ -97,6 +97,8 @@
   </dialog>
 </template>
 <script setup>
+import { useScrollLock } from '~/composables/useScrollLock'
+
 const route = useRoute()
 //const slug = ref(Array.isArray(route.params.slug) ? route.params.slug : [route.params.slug]);
 
@@ -147,8 +149,7 @@ const headerNavigation = ref(null)
 const desktopMenu = ref(null)
 const isDrawerOpen = ref(false)
 let desktopQuery
-let scrollLocked = false
-let hadScrollLock = false
+const { lock: lockScroll, unlock: unlockScroll } = useScrollLock()
 let pointerStartedOnBackdrop = false
 
 function openDrawer() {
@@ -157,15 +158,7 @@ function openDrawer() {
   // showModal handles initial focus, focus containment and an inert background.
   drawer.value.showModal()
   isDrawerOpen.value = true
-  hadScrollLock = document.body.classList.contains('overflow-hidden')
-  document.body.classList.add('overflow-hidden')
-  scrollLocked = true
-}
-
-function unlockScroll() {
-  if (!scrollLocked) return
-  if (!hadScrollLock) document.body.classList.remove('overflow-hidden')
-  scrollLocked = false
+  lockScroll()
 }
 
 function syncDrawerClosed() {
