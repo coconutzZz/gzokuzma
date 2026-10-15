@@ -185,6 +185,14 @@ components by filename (`pathPrefix: false`), so filenames must be unique across
 these folders. Development helpers retain the `Dev` prefix. Explicit imports
 must include the component's folder.
 
+`AssociationPage` composes the department heading, featured image, contact,
+leadership, documents, and donation dialog from `components/departments/`.
+`useDepartmentProfile()` starts the three department API requests together,
+keeps their payload keys reactive to the department slug, and exposes separate
+loading, error, and retry state. Await its `ready` promise in the CMS component
+to preserve server-rendered content. Run `npm run test:departments` to check
+payload reuse, request isolation, section rendering, and donation actions.
+
 Storyblok components represent CMS blocks and are grouped by feature:
 
 - `storyblok/content/`: page containers and general content blocks.

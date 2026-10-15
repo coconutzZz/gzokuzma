@@ -1,200 +1,28 @@
-<template>
-  <Association :department="department" :is-loading="isLoading" />    
-
-  <div class="grid grid-cols-1 md:text-sm lg:text-base mt-2"
-  :class="{ 
-    'md:grid-cols-2': hasFeaturedContent,
-    'max-w-2xl mx-auto': !hasFeaturedContent
-    }">
-    <div v-if="hasFeaturedContent" class="mt-4 sm:mt-8">
-      <div v-if="isLoading" class="w-full h-72 object-cover sm:rounded-xl animate-pulse bg-gray-300"></div>
-      <a v-else-if="blok?.featured_image?.filename" :href="blok.featured_image.filename"
-        class="block sm:rounded-xl cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
-        :aria-label="`Odpri fotografijo: ${blok.featured_image.alt || department?.name || 'Društvo'}`"
-        aria-haspopup="dialog" @click="openFeaturedImage">
-        <AppImage :src="blok.featured_image.filename"
-          :alt="blok.featured_image.alt || department?.name || ''"
-          class="sm:rounded-xl w-full h-72 object-cover"
-          sizes="100vw md:50vw lg:640px" loading="eager" fetchpriority="high" />
-      </a>
-      <!-- <p v-if="blok.featured_text" class="mt-4">
-        {{ blok.featured_text }}
-      </p> -->
-    </div>
-    <div class="px-2">
-      <div class="mt-4 md:my-6 md:mx-2 sm:flex">
-        <div v-if="!isLoading" class="px-4 sm:px-0 sm:w-1/2">
-          <h2 class="text-2xl md:text-xl font-semibold">Kontaktni podatki</h2>        
-          <strong>Naslov:</strong><br>
-          <address>
-            {{ department?.street }} <br>
-            9263 Kuzma
-          </address>
-          
-          <strong>Email:</strong><br>
-          <a :href="`mailto:${department?.email}`" class="text-blue-600 hover:underline">
-            {{ department?.email }}
-          </a>
-        </div>
-        <div v-else class="px-4 sm:px-0 sm:w-1/2">
-          <div class="w-full h-4 mt-4 animate-pulse bg-gray-300"></div>
-          <div class="w-3/4 h-4 mt-4 animate-pulse bg-gray-300"></div>
-          <div class="w-full h-4 mt-4 animate-pulse bg-gray-300"></div>
-          <div class="w-1/2 h-4 mt-4 animate-pulse bg-gray-300"></div>
-        </div>
-        <div class="sm:w-1/2 md:col-span-2">
-          <hr class="my-5 sm:hidden">          
-          <div v-if="!isLoading" :class="{ 'flex flex-wrap gap-y-4' : hasFeaturedContent }">
-            <div class="px-4">
-              Leto ustanovitve: 
-              <strong>{{ department?.year_founded }}</strong>
-            </div>
-            <div class="px-4">
-              <strong>Matična številka:</strong>
-              {{ department?.company_register_number }}
-            </div>
-            <div class="px-4">
-              <strong>Davčna številka:</strong>
-              {{ department?.tax_number }}
-            </div>
-            <div class="px-4"><strong>TRR:</strong>
-              {{ department?.iban }}
-            </div>
-          </div>
-          <div v-else class="flex flex-wrap gap-y-4 ml-2 mt-2">
-            <div class="w-full h-4 mt-2 animate-pulse bg-gray-300"></div>
-            <div class="w-3/4 h-4 animate-pulse bg-gray-300"></div>
-            <div class="w-full h-4  animate-pulse bg-gray-300"></div>
-          </div>
-  
-          <hr class="my-5 sm:hidden">
-        </div>  
-      </div>
-
-      <div class="md:col-span-2 hidden md:flex justify-center lg:justify-start">
-        <a
-          :href="department?.facebook_url"
-          target="_blank"
-          rel="noopener noreferrer"
-          v-if="department?.facebook_url"
-          class="w-14 h-14 bg-primary-500 rounded-full flex items-center justify-center mt-4 lg:mt-0
-                transition-transform duration-200 hover:scale-110 hover:bg-primary-dark mr-2"
-        >
-          <NuxtImg src="/img/facebook.svg" alt="Facebook" class="w-6 h-6" />
-        </a>
-
-        <Button
-          v-if="blok?.qr_code_bank_transfer && blok?.qr_code_bank_transfer.filename"
-          class="flex"
-          rounded
-          @click="open = true"
-        >
-          <NuxtImg src="/img/donate.svg" alt="" class="w-6 h-6 mr-2" />
-          DONIRAJ DRUŠTVU
-        </Button>
-      </div>
-    </div>
-    
-    <div v-if="!isLoading" class="my-4 px-6 sm:px-2 md:col-span-2">
-      <h2 class="text-2xl font-semibold">Vodstvo</h2>  
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4">
-        <PersonCard v-for="p in sortedFiremen" :key="p.id" :person="p" />
-      </div>
-    </div>
-
-    <div v-if="files && files.length > 0" class="mt-4 px-6 sm:px-2 md:col-span-2">
-      <h2 class="text-2xl font-semibold">Dokumenti</h2>  
-      <ul>
-        <li v-for="file in files" :key="file.id">
-          <a class="text-blue-600 hover:underline" :href="file.url" :title="file.name" target="_blank">{{ file.name }}</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div v-if="blok && blok.body && blok.body.length > 0" class="mt-4 md:mt-8">
-    <StoryblokComponent v-for="blok in blok.body" :key="blok._uid" :blok="blok" />
-  </div>
-
- <BaseModal v-model="open">
-  <div class="flex flex-col justify-center h-full -mt-10">
-    <div class="sm:mt-20 text-center" v-if="blok?.qr_code_bank_transfer && blok?.qr_code_bank_transfer.filename">
-      <p>Za nakazilo prostovoljnih prispevkov, z vašo bančno aplikacijo skenirajte QR kodo. Podatki za UPN se bodo samodejno izpolnili.</p>
-      <AppImage :src="blok.qr_code_bank_transfer.filename" :alt="blok.qr_code_bank_transfer.alt || 'QR koda za nakazilo'"
-        class="w-full max-w-xs mx-auto object-contain" sizes="320px" loading="eager" />
-    </div>
-  </div>
-</BaseModal>
-</template> 
 <script setup lang="ts">
-import Association from '~/components/departments/Association.vue';
-import PersonCard from '~/components/departments/PersonCard.vue';
+import { computed, shallowRef } from 'vue'
+import type { AssociationPageContent } from '~/types/departments'
+import { useDepartmentProfile } from '~/composables/useDepartmentProfile'
 import { useFloatingActions } from '~/composables/useFloatingActions'
-import type { Fireman, Department, DownloadableAsset } from '~/server/types/supabase'
-import { roleOrder } from '~/server/types/supabase'
 
+const props = withDefaults(defineProps<{
+  blok?: AssociationPageContent
+  postedOn?: string
+  tagList?: string[]
+  isLoading?: boolean
+}>(), { isLoading: false })
 const route = useRoute()
-
-const open = ref(false)
-
-const props = defineProps(
-{ 
-  blok: Object, 
-  postedOn: String, 
-  tagList: Array, 
-  isLoading: Boolean 
-});
-
+const open = shallowRef(false)
+const departmentSlug = computed(() => Array.isArray(route.params.slug) ? route.params.slug[0] : route.params.slug)
+const {
+  ready, department, firemen, files,
+  departmentError, firemenError, filesError,
+  isDepartmentLoading, isFiremenLoading, isFilesLoading,
+  refreshDepartment, refreshFiremen, refreshFiles,
+} = useDepartmentProfile(departmentSlug)
+const isLoading = computed(() => props.isLoading || isDepartmentLoading.value)
+const hasFeaturedContent = computed(() => isLoading.value || Boolean(props.blok?.featured_image?.filename || props.blok?.featured_text))
+const canDonate = computed(() => Boolean(props.blok?.qr_code_bank_transfer?.filename))
 const { registerAction } = useFloatingActions()
-
-const hasFeaturedContent = computed(() => props.isLoading || (props.blok?.featured_image?.filename || props.blok?.featured_text));
-const { openLightbox: openFeaturedImage } = useImageLightbox(() =>
-  props.blok?.featured_image?.filename ? [props.blok.featured_image] : []
-)
-
-const deptSlug = route.params.slug?.[0] ?? '';
-const { data: department, refresh: refreshDepartment } = await useFetch<Department>(
-  `/api/departments/${deptSlug}`,
-  { 
-    key: `dept-${deptSlug}`,
-    getCachedData(key, nuxtApp, ctx) {
-      if (ctx.cause !== 'initial') return undefined
-      return nuxtApp.payload.data[key] ?? nuxtApp.static.data[key]
-    }
-  }
-)
-
-if (!department.value) {
-  await refreshDepartment()
-}
-
-const { data: firemen } = await useFetch<Fireman[]>(
-  `/api/firemen/${department.value?.slug}`,
-  { 
-    key: `firemen-${department.value?.slug}`,
-    watch: [department], // Re-fetch only if department changes
-    getCachedData(key, nuxtApp, ctx) {
-      if (ctx.cause !== 'initial') return undefined
-      return nuxtApp.payload.data[key] ?? nuxtApp.static.data[key]
-    }
-  }
-)
-
-const { data: files } = await useFetch<DownloadableAsset[]>(
-  `/api/files/${department.value?.slug}`,
-  { 
-    key: `files-${department.value?.slug}` ,
-    watch: [department],
-    getCachedData(key, nuxtApp, ctx) {
-      if (ctx.cause !== 'initial') return undefined
-      return nuxtApp.payload.data[key] ?? nuxtApp.static.data[key]
-    }
-  },
-);
-
-const sortedFiremen = computed(() => [...(firemen.value ?? [])].sort(
-  (a, b) => roleOrder[a.department_role] - roleOrder[b.department_role]) 
-);
 
 registerAction({
   id: 'association-facebook',
@@ -202,18 +30,43 @@ registerAction({
   icon: '/img/facebook.svg',
   mobileOnly: true,
   primary: true,
-  isAvailable: () => Boolean(department.value?.facebook_url && department.value.facebook_url.length > 0),
-  onClick: () => { 
-    window.open(department.value?.facebook_url, '_blank')
-  }
+  isAvailable: () => Boolean(department.value?.facebook_url),
+  onClick: () => { window.open(department.value?.facebook_url, '_blank', 'noopener,noreferrer') },
 })
-
 registerAction({
   id: 'association-donation',
   label: 'DONIRAJ DRUŠTVU',
   icon: '/img/donate.svg',
-  mobileOnly: true,  
-  isAvailable: () => Boolean(props.blok?.qr_code_bank_transfer?.filename),
-  onClick: () => { open.value = true }
+  mobileOnly: true,
+  isAvailable: () => canDonate.value,
+  onClick: () => { open.value = true },
 })
+
+await ready
 </script>
+
+<template>
+  <div v-if="departmentError" role="alert" class="px-6 py-4">
+    <p>Podatkov društva trenutno ni mogoče naložiti.</p>
+    <Button type="button" @click="refreshDepartment()">Poskusi znova</Button>
+  </div>
+  <template v-else>
+    <Association :department="department" :is-loading="isLoading" />
+    <div class="grid grid-cols-1 md:text-sm lg:text-base mt-2"
+      :class="hasFeaturedContent ? 'md:grid-cols-2' : 'max-w-2xl mx-auto'">
+      <DepartmentFeaturedImage v-if="hasFeaturedContent" :image="blok?.featured_image"
+        :department-name="department?.name" :is-loading="isLoading" />
+      <DepartmentContact :department="department" :is-loading="isLoading"
+        :has-featured-content="hasFeaturedContent" :can-donate="canDonate" @donate="open = true" />
+      <DepartmentLeadership :firemen="firemen" :is-loading="isLoading || isFiremenLoading"
+        :has-error="Boolean(firemenError)" @retry="refreshFiremen()" />
+      <DepartmentDocuments :files="files" :is-loading="isLoading || isFilesLoading"
+        :has-error="Boolean(filesError)" @retry="refreshFiles()" />
+    </div>
+  </template>
+
+  <div v-if="blok?.body?.length" class="mt-4 md:mt-8">
+    <StoryblokComponent v-for="block in blok.body" :key="block._uid" :blok="block" />
+  </div>
+  <DepartmentDonationModal v-model="open" :image="blok?.qr_code_bank_transfer" :department-name="department?.name" />
+</template>
