@@ -5,7 +5,8 @@
   
       <HeroAssociations v-if="showHero" />
       <div :class="showHero ? '-mt-24 sm:-mt-20 md:-mt-28 xl:-mt-48 2xl:-mt-52' : '-mt-16 sm:mt-0 lg:-mt-14 xl:-mt-40'" class="w-[200%] sm:w-full transition-transform duration-500 bg-primary-500">
-        <svg viewBox="0 0 1420 266" xmlns="http://www.w3.org/2000/svg" class="">
+        <!-- Reserve 112px for the navigation after the 64px overlap on xs screens. -->
+        <svg viewBox="0 0 1420 266" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="w-full" :class="{ 'h-44 sm:h-auto': !showHero }">
           <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g transform="translate(0, 50)" fill="#FF4500" fill-rule="nonzero">
               <path d="M0,60 C120,30 300,10 480,40 C660,70 840,90 1080,70 C1260,55 1380,30 1440,20 L1440,180 L0,180 Z" opacity="0.15"></path>
